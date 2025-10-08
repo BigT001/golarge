@@ -16,17 +16,17 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const topText = scrolled ? "text-gray-800" : "text-white";
+  const topText = "text-white";
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
-        scrolled ? "backdrop-blur bg-white/90 border-b border-gray-200 shadow-sm" : "bg-black/40"
+      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 backdrop-blur ${
+        scrolled ? "bg-black/70 border-b border-black/30 shadow-sm" : "bg-black/30"
       } ${topText}`}
     >
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-3">
-            <div className={`relative w-10 h-10 rounded-full overflow-hidden flex items-center justify-center ${scrolled ? "bg-white/20" : "bg-white/10"}`}>
+            <div className={`relative w-10 h-10 rounded-full overflow-hidden flex items-center justify-center bg-black/10`}>
               <Image src="/file.svg" alt="Logo" width={36} height={36} />
             </div>
             <span className={`font-semibold text-lg ${topText}`}>Golarge</span>
@@ -35,13 +35,29 @@ export default function Header() {
           <input id="nav-toggle" type="checkbox" className="peer hidden" />
 
           <nav className="hidden md:flex gap-8 items-center text-sm">
-            <Link href="/about" className={`hover:text-foreground ${topText}`}>About</Link>
-            <Link href="/ministries" className={`hover:text-foreground ${topText}`}>Ministries</Link>
-            <Link href="/events" className={`hover:text-foreground ${topText}`}>Events</Link>
-            <Link href="/outreach" className={`hover:text-foreground ${topText}`}>Outreach</Link>
-            <Link href="/contact" className={`hover:text-foreground ${topText}`}>Contact</Link>
-            <Link href="/mission" className={`${scrolled ? 'px-4 py-2 rounded-full bg-foreground text-background' : 'px-4 py-2 rounded-full border border-white/40 text-white bg-white/10'}`}>
-              Give
+            <Link href="/about" className={`${topText} hover:underline`}>About</Link>
+            <Link href="/outreach" className={`${topText} hover:underline`}>Outreach</Link>
+            <Link href="/events" className={`${topText} hover:underline`}>Events</Link>
+            <Link href="/contact" className={`${topText} hover:underline`}>Contact</Link>
+            <Link
+              href="/donate"
+              className="relative inline-flex items-center gap-3 px-5 py-2 rounded-full bg-amber-600 text-white shadow-lg overflow-visible hover:scale-[1.02] transition-transform"
+              aria-label="Give Online"
+            >
+              {/* big icon that extrudes above the button - kept static and deterministic */}
+              <span
+                className="absolute -left-4 -top-5 w-12 h-12 rounded-full bg-amber-700 flex items-center justify-center drop-shadow-lg overflow-visible"
+                aria-hidden={true}
+              >
+                <svg className="animate-pulse-slow" width={26} height={26} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden={true}>
+                  <rect x="2.5" y="6" width="19" height="12" rx="2" stroke="white" strokeWidth="1.6" />
+                  <line x1="2.5" y1="9" x2="21.5" y2="9" stroke="white" strokeWidth="1" opacity="0.7" />
+                  <line x1="2.5" y1="15" x2="21.5" y2="15" stroke="white" strokeWidth="1" opacity="0.7" />
+                  <path d="M11.2 8.8c-.4.6.2 1.2.9 1.2s1.3-.4 1.3-1c0-.7-.6-1.1-1.3-1.1-.6 0-1.2.4-1.1.9" stroke="white" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M12 7v10" stroke="white" strokeWidth="1.2" strokeLinecap="round" />
+                </svg>
+              </span>
+              <span className="text-sm font-medium ml-6">Give Online</span>
             </Link>
           </nav>
 
@@ -50,14 +66,13 @@ export default function Header() {
             <span className="block w-5 h-0.5 bg-current my-[6px]"></span>
             <span className="block w-5 h-0.5 bg-current my-[6px]"></span>
           </label>
-          <div className={`peer-checked:block hidden absolute left-0 top-full w-full md:hidden border-t ${scrolled ? 'bg-white/95' : 'bg-black/60'}`}>
-            <div className={`px-6 py-4 flex flex-col gap-3 ${scrolled ? 'text-gray-800' : 'text-white'}`}>
+          <div className={`peer-checked:block hidden absolute left-0 top-full w-full md:hidden border-t ${scrolled ? 'bg-black/80' : 'bg-black/70'}`}>
+            <div className={`px-6 py-4 flex flex-col gap-3 text-white`}>
               <Link href="/about">About</Link>
-              <Link href="/ministries">Ministries</Link>
-              <Link href="/events">Events</Link>
               <Link href="/outreach">Outreach</Link>
+              <Link href="/events">Events</Link>
               <Link href="/contact">Contact</Link>
-              <Link href="/mission" className={`${scrolled ? 'rounded-full bg-foreground text-background px-4 py-2 text-sm inline-block w-max' : 'rounded-full border border-white/40 px-4 py-2 text-sm inline-block'}`}>Give</Link>
+              <Link href="/mission" className={`rounded-full px-4 py-2 text-sm inline-block bg-amber-600 text-white`}>Give</Link>
             </div>
           </div>
         </div>

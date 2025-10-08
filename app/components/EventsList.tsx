@@ -9,14 +9,57 @@ type EventItem = {
   end?: string; // ISO
   venue?: string;
   excerpt?: string;
+  details?: string;
+  featured?: boolean;
 };
 
 const MOCK_EVENTS: EventItem[] = [
-  { id: "e1", title: "Annual Conference 2026", start: "2026-02-06T17:00:00", end: "2026-02-08T12:00:00", venue: "The Dream Centre", excerpt: "A three-day gathering of community and learning." },
-  { id: "e2", title: "Festival of Mercy 2026", start: "2026-03-01T09:00:00", end: "2026-03-07T18:00:00", venue: "Main Campus", excerpt: "A week of worship and outreach." },
-  { id: "e3", title: "WINGS 2026", start: "2026-03-21T09:00:00", venue: "City Hall", excerpt: "Youth empowerment conference." },
-  { id: "e4", title: "Manifest 2025", start: "2025-05-30T09:00:00", end: "2025-06-01T18:00:00", venue: "Dream Centre", excerpt: "A past event." },
-  { id: "e5", title: "Resurrection Faith Seminar 2025", start: "2025-04-18T09:00:00", end: "2025-04-20T18:00:00", venue: "Dream Centre", excerpt: "A past conference." },
+  {
+    id: "e1",
+    title: "Annual Conference 2026",
+    start: "2026-02-06T17:00:00",
+    end: "2026-02-08T12:00:00",
+    venue: "The Dream Centre",
+    excerpt: "A three-day gathering of community and learning.",
+    details:
+      "Join leaders and volunteers for plenaries, workshops and hands-on community projects. Expect keynote messages, breakout sessions, and networking opportunities designed to equip and inspire.",
+    featured: true,
+  },
+  {
+    id: "e2",
+    title: "Festival of Mercy 2026",
+    start: "2026-03-01T09:00:00",
+    end: "2026-03-07T18:00:00",
+    venue: "Main Campus",
+    excerpt: "A week of worship and outreach.",
+    details: "Worship nights, community outreach, and skill-based training for volunteers. Open to the whole family.",
+  },
+  {
+    id: "e3",
+    title: "WINGS 2026",
+    start: "2026-03-21T09:00:00",
+    venue: "City Hall",
+    excerpt: "Youth empowerment conference.",
+    details: "High-energy sessions, mentorship circles, and practical workshops for career and leadership development.",
+  },
+  {
+    id: "e4",
+    title: "Manifest 2025",
+    start: "2025-05-30T09:00:00",
+    end: "2025-06-01T18:00:00",
+    venue: "Dream Centre",
+    excerpt: "A past event.",
+    details: "Highlights from the Manifest event including recordings and testimonies.",
+  },
+  {
+    id: "e5",
+    title: "Resurrection Faith Seminar 2025",
+    start: "2025-04-18T09:00:00",
+    end: "2025-04-20T18:00:00",
+    venue: "Dream Centre",
+    excerpt: "A past conference.",
+    details: "Deep-dive seminars and worship archives are available.",
+  },
 ];
 
 function isUpcoming(ev: EventItem) {
@@ -24,19 +67,26 @@ function isUpcoming(ev: EventItem) {
   return new Date(ev.start) >= now;
 }
 
+const DATE_OPTIONS: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'short', day: 'numeric' };
+const TIME_OPTIONS: Intl.DateTimeFormatOptions = { hour: '2-digit', minute: '2-digit' };
+
 function formatDateRange(start: string, end?: string) {
   const s = new Date(start);
-  if (!end) return s.toLocaleString();
+  if (!end) return new Intl.DateTimeFormat('en-US', { ...DATE_OPTIONS, ...TIME_OPTIONS }).format(s);
   const e = new Date(end);
   const sameDay = s.toDateString() === e.toDateString();
-  if (sameDay) return `${s.toLocaleDateString()} • ${s.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })} - ${e.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`;
-  return `${s.toLocaleString()} - ${e.toLocaleString()}`;
+  if (sameDay) {
+    return `${new Intl.DateTimeFormat('en-US', DATE_OPTIONS).format(s)} • ${new Intl.DateTimeFormat('en-US', TIME_OPTIONS).format(s)} - ${new Intl.DateTimeFormat('en-US', TIME_OPTIONS).format(e)}`;
+  }
+  return `${new Intl.DateTimeFormat('en-US', { ...DATE_OPTIONS, ...TIME_OPTIONS }).format(s)} - ${new Intl.DateTimeFormat('en-US', { ...DATE_OPTIONS, ...TIME_OPTIONS }).format(e)}`;
 }
 
 export default function EventsList() {
   const [tab, setTab] = useState<"upcoming" | "past">("upcoming");
   const [pastLimit, setPastLimit] = useState(4);
   const [q, setQ] = useState("");
+  const [expanded, setExpanded] = useState<Record<string, boolean>>({});
+  const [rsvped, setRsvped] = useState<Record<string, boolean>>({});
 
   const { upcoming, past } = useMemo(() => {
     const up: EventItem[] = [];
@@ -50,85 +100,166 @@ export default function EventsList() {
     return { upcoming: up, past: ps };
   }, []);
 
-  const filteredUpcoming = upcoming.filter((e) => e.title.toLowerCase().includes(q.toLowerCase()) || (e.excerpt || "").toLowerCase().includes(q.toLowerCase()));
-  const filteredPast = past.filter((e) => e.title.toLowerCase().includes(q.toLowerCase()) || (e.excerpt || "").toLowerCase().includes(q.toLowerCase()));
+  const filteredUpcoming = upcoming.filter((e) => e.title.toLowerCase().includes(q.toLowerCase()) || (e.excerpt || "").toLowerCase().includes(q.toLowerCase()) || (e.details || "").toLowerCase().includes(q.toLowerCase()));
+  const filteredPast = past.filter((e) => e.title.toLowerCase().includes(q.toLowerCase()) || (e.excerpt || "").toLowerCase().includes(q.toLowerCase()) || (e.details || "").toLowerCase().includes(q.toLowerCase()));
+
+  function toggleExpand(id: string) {
+    setExpanded((s) => ({ ...s, [id]: !s[id] }));
+  }
+
+  function toggleRsvp(id: string) {
+    setRsvped((s) => ({ ...s, [id]: !s[id] }));
+  }
+
+  const featured = filteredUpcoming.find((e) => e.featured) || filteredUpcoming[0];
 
   return (
-    <section className="w-full bg-white py-16">
+    <section className="w-full bg-gradient-to-b from-amber-50 via-white to-sky-50 bg-gradient-pan py-16 relative">
       <div className="max-w-6xl mx-auto px-6">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-3xl font-bold">Events</h2>
+        <div className="flex flex-col gap-4 mb-6">
+          <div>
+            <h2 className="text-3xl md:text-4xl font-extrabold">Events</h2>
+            <p className="text-sm text-gray-600 mt-1">Join us for training, outreach and community gatherings.</p>
+          </div>
 
-          <div className="flex items-center gap-3">
-            <div className="hidden sm:block">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 w-full">
+            <div className="w-full sm:w-[260px]">
+              <label className="sr-only" htmlFor="event-search">Search events</label>
               <input
+                id="event-search"
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
-                placeholder="Search events"
-                className="px-3 py-2 border rounded w-[220px]"
+                placeholder="Search events, topics or locations"
+                className="w-full px-4 py-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-amber-300"
               />
             </div>
 
-            <div className="flex items-center gap-2 bg-gray-100 rounded">
-              <button
-                onClick={() => setTab("upcoming")}
-                className={`px-4 py-2 ${tab === "upcoming" ? "bg-foreground text-background" : "text-foreground"}`}
-              >
-                Upcoming
-              </button>
-              <button
-                onClick={() => setTab("past")}
-                className={`px-4 py-2 ${tab === "past" ? "bg-foreground text-background" : "text-foreground"}`}
-              >
-                Past
-              </button>
+            <div className="w-full sm:w-auto">
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  onClick={() => setTab("upcoming")}
+                  aria-pressed={tab === "upcoming"}
+                  className={`w-full px-4 py-3 rounded-lg ${tab === "upcoming" ? 'bg-amber-600 text-white shadow' : 'bg-white/90 text-foreground'}`}
+                >
+                  Upcoming
+                </button>
+                <button
+                  onClick={() => setTab("past")}
+                  aria-pressed={tab === "past"}
+                  className={`w-full px-4 py-3 rounded-lg ${tab === "past" ? 'bg-amber-600 text-white shadow' : 'bg-white/90 text-foreground'}`}
+                >
+                  Past
+                </button>
+              </div>
             </div>
           </div>
         </div>
 
-        {tab === "upcoming" ? (
-          <div className="space-y-4">
-            {filteredUpcoming.length === 0 ? (
-              <p className="text-gray-600">No upcoming events.</p>
-            ) : (
-              filteredUpcoming.map((e) => (
-                <article key={e.id} className="flex gap-6 p-6 border rounded-lg items-start">
-                  <div className="w-28 flex-shrink-0 text-center">
-                    <div className="text-sm text-gray-500">{new Date(e.start).toLocaleString([], { month: "short" })}</div>
-                    <div className="text-2xl font-bold">{new Date(e.start).getDate()}</div>
-                    <div className="text-xs text-gray-500">{new Date(e.start).getFullYear()}</div>
-                  </div>
+        {/* Decorative backdrop behind list to add depth */}
+        <div aria-hidden className="pointer-events-none absolute inset-x-0 top-24 flex justify-center">
+          <div className="w-[92%] h-36 rounded-3xl bg-white/60 blur-lg -z-10" />
+        </div>
 
-                  <div className="flex-1">
-                    <h3 className="text-xl font-semibold mb-1">{e.title}</h3>
-                    <div className="text-sm text-gray-600 mb-2">{formatDateRange(e.start, e.end)} • {e.venue}</div>
-                    <p className="text-gray-700">{e.excerpt}</p>
+        {tab === "upcoming" ? (
+          <div className="space-y-8">
+            {featured ? (
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+                <article className="lg:col-span-2 bg-white rounded-3xl p-6 shadow-lg transform hover:-translate-y-2 transition flex flex-col lg:flex-row gap-4">
+                  <div className="flex items-start gap-4 w-full">
+                    <div className="w-20 flex-shrink-0 text-center lg:w-32">
+                      <div className="text-sm text-gray-500">{new Intl.DateTimeFormat('en-US', { month: 'short' }).format(new Date(featured.start))}</div>
+                      <div className="text-3xl font-bold">{new Date(featured.start).getDate()}</div>
+                      <div className="text-xs text-gray-500">{new Date(featured.start).getFullYear()}</div>
+                    </div>
+
+                    <div className="flex-1">
+                      <h3 className="text-2xl font-bold mb-2">{featured.title}</h3>
+                      <div className="text-sm text-gray-600 mb-4">{formatDateRange(featured.start, featured.end)} • {featured.venue}</div>
+                      <p className="text-gray-700 mb-4">{featured.details || featured.excerpt}</p>
+                      <div className="flex items-center gap-3">
+                        <button onClick={() => toggleRsvp(featured.id)} className={`px-4 py-3 rounded-lg ${rsvped[featured.id] ? 'bg-amber-600 text-white' : 'bg-amber-50 text-amber-700'}`}>
+                          {rsvped[featured.id] ? 'Registered' : 'RSVP'}
+                        </button>
+                        <a href="#" className="px-4 py-3 rounded-lg border shadow-sm">Calendar</a>
+                      </div>
+                    </div>
                   </div>
                 </article>
-              ))
+
+                <div className="space-y-4">
+                  {filteredUpcoming.filter((e) => e.id !== (featured && featured.id)).slice(0, 2).map((e) => (
+                    <article key={e.id} className="bg-white rounded-2xl p-4 shadow hover:shadow-lg transition flex gap-3 items-start">
+                      <div className="w-1 bg-amber-500 rounded-full h-20 flex-shrink-0 hidden sm:block" />
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between">
+                          <h4 className="font-semibold">{e.title}</h4>
+                          <div className="flex items-center gap-2">
+                            <button onClick={() => toggleRsvp(e.id)} className={`text-sm px-3 py-2 rounded ${rsvped[e.id] ? 'bg-amber-600 text-white' : 'bg-amber-50 text-amber-700'}`}>{rsvped[e.id] ? 'Registered' : 'RSVP'}</button>
+                            <button onClick={() => toggleExpand(e.id)} aria-expanded={!!expanded[e.id]} className="text-sm text-amber-600">{expanded[e.id] ? 'Hide' : 'Details'}</button>
+                          </div>
+                        </div>
+                        <div className="text-sm text-gray-600">{formatDateRange(e.start, e.end)} • {e.venue}</div>
+                        {expanded[e.id] && <p className="mt-2 text-gray-700">{e.details || e.excerpt}</p>}
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <p className="text-gray-600">No upcoming events.</p>
             )}
+
+            {/* full list of upcoming (compact cards) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {filteredUpcoming.map((e) => (
+                <article key={e.id} className="bg-white rounded-2xl p-4 shadow hover:shadow-lg transition">
+                  <div className="flex items-start gap-4">
+                    <div className="w-20 text-center">
+                          <div className="text-xs text-gray-500">{new Intl.DateTimeFormat('en-US', { month: 'short' }).format(new Date(e.start))}</div>
+                      <div className="text-2xl font-bold">{new Date(e.start).getDate()}</div>
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between">
+                        <h4 className="font-semibold">{e.title}</h4>
+                        <div className="flex items-center gap-2">
+                          <button onClick={() => toggleRsvp(e.id)} className={`text-sm px-3 py-1 rounded ${rsvped[e.id] ? 'bg-amber-600 text-white' : 'bg-amber-50 text-amber-700'}`}>{rsvped[e.id] ? 'Registered' : 'RSVP'}</button>
+                          <button onClick={() => toggleExpand(e.id)} aria-expanded={!!expanded[e.id]} className="text-sm text-amber-600">{expanded[e.id] ? 'Hide' : 'Details'}</button>
+                        </div>
+                      </div>
+                      <div className="text-sm text-gray-600">{formatDateRange(e.start, e.end)} • {e.venue}</div>
+                      {expanded[e.id] && <p className="mt-2 text-gray-700">{e.details || e.excerpt}</p>}
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
         ) : (
-          <div className="space-y-4">
+          <div className="space-y-6">
             {filteredPast.slice(0, pastLimit).map((e) => (
-              <article key={e.id} className="flex gap-6 p-6 border rounded-lg bg-gray-50 items-start">
-                <div className="w-28 flex-shrink-0 text-center">
-                  <div className="text-sm text-gray-500">{new Date(e.start).toLocaleString([], { month: "short" })}</div>
-                  <div className="text-2xl font-bold">{new Date(e.start).getDate()}</div>
-                  <div className="text-xs text-gray-500">{new Date(e.start).getFullYear()}</div>
-                </div>
-
-                <div className="flex-1">
-                  <h3 className="text-lg font-semibold mb-1">{e.title}</h3>
-                  <div className="text-sm text-gray-600 mb-2">{formatDateRange(e.start, e.end)} • {e.venue}</div>
-                  <p className="text-gray-700">{e.excerpt}</p>
+              <article key={e.id} className="bg-white rounded-2xl p-4 shadow-sm hover:shadow-md transition">
+                <div className="flex items-start gap-4">
+                  <div className="w-20 text-center">
+                          <div className="text-xs text-gray-500">{new Intl.DateTimeFormat('en-US', { month: 'short' }).format(new Date(e.start))}</div>
+                    <div className="text-2xl font-bold">{new Date(e.start).getDate()}</div>
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between">
+                      <h4 className="font-semibold">{e.title}</h4>
+                      <div className="flex items-center gap-3">
+                        <button onClick={() => toggleExpand(e.id)} aria-expanded={!!expanded[e.id]} className="text-sm text-amber-600">{expanded[e.id] ? 'Hide' : 'Details'}</button>
+                      </div>
+                    </div>
+                    <div className="text-sm text-gray-600">{formatDateRange(e.start, e.end)} • {e.venue}</div>
+                    {expanded[e.id] && <p className="mt-2 text-gray-700">{e.details || e.excerpt}</p>}
+                  </div>
                 </div>
               </article>
             ))}
 
             {filteredPast.length > pastLimit && (
               <div className="text-center mt-4">
-                <button className="px-4 py-2 rounded bg-foreground text-background" onClick={() => setPastLimit((s) => s + 4)}>
+                <button className="px-4 py-2 rounded bg-amber-600 text-white" onClick={() => setPastLimit((s) => s + 4)}>
                   Load more past events
                 </button>
               </div>

@@ -17,3 +17,28 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@keyframes pulse-slow {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.08); opacity: 0.85; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.animate-pulse-slow {
+  animation: pulse-slow 2.2s ease-in-out infinite;
+}
+
+/* subtle gradient pan for decorative backgrounds */
+@keyframes gradient-pan {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.bg-gradient-pan {
+  background-size: 200% 200%;
+  animation: gradient-pan 12s linear infinite;
+}
+
+.decorative-glow {
+  filter: blur(40px) saturate(120%);
+  opacity: 0.18;
+}
