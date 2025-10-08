@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
-const outreach = [
+export const outreach = [
   {
     id: "ng",
     title: "Golarge Nigeria",
@@ -46,7 +46,7 @@ const outreach = [
   },
 ];
 
-const colorAccents = [
+export const colorAccents = [
   "from-amber-400 to-rose-400",
   "from-sky-400 to-indigo-500",
   "from-emerald-400 to-teal-500",
@@ -54,6 +54,51 @@ const colorAccents = [
   "from-lime-400 to-emerald-500",
   "from-violet-400 to-indigo-500",
 ];
+
+export function OutreachCard({ o, i }: { o: any; i: number }) {
+  const accent = colorAccents[i % colorAccents.length];
+  const cardBg = i % 2 === 0 ? `bg-gradient-to-br ${accent} text-white` : `bg-gradient-to-br from-white to-gray-50`;
+  const textColor = i % 2 === 0 ? "text-white" : "text-gray-800";
+
+  return (
+    <article key={o.id} role="article" aria-labelledby={`outreach-${o.id}-title`} className="group">
+      <Link
+        href={o.href}
+        className={`block rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 focus:outline-none focus-visible:ring-4 focus-visible:ring-offset-2 focus-visible:ring-amber-300 ${cardBg}`}
+        aria-label={`Visit ${o.title} outreach page`}
+      >
+        <div className="relative w-full h-64 md:h-56 lg:h-64">
+          <Image
+            src={o.image}
+            alt={o.title}
+            fill
+            style={{ objectFit: "cover", objectPosition: "top center" }}
+            className="group-hover:scale-105 transition-transform duration-500"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+            <div className={`absolute top-4 left-4 rounded-full px-3 py-1 text-xs font-semibold ${i % 2 === 0 ? 'text-white' : 'text-gray-800'} ${i % 2 === 0 ? 'bg-white/10' : 'bg-amber-50'} backdrop-blur-sm shadow-md border ${i % 2 === 0 ? 'border-white/20' : 'border-amber-100'}`}>{o.id.toUpperCase()}</div>
+          <div className="absolute left-4 bottom-4">
+            <span id={`outreach-${o.id}-title`} className={`text-base md:text-lg font-semibold drop-shadow ${textColor}`}>{o.title}</span>
+          </div>
+        </div>
+
+        <div className={`p-4 sm:p-6 ${i % 2 === 0 ? 'bg-transparent' : 'bg-white'}`}>
+          <h3 className={`text-base md:text-2xl font-semibold mb-2 ${textColor}`}>{o.title}</h3>
+          <p className={`text-sm md:text-base mb-4 ${i % 2 === 0 ? 'text-white/90' : 'text-gray-700'}`}>{o.desc}</p>
+          <div className="flex items-center justify-between">
+            <span className={`text-sm font-medium ${i % 2 === 0 ? 'text-white/90' : 'text-foreground'}`}>Learn more</span>
+            <span className={`inline-flex items-center gap-2 text-sm font-medium ${i % 2 === 0 ? 'text-white' : 'text-amber-600'}`}>
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+              <span className="sr-only">Explore</span>
+            </span>
+          </div>
+        </div>
+      </Link>
+    </article>
+  );
+}
 
 export default function OutreachCards() {
   return (
@@ -64,55 +109,14 @@ export default function OutreachCards() {
 
       <div className="max-w-[1400px] mx-auto relative">
         {/* animated decorative background */}
-        <div aria-hidden className="pointer-events-none absolute -inset-x-8 -top-16 -bottom-12 flex items-center justify-center">
-          <div className="w-full max-w-[1200px] h-[420px] bg-gradient-to-r from-amber-200 via-rose-200 to-sky-200 bg-gradient-pan decorative-glow rounded-3xl" />
+        <div aria-hidden className="pointer-events-none absolute -inset-x-4 -top-12 -bottom-8 flex items-center justify-center">
+          <div className="w-full max-w-[1200px] h-[280px] sm:h-[360px] bg-gradient-to-r from-amber-200 via-rose-200 to-sky-200 bg-gradient-pan decorative-glow rounded-3xl" />
         </div>
         <div className="px-2 sm:px-4 lg:px-6 relative">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
-            {outreach.map((o, i) => {
-              const accent = colorAccents[i % colorAccents.length];
-              // Use alternating card background gradients for stronger color
-              const cardBg = i % 2 === 0 ? `bg-gradient-to-br ${accent} text-white` : `bg-gradient-to-br from-white to-gray-50`;
-              const textColor = i % 2 === 0 ? "text-white" : "text-gray-800";
-              return (
-                <article key={o.id} role="article" aria-labelledby={`outreach-${o.id}-title`} className="group">
-                  <Link
-                    href={o.href}
-                    className={`block rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 focus:outline-none focus-visible:ring-4 focus-visible:ring-offset-2 focus-visible:ring-amber-300 ${cardBg}`}
-                    aria-label={`Visit ${o.title} outreach page`}
-                  >
-                    <div className="relative w-full h-64 md:h-56 lg:h-64">
-                      <Image
-                        src={o.image}
-                        alt={o.title}
-                        fill
-                        style={{ objectFit: "cover", objectPosition: "top center" }}
-                        className="group-hover:scale-105 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
-                      <div className={`absolute top-4 left-4 rounded-full px-3 py-1 text-xs font-semibold ${i % 2 === 0 ? 'text-white' : 'text-gray-800'} bg-white/10 backdrop-blur-sm shadow-md`}>{o.id.toUpperCase()}</div>
-                      <div className="absolute left-4 bottom-4">
-                        <span id={`outreach-${o.id}-title`} className={`text-base md:text-lg font-semibold drop-shadow ${textColor}`}>{o.title}</span>
-                      </div>
-                    </div>
-
-                    <div className={`p-6 ${i % 2 === 0 ? 'bg-transparent' : 'bg-white'}`}>
-                      <h3 className={`text-lg md:text-2xl font-semibold mb-2 ${textColor}`}>{o.title}</h3>
-                      <p className={`text-sm mb-4 ${i % 2 === 0 ? 'text-white/90' : 'text-gray-700'}`}>{o.desc}</p>
-                      <div className="flex items-center justify-between">
-                        <span className={`text-sm font-medium ${i % 2 === 0 ? 'text-white/90' : 'text-foreground'}`}>Learn more</span>
-                        <span className={`inline-flex items-center gap-2 text-sm font-medium ${i % 2 === 0 ? 'text-white' : 'text-amber-600'}`}>
-                          <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 12h14M12 5l7 7-7 7" />
-                          </svg>
-                          <span className="sr-only">Explore</span>
-                        </span>
-                      </div>
-                    </div>
-                  </Link>
-                </article>
-              );
-            })}
+            {outreach.map((o, i) => (
+              <OutreachCard key={o.id} o={o} i={i} />
+            ))}
           </div>
         </div>
       </div>

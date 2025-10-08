@@ -115,7 +115,7 @@ export default function EventsList() {
 
   return (
     <section className="w-full bg-gradient-to-b from-amber-50 via-white to-sky-50 bg-gradient-pan py-16 relative">
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex flex-col gap-4 mb-6">
           <div>
             <h2 className="text-3xl md:text-4xl font-extrabold">Events</h2>
@@ -123,7 +123,7 @@ export default function EventsList() {
           </div>
 
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 w-full">
-            <div className="w-full sm:w-[260px]">
+            <div className="w-full sm:w-64">
               <label className="sr-only" htmlFor="event-search">Search events</label>
               <input
                 id="event-search"
@@ -165,8 +165,8 @@ export default function EventsList() {
             {featured ? (
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
                 <article className="lg:col-span-2 bg-white rounded-3xl p-6 shadow-lg transform hover:-translate-y-2 transition flex flex-col lg:flex-row gap-4">
-                  <div className="flex items-start gap-4 w-full">
-                    <div className="w-20 flex-shrink-0 text-center lg:w-32">
+                  <div className="flex flex-col sm:flex-row items-start gap-4 w-full">
+                    <div className="w-full sm:w-20 flex-shrink-0 text-center lg:w-32">
                       <div className="text-sm text-gray-500">{new Intl.DateTimeFormat('en-US', { month: 'short' }).format(new Date(featured.start))}</div>
                       <div className="text-3xl font-bold">{new Date(featured.start).getDate()}</div>
                       <div className="text-xs text-gray-500">{new Date(featured.start).getFullYear()}</div>
@@ -176,11 +176,11 @@ export default function EventsList() {
                       <h3 className="text-2xl font-bold mb-2">{featured.title}</h3>
                       <div className="text-sm text-gray-600 mb-4">{formatDateRange(featured.start, featured.end)} • {featured.venue}</div>
                       <p className="text-gray-700 mb-4">{featured.details || featured.excerpt}</p>
-                      <div className="flex items-center gap-3">
-                        <button onClick={() => toggleRsvp(featured.id)} className={`px-4 py-3 rounded-lg ${rsvped[featured.id] ? 'bg-amber-600 text-white' : 'bg-amber-50 text-amber-700'}`}>
+                      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                        <button onClick={() => toggleRsvp(featured.id)} className={`w-full sm:w-auto px-4 py-3 rounded-lg ${rsvped[featured.id] ? 'bg-amber-600 text-white' : 'bg-amber-50 text-amber-700'}`}>
                           {rsvped[featured.id] ? 'Registered' : 'RSVP'}
                         </button>
-                        <a href="#" className="px-4 py-3 rounded-lg border shadow-sm">Calendar</a>
+                        <a href="#" className="w-full sm:w-auto text-center px-4 py-3 rounded-lg border shadow-sm">Calendar</a>
                       </div>
                     </div>
                   </div>
@@ -188,18 +188,20 @@ export default function EventsList() {
 
                 <div className="space-y-4">
                   {filteredUpcoming.filter((e) => e.id !== (featured && featured.id)).slice(0, 2).map((e) => (
-                    <article key={e.id} className="bg-white rounded-2xl p-4 shadow hover:shadow-lg transition flex gap-3 items-start">
-                      <div className="w-1 bg-amber-500 rounded-full h-20 flex-shrink-0 hidden sm:block" />
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between">
-                          <h4 className="font-semibold">{e.title}</h4>
-                          <div className="flex items-center gap-2">
-                            <button onClick={() => toggleRsvp(e.id)} className={`text-sm px-3 py-2 rounded ${rsvped[e.id] ? 'bg-amber-600 text-white' : 'bg-amber-50 text-amber-700'}`}>{rsvped[e.id] ? 'Registered' : 'RSVP'}</button>
-                            <button onClick={() => toggleExpand(e.id)} aria-expanded={!!expanded[e.id]} className="text-sm text-amber-600">{expanded[e.id] ? 'Hide' : 'Details'}</button>
+                    <article key={e.id} className="bg-white rounded-2xl p-4 sm:p-6 shadow hover:shadow-lg transition">
+                      <div className="flex flex-col sm:flex-row gap-3 items-start">
+                        <div className="w-full sm:w-1 h-1 sm:h-20 sm:rounded-full bg-amber-500 flex-shrink-0" />
+                        <div className="flex-1">
+                          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                            <h4 className="font-semibold">{e.title}</h4>
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-2 w-full sm:w-auto">
+                              <button onClick={() => toggleRsvp(e.id)} className={`w-full sm:w-auto text-sm px-3 py-3 sm:py-2 rounded ${rsvped[e.id] ? 'bg-amber-600 text-white' : 'bg-amber-50 text-amber-700'}`}>{rsvped[e.id] ? 'Registered' : 'RSVP'}</button>
+                              <button onClick={() => toggleExpand(e.id)} aria-expanded={!!expanded[e.id]} className="text-sm text-amber-600">{expanded[e.id] ? 'Hide' : 'Details'}</button>
+                            </div>
                           </div>
+                          <div className="text-sm text-gray-600">{formatDateRange(e.start, e.end)} • {e.venue}</div>
+                          {expanded[e.id] && <p className="mt-2 text-gray-700">{e.details || e.excerpt}</p>}
                         </div>
-                        <div className="text-sm text-gray-600">{formatDateRange(e.start, e.end)} • {e.venue}</div>
-                        {expanded[e.id] && <p className="mt-2 text-gray-700">{e.details || e.excerpt}</p>}
                       </div>
                     </article>
                   ))}
@@ -210,19 +212,19 @@ export default function EventsList() {
             )}
 
             {/* full list of upcoming (compact cards) */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {filteredUpcoming.map((e) => (
                 <article key={e.id} className="bg-white rounded-2xl p-4 shadow hover:shadow-lg transition">
-                  <div className="flex items-start gap-4">
-                    <div className="w-20 text-center">
+                  <div className="flex flex-col sm:flex-row items-start gap-4">
+                        <div className="w-full sm:w-20 text-center">
                           <div className="text-xs text-gray-500">{new Intl.DateTimeFormat('en-US', { month: 'short' }).format(new Date(e.start))}</div>
                       <div className="text-2xl font-bold">{new Date(e.start).getDate()}</div>
                     </div>
                     <div className="flex-1">
-                      <div className="flex items-center justify-between">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                         <h4 className="font-semibold">{e.title}</h4>
-                        <div className="flex items-center gap-2">
-                          <button onClick={() => toggleRsvp(e.id)} className={`text-sm px-3 py-1 rounded ${rsvped[e.id] ? 'bg-amber-600 text-white' : 'bg-amber-50 text-amber-700'}`}>{rsvped[e.id] ? 'Registered' : 'RSVP'}</button>
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-2 w-full sm:w-auto">
+                          <button onClick={() => toggleRsvp(e.id)} className={`w-full sm:w-auto text-sm px-3 py-3 sm:py-2 rounded ${rsvped[e.id] ? 'bg-amber-600 text-white' : 'bg-amber-50 text-amber-700'}`}>{rsvped[e.id] ? 'Registered' : 'RSVP'}</button>
                           <button onClick={() => toggleExpand(e.id)} aria-expanded={!!expanded[e.id]} className="text-sm text-amber-600">{expanded[e.id] ? 'Hide' : 'Details'}</button>
                         </div>
                       </div>
@@ -239,10 +241,10 @@ export default function EventsList() {
             {filteredPast.slice(0, pastLimit).map((e) => (
               <article key={e.id} className="bg-white rounded-2xl p-4 shadow-sm hover:shadow-md transition">
                 <div className="flex items-start gap-4">
-                  <div className="w-20 text-center">
-                          <div className="text-xs text-gray-500">{new Intl.DateTimeFormat('en-US', { month: 'short' }).format(new Date(e.start))}</div>
-                    <div className="text-2xl font-bold">{new Date(e.start).getDate()}</div>
-                  </div>
+        <div className="w-full sm:w-20 text-center">
+          <div className="text-xs text-gray-500">{new Intl.DateTimeFormat('en-US', { month: 'short' }).format(new Date(e.start))}</div>
+        <div className="text-2xl font-bold">{new Date(e.start).getDate()}</div>
+      </div>
                   <div className="flex-1">
                     <div className="flex items-center justify-between">
                       <h4 className="font-semibold">{e.title}</h4>

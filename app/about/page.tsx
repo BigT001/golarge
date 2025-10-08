@@ -75,8 +75,8 @@ export default function AboutPage() {
         <div className="mb-12">
           <h2 className="text-2xl font-semibold mb-4">Leadership</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            <TeamCard name="Pastor A" role="Founder" img="/pastor1.png" />
-            <TeamCard name="Pastor B" role="Lead Pastor" img="/pastor2.png" />
+            <TeamCard name="Pastor Dipo obisesan" role="Founder" img="/pastor1.png" />
+            <TeamCard name="Pastor B" role="community Pastor" img="/pastor2.png" />
             <TeamCard name="Pastor C" role="Community Director" img="/pastor3.png" />
           </div>
         </div>
