@@ -44,15 +44,15 @@ export default function Header() {
   const topText = "text-white";
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-transform duration-300 backdrop-blur ${
+      className={`fixed inset-x-0 top-0 z-50 p-4 transition-transform duration-300 backdrop-blur ${
         scrolled ? "bg-black/70 border-b border-black/30 shadow-sm" : "bg-black/30 border-b border-black/10"
       } ${topText} ${visible ? 'translate-y-0' : '-translate-y-full'}`}
       style={{ willChange: 'transform' }}
     >
-  <div className="max-w-10xl mx-auto px-4 mt-4">
-        <div className="flex items-center justify-between h-16">
+  <div className=" mx-auto px-4">
+    <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-3 pr-6">
-            <div className="relative w-54 h-54 flex items-center justify-center overflow-hidden rounded-md">
+            <div className="relative w-120 h-120 flex items-center justify-center overflow-hidden rounded-md">
               <Image
                 src="/logofolder/golargelogo.png"
                 alt="Go Large Logo"

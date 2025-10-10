@@ -40,123 +40,96 @@ const VisionMission = () => {
       ]
     }
   };
+  // Motion variants
+  const containerVariants = {
+    hidden: {},
+    show: { transition: { staggerChildren: 0.12 } }
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20, scale: 0.995 },
+    show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.45 } },
+    hover: { y: -8, scale: 1.02, transition: { duration: 0.25 } }
+  };
 
   return (
-    <section className="relative py-8 sm:py-12 overflow-hidden bg-gradient-to-b from-white to-gray-50">
-      <div className="w-full px-3 sm:px-4">
-        <div className="max-w-6xl mx-auto">
+    <section className="relative py-10 sm:py-16 bg-gradient-to-b from-white to-gray-50">
+      <div className="w-full px-4 sm:px-6">
+        <div className="max-w-8xl mx-auto mt-6 sm:mt-10">
           {/* Floating Cards Layout */}
-          <div className="flex flex-col lg:flex-row justify-center gap-4 lg:gap-6">
+          <motion.div className="flex flex-col lg:flex-row justify-center gap-6 lg:gap-8 items-start" variants={containerVariants} initial="hidden" animate="show">
             {/* Vision Card */}
-            <motion.div
-              className={`w-full lg:w-1/2 cursor-pointer transform transition-all duration-500 ${
-                activeCard === 'vision' ? 'scale-100' : 'scale-[0.98] opacity-70'
-              }`}
-              onClick={() => setActiveCard('vision')}
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <div
-                className={`bg-white rounded-2xl shadow-xl p-8 border-t-4 ${
-                  activeCard === 'vision' ? 'border-[#002a5c]' : 'border-transparent'
-                }`}
-              >
-                <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
-                  <div className="p-2 sm:p-3 rounded-full bg-[#002a5c] text-white">
-                    <FaCrown size={20} className="sm:w-6 sm:h-6" />
+            <motion.div className={`w-full lg:w-[49%] cursor-pointer ${activeCard === 'vision' ? 'opacity-100' : 'opacity-85'}`} onClick={() => setActiveCard('vision')} variants={cardVariants} whileHover="hover">
+              <div className={`relative bg-white/95 rounded-3xl shadow-2xl p-6 lg:p-8 border-t-4 ${activeCard === 'vision' ? 'border-[#002a5c]' : 'border-transparent'}`}>
+                {/* Decorative soft gradient circle */}
+                <div className="pointer-events-none absolute -top-10 -right-10 w-36 h-36 rounded-full bg-gradient-to-br from-[#002a5c] to-[#dc3545] opacity-8 blur-3xl" />
+                <div className="max-h-[320px] lg:max-h-[300px] overflow-auto pr-3">
+                <div className="flex items-center gap-4 mb-5">
+                  <div className="p-3 rounded-full bg-[#002a5c] text-white flex items-center justify-center shadow-md">
+                    <FaCrown size={24} />
                   </div>
-                  <h2 className="text-xl sm:text-2xl font-bold text-[#002a5c]">Our Vision</h2>
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#002a5c]">Our Vision</h2>
                 </div>
-                
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.2 }}
-                >
-                  <p className="text-base sm:text-lg text-gray-700 leading-relaxed mb-4 sm:mb-6">
+
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.15 }}>
+                  <p className="text-lg sm:text-xl text-gray-700 leading-relaxed mb-6">
                     {cards.vision.statement}
                   </p>
-                  
-                  <div className="bg-[#002a5c] text-white p-3 sm:p-4 rounded-lg mb-4 sm:mb-6">
-                    <p className="text-base sm:text-lg font-medium italic">
+
+                  <div className="bg-[#002a5c] text-white p-4 rounded-xl mb-6">
+                    <p className="text-lg sm:text-xl font-medium italic">
                       "{cards.vision.quote}"
                     </p>
                   </div>
 
-                  <div className="grid grid-cols-1 xs:grid-cols-2 gap-3 sm:gap-4">
+                  <div className="grid grid-cols-2 gap-3">
                     {cards.vision.pillars.map((pillar, index) => {
                       const Icon = pillar.icon;
                       return (
-                        <motion.div
-                          key={index}
-                          className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors"
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.3 + index * 0.1 }}
-                        >
+                        <motion.div key={index} className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors shadow-sm" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 + index * 0.08 }} whileHover={{ x: 4 }}>
                           <div className="text-[#dc3545]">
-                            <Icon size={20} />
+                            <Icon size={22} />
                           </div>
-                          <span className="font-semibold text-[#002a5c]">{pillar.title}</span>
+                          <span className="font-semibold text-[#002a5c] text-lg">{pillar.title}</span>
                         </motion.div>
                       );
                     })}
-                  </div>
-                </motion.div>
+                    </div>
+                  </motion.div>
+                </div>
               </div>
             </motion.div>
 
             {/* Mission Card */}
-            <motion.div
-              className={`w-full lg:w-1/2 cursor-pointer transform transition-all duration-500 ${
-                activeCard === 'mission' ? 'scale-100' : 'scale-[0.98] opacity-70'
-              }`}
-              onClick={() => setActiveCard('mission')}
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <div
-                className={`bg-white rounded-2xl shadow-xl p-8 border-t-4 ${
-                  activeCard === 'mission' ? 'border-[#dc3545]' : 'border-transparent'
-                }`}
-              >
-                <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
-                  <div className="p-2 sm:p-3 rounded-full bg-[#dc3545] text-white">
-                    <FaGlobe size={20} className="sm:w-6 sm:h-6" />
+            <motion.div className={`w-full lg:w-[49%] cursor-pointer ${activeCard === 'mission' ? 'opacity-100' : 'opacity-85'}`} onClick={() => setActiveCard('mission')} variants={cardVariants} whileHover="hover">
+              <div className={`relative bg-white/95 rounded-3xl shadow-2xl p-6 lg:p-8 border-t-4 ${activeCard === 'mission' ? 'border-[#dc3545]' : 'border-transparent'}`}>
+                <div className="pointer-events-none absolute -top-10 -left-10 w-36 h-36 rounded-full bg-gradient-to-br from-[#dc3545] to-[#002a5c] opacity-8 blur-3xl" />
+                <div className="max-h-[320px] lg:max-h-[300px] overflow-auto pr-3">
+                  <div className="flex items-center gap-4 mb-5">
+                    <div className="p-3 rounded-full bg-[#dc3545] text-white flex items-center justify-center shadow-md">
+                      <FaGlobe size={24} />
+                    </div>
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#002a5c]">Our Mission</h2>
                   </div>
-                  <h2 className="text-xl sm:text-2xl font-bold text-[#002a5c]">Our Mission</h2>
+
+                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.15 }}>
+                    <p className="text-lg sm:text-xl text-gray-700 leading-relaxed mb-8">
+                      {cards.mission.statement}
+                    </p>
+
+                    <div className="grid grid-cols-2 gap-3">
+                      {cards.mission.points.map((point, index) => (
+                        <motion.div key={index} className="p-4 rounded-lg bg-gradient-to-br from-[#002a5c] to-[#003a7c] text-white shadow-md" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 + index * 0.08 }} whileHover={{ scale: 1.03 }}>
+                          <h3 className="font-bold text-lg mb-1">{point.title}</h3>
+                          <p className="text-gray-200 text-sm">{point.desc}</p>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </motion.div>
                 </div>
-
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.2 }}
-                >
-                  <p className="text-base sm:text-lg text-gray-700 leading-relaxed mb-6 sm:mb-8">
-                    {cards.mission.statement}
-                  </p>
-
-                  <div className="grid grid-cols-1 xs:grid-cols-2 gap-3 sm:gap-4">
-                    {cards.mission.points.map((point, index) => (
-                      <motion.div
-                        key={index}
-                        className="p-4 rounded-lg bg-gradient-to-br from-[#002a5c] to-[#003a7c] text-white"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.3 + index * 0.1 }}
-                        whileHover={{ scale: 1.02 }}
-                      >
-                        <h3 className="font-bold text-lg mb-1">{point.title}</h3>
-                        <p className="text-gray-200 text-sm">{point.desc}</p>
-                      </motion.div>
-                    ))}
-                  </div>
-                </motion.div>
               </div>
             </motion.div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

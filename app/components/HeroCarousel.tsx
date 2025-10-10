@@ -51,7 +51,7 @@ export default function HeroCarousel() {
   }, [paused]);
 
   return (
-    <section className="relative w-screen left-1/2 -translate-x-1/2 h-[80vh] sm:h-screen overflow-hidden" role="region" aria-label="Homepage hero slideshow">
+  <section className="relative w-full h-[80vh] sm:h-screen overflow-hidden z-0" role="region" aria-label="Homepage hero slideshow">
       {/* Slides */}
       {IMAGES.map((src, i) => (
         <div
@@ -75,7 +75,7 @@ export default function HeroCarousel() {
 
       {/* Hero Content */}
       <AnimatePresence mode="wait">
-        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-center px-4">
+  <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-center px-4 pointer-events-none">
           <motion.div
             key={index}
             initial={{ opacity: 0, scale: 0.95 }}
@@ -143,7 +143,7 @@ export default function HeroCarousel() {
       </AnimatePresence>
 
       {/* Dots / controls */}
-      <div className="absolute inset-x-0 bottom-12 flex items-center justify-center gap-4 z-30">
+  <div className="absolute inset-x-0 bottom-12 flex items-center justify-center gap-4 z-30 pointer-events-auto">
         {IMAGES.map((_, i) => (
           <button
             key={i}
@@ -157,7 +157,7 @@ export default function HeroCarousel() {
       </div>
 
       {/* Pause on hover area */}
-      <div onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} className="absolute inset-0 z-20" />
+      <div onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} className="absolute inset-0 z-20 pointer-events-auto" />
     </section>
   );
 }

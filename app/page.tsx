@@ -10,13 +10,10 @@ import ContactForm from "./components/ContactForm";
 
 export default function Home() {
   return (
-    <div className="relative">
-      {/* Hero should sit below the fixed header; top spacing is handled in layout.tsx (pt-16 on main) */}
-      <div className="-mx-6">
-        <HeroCarousel />
-      </div>
-      
-      <div className="container mx-auto px-6">
+    <div className="relative w-full overflow-x-hidden mt-6">
+      <HeroCarousel />
+
+      <div className="max-w-7xl mx-auto px-6">
         <div className="mt-12">
           <VisionMission />
         </div>

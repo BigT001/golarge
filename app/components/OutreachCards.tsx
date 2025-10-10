@@ -102,21 +102,22 @@ export function OutreachCard({ o, i }: { o: any; i: number }) {
 
 export default function OutreachCards() {
   return (
-    <section className="relative w-screen left-1/2 -translate-x-1/2 bg-white py-20">
-      <div className="max-w-7xl mx-auto px-8">
+    <section className="w-full bg-white py-20">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <h2 className="text-3xl md:text-4xl font-extrabold mb-8 text-center">Go Large Outreach</h2>
-      </div>
 
-      <div className="max-w-[1400px] mx-auto relative">
-        {/* animated decorative background */}
-        <div aria-hidden className="pointer-events-none absolute -inset-x-4 -top-12 -bottom-8 flex items-center justify-center">
-          <div className="w-full max-w-[1200px] h-[280px] sm:h-[360px] bg-gradient-to-r from-amber-200 via-rose-200 to-sky-200 bg-gradient-pan decorative-glow rounded-3xl" />
-        </div>
-        <div className="px-2 sm:px-4 lg:px-6 relative">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
-            {outreach.map((o, i) => (
-              <OutreachCard key={o.id} o={o} i={i} />
-            ))}
+        <div className="relative">
+          {/* animated decorative background */}
+          <div aria-hidden className="pointer-events-none absolute inset-x-0 -top-12 -bottom-8 flex items-center justify-center">
+            <div className="w-full max-w-[1200px] h-[280px] sm:h-[360px] bg-gradient-to-r from-amber-200 via-rose-200 to-sky-200 bg-gradient-pan decorative-glow rounded-3xl" />
+          </div>
+
+          <div className="px-2 sm:px-4 lg:px-6 relative">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
+              {outreach.map((o, i) => (
+                <OutreachCard key={o.id} o={o} i={i} />
+              ))}
+            </div>
           </div>
         </div>
       </div>

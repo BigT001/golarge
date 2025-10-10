@@ -27,11 +27,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col overflow-x-hidden`}
       >
-  <Header />
-  {/* add top padding equal to header height (h-16) so fixed header doesn't overlap page content */}
-  <main className="flex-1 w-full pt-16 py-8">{children}</main>
+        <Header />
+        {/* reserve top space for fixed header (h-16) so hero starts below it */}
+        <main className="flex-1 w-full pt-16">{children}</main>
         <Footer />
       </body>
     </html>
