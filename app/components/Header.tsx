@@ -45,24 +45,30 @@ export default function Header() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-transform duration-300 backdrop-blur ${
-        scrolled ? "bg-black/70 border-b border-black/30 shadow-sm" : "bg-black/30"
+        scrolled ? "bg-black/70 border-b border-black/30 shadow-sm" : "bg-black/30 border-b border-black/10"
       } ${topText} ${visible ? 'translate-y-0' : '-translate-y-full'}`}
       style={{ willChange: 'transform' }}
     >
-      <div className="max-w-7xl mx-auto px-6">
+  <div className="max-w-10xl mx-auto px-4 mt-4">
         <div className="flex items-center justify-between h-16">
-          <Link href="/" className="flex items-center gap-3">
-            <div className={`relative w-10 h-10 rounded-full overflow-hidden flex items-center justify-center bg-black/10`}>
-              <Image src="/file.svg" alt="Logo" width={36} height={36} />
+          <Link href="/" className="flex items-center gap-3 pr-6">
+            <div className="relative w-54 h-54 flex items-center justify-center overflow-hidden rounded-md">
+              <Image
+                src="/logofolder/golargelogo.png"
+                alt="Go Large Logo"
+                width={250}
+                height={250}
+                priority={true}
+                unoptimized
+              />
             </div>
-            <span className={`font-semibold text-lg ${topText}`}>Golarge</span>
           </Link>
 
           {/* Mobile menu toggle (JS controlled) */}
           <button
             ref={toggleButtonRef}
             onClick={() => setMobileOpen((s) => !s)}
-            className="md:hidden p-3 rounded-lg border border-white/20 text-current bg-black/10"
+            className="md:hidden p-3 rounded-lg text-current  ml-4"
             aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={mobileOpen}
             aria-controls="mobile-menu"
@@ -86,30 +92,34 @@ export default function Header() {
             </svg>
           </button>
 
-          <nav className="hidden md:flex gap-8 items-center text-sm">
+          <nav className="hidden md:flex gap-6 items-center text-sm">
             <Link href="/about" className={`${topText} hover:underline`}>About</Link>
             <Link href="/outreach" className={`${topText} hover:underline`}>Outreach</Link>
             <Link href="/events" className={`${topText} hover:underline`}>Events</Link>
             <Link href="/contact" className={`${topText} hover:underline`}>Contact</Link>
             <Link
               href="/donate"
-              className="relative inline-flex items-center gap-3 px-5 py-2 rounded-full bg-amber-600 text-white shadow-lg overflow-visible hover:scale-[1.02] transition-transform"
+              className="group relative inline-flex items-center gap-3 px-6 py-2.5 rounded-full bg-navy-800 text-white shadow-lg overflow-visible transition-all duration-300 hover:bg-navy-900 hover:shadow-xl border border-white/10"
+              style={{ background: 'linear-gradient(135deg, #1a2f5f 0%, #0a1836 100%)' }}
               aria-label="Give Online"
             >
-              {/* big icon that extrudes above the button - kept static and deterministic */}
+              {/* Decorative red accent */}
+              <span className="absolute inset-0 rounded-full bg-gradient-to-r from-red-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" aria-hidden="true"></span>
+              {/* Icon container */}
               <span
-                className="absolute -left-4 -top-5 w-12 h-12 rounded-full bg-amber-700 flex items-center justify-center drop-shadow-lg overflow-visible"
+                className="absolute -left-3 -top-4 w-11 h-11 rounded-full bg-gradient-to-br from-navy-700 to-navy-900 flex items-center justify-center shadow-lg overflow-visible border border-white/10 transition-transform duration-300 group-hover:scale-110"
                 aria-hidden={true}
+                style={{ background: 'linear-gradient(135deg, #233876 0%, #1a2f5f 100%)' }}
               >
-                <svg className="animate-pulse-slow" width={26} height={26} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden={true}>
+                <svg className="transform transition-transform duration-300 group-hover:scale-105" width={22} height={22} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden={true}>
                   <rect x="2.5" y="6" width="19" height="12" rx="2" stroke="white" strokeWidth="1.6" />
-                  <line x1="2.5" y1="9" x2="21.5" y2="9" stroke="white" strokeWidth="1" opacity="0.7" />
-                  <line x1="2.5" y1="15" x2="21.5" y2="15" stroke="white" strokeWidth="1" opacity="0.7" />
+                  <line x1="2.5" y1="9" x2="21.5" y2="9" stroke="white" strokeWidth="1" opacity="0.9" />
+                  <line x1="2.5" y1="15" x2="21.5" y2="15" stroke="white" strokeWidth="1" opacity="0.9" />
                   <path d="M11.2 8.8c-.4.6.2 1.2.9 1.2s1.3-.4 1.3-1c0-.7-.6-1.1-1.3-1.1-.6 0-1.2.4-1.1.9" stroke="white" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
                   <path d="M12 7v10" stroke="white" strokeWidth="1.2" strokeLinecap="round" />
                 </svg>
               </span>
-              <span className="text-sm font-medium ml-6">Give Online</span>
+              <span className="text-sm font-medium ml-7 tracking-wide">Give Online</span>
             </Link>
           </nav>
 
@@ -156,10 +166,18 @@ export default function Header() {
               <Link
                 href="/mission"
                 onClick={() => { setMobileOpen(false); toggleButtonRef.current?.focus(); }}
-                className={`w-full text-center rounded-full px-4 py-3 text-sm inline-block bg-amber-600 text-white font-medium shadow-md`}
+                className={`w-full text-center rounded-full px-4 py-3 text-sm inline-block font-medium shadow-lg transition-all duration-300 border border-white/10`}
+                style={{ background: 'linear-gradient(135deg, #1a2f5f 0%, #0a1836 100%)' }}
                 role="menuitem"
               >
-                Give
+                <span className="relative inline-flex items-center justify-center gap-2">
+                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="2.5" y="6" width="19" height="12" rx="2" stroke="currentColor" strokeWidth="1.6" />
+                    <path d="M11.2 8.8c-.4.6.2 1.2.9 1.2s1.3-.4 1.3-1c0-.7-.6-1.1-1.3-1.1-.6 0-1.2.4-1.1.9" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M12 7v10" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+                  </svg>
+                  Give Online
+                </span>
               </Link>
             </div>
           </div>

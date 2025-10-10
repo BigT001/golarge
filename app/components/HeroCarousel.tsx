@@ -2,128 +2,163 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
-type Slide = {
-  title: string;
-  subtitle?: string;
-  image: string;
-  ctaText?: string;
-  ctaHref?: string;
-};
+const IMAGES = [
+  "/heroimages/image1.jpeg",
+  "/heroimages/image2.jpeg",
+  "/heroimages/image3.jpeg",
+  "/heroimages/image4.jpeg",
+  "/heroimages/image5.jpeg",
+];
+
+const HERO_CONTENT = [
+  {
+    title: "Raising Kingdom Warriors\nPraying Boldly",
+    subtitle: "Transforming Globally",
+    description: "Raising a generation of Kingdom-minded leaders who transform nations through prophetic insight and intercession. We stand as repairers of the breach, restoring paths for future generations."
+  },
+  {
+    title: "Prophetic Vision\nDivine Purpose",
+    subtitle: "Divine Transformation",
+    description: "Empowering leaders to see prophetically and lead purposefully. Through teaching and leadership development, we equip Kingdom leaders to restore broken systems and influence culture."
+  },
+  {
+    title: "Manifesting Glory\nKingdom Impact",
+    subtitle: "Global Influence",
+    description: "Manifesting God's glory in every sphere of influence - from governance and business to education, culture, and ministry. Together, we're turning spiritual fire into tangible societal change."
+  },
+  {
+    title: "Destiny Shapers\nProphetic Excellence",
+    subtitle: "Strategic Leadership",
+    description: "Birthing divine ideas and guiding destinies through revelation. We're committed to raising leaders who embody Kingdom culture and character, standing in the gap for nations and territories."
+  },
+  {
+    title: "Global Reformation\nDivine Movement",
+    subtitle: "Spiritual Excellence",
+    description: "Equipping believers to discover their divine assignment and cultivate prophetic understanding. Through prayer altars and leadership summits, we inspire excellence in Kingdom service."
+  }
+];
 
 export default function HeroCarousel() {
-  const slides: Slide[] = [
-    {
-      title: "Welcome to Golarge",
-      subtitle: "Connecting people, empowering growth.",
-      image: "/pastor1.png",
-      ctaText: "Get Involved",
-      ctaHref: "/ministries",
-    },
-    {
-      title: "Events & Community",
-      subtitle: "Join our upcoming events and gatherings.",
-      image: "/pastor2.png",
-      ctaText: "View Events",
-      ctaHref: "/events",
-    },
-    {
-      title: "Community Outreach",
-      subtitle: "Serving the city with love and purpose.",
-      image: "/pastor3.png",
-      ctaText: "Our Outreach",
-      ctaHref: "/outreach",
-    },
-  ];
-
   const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    const id = setInterval(() => {
-      setIndex((i) => (i + 1) % slides.length);
-    }, 5000);
-    return () => clearInterval(id);
-  }, [slides.length]);
-
-  // Pause autoplay on hover
   const [paused, setPaused] = useState(false);
+
   useEffect(() => {
     if (paused) return;
-    const id = setInterval(() => setIndex((i) => (i + 1) % slides.length), 5000);
+    const id = setInterval(() => setIndex((i) => (i + 1) % IMAGES.length), 3000);
     return () => clearInterval(id);
-  }, [paused, slides.length]);
-
-  function prev() {
-    setIndex((i) => (i - 1 + slides.length) % slides.length);
-  }
-
-  function next() {
-    setIndex((i) => (i + 1) % slides.length);
-  }
+  }, [paused]);
 
   return (
-  <section className="relative w-screen left-1/2 -translate-x-1/2 h-screen overflow-hidden -mt-8 bg-black" role="region" aria-label="Homepage hero carousel">
-      <div className="relative w-full h-full">
-        {slides.map((s, i) => (
-          <div
-            key={i}
-            className={`absolute inset-0 transition-all duration-800 ease-in-out ${
-              i === index ? "opacity-100 translate-y-0 z-10" : "opacity-0 translate-y-6 z-0 pointer-events-none"
-            }`}
-            aria-hidden={i === index ? "false" : "true"}
+    <section className="relative w-screen left-1/2 -translate-x-1/2 h-[80vh] sm:h-screen overflow-hidden" role="region" aria-label="Homepage hero slideshow">
+      {/* Slides */}
+      {IMAGES.map((src, i) => (
+        <div
+          key={src}
+          className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${i === index ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+        >
+          <Image 
+            src={src} 
+            alt={`Hero ${i + 1}`} 
+            fill 
+            priority 
+            sizes="100vw" 
+            style={{ objectFit: 'cover', objectPosition: 'center 30%' }} 
+            className="scale-110" 
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-black/95 via-blue-950/95 to-red-950/98 mix-blend-multiply" />
+          <div className="absolute inset-0 bg-gradient-radial from-transparent via-black/80 to-black/95" />
+          
+        </div>
+      ))}
+
+      {/* Hero Content */}
+      <AnimatePresence mode="wait">
+        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-center px-4">
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.05 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="max-w-4xl mx-auto"
           >
-            <Image
-              src={s.image}
-              alt={s.title}
-              fill
-              priority
-              sizes="(max-width: 768px) 100vw, 50vw"
-              style={{ objectFit: "cover", objectPosition: "top center" }}
-            />
+            <motion.h1 
+              className="text-4xl sm:text-6xl md:text-7xl xl:text-8xl font-extrabold text-white mb-4 tracking-tight leading-[0.9] whitespace-pre-line"
+              initial={{ opacity: 0, y: 40, rotateX: 30 }}
+              animate={{ opacity: 1, y: 0, rotateX: 0 }}
+              exit={{ opacity: 0, y: -40, rotateX: -30 }}
+              transition={{ 
+                duration: 0.6,
+                ease: "easeOut",
+                opacity: { duration: 0.3 }
+              }}
+            >
+              <motion.span
+                initial={{ backgroundPosition: "0% 50%" }}
+                animate={{ backgroundPosition: "100% 50%" }}
+                transition={{ duration: 3, repeat: Infinity, repeatType: "reverse" }}
+                className="bg-gradient-to-r from-white via-blue-200 to-red-200 bg-clip-text text-transparent bg-[length:200%_auto] drop-shadow-[0_4px_8px_rgba(0,0,0,0.3)]"
+              >
+                {HERO_CONTENT[index].title}
+              </motion.span>
+            </motion.h1>
+            <motion.h2 
+              className="text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-bold text-red-500 mb-8 tracking-wide"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 1.2 }}
+              transition={{ 
+                duration: 0.5,
+                delay: 0.2,
+                ease: "easeOut"
+              }}
+            >
+              {HERO_CONTENT[index].subtitle}
+            </motion.h2>
+            <motion.p 
+              className="text-xl sm:text-2xl md:text-3xl text-gray-100 max-w-4xl mx-auto font-medium tracking-wide leading-relaxed"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ 
+                opacity: 1, 
+                y: 0,
+                transition: {
+                  duration: 0.5,
+                  delay: 0.3
+                }
+              }}
+              exit={{ 
+                opacity: 0,
+                y: -20,
+                transition: {
+                  duration: 0.3
+                }
+              }}
+            >
+              {HERO_CONTENT[index].description}
+            </motion.p>
+          </motion.div>
+        </div>
+      </AnimatePresence>
 
-            <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent" />
-
-            {/* position content lower so it isn't hidden by the fixed header */}
-            <div className="absolute inset-0 flex items-start">
-              <div className="max-w-3xl px-6 md:px-12 lg:px-20 text-white pt-20 md:pt-28">
-                <h2 className="text-2xl md:text-4xl font-bold drop-shadow-md">
-                  {s.title}
-                </h2>
-                {s.subtitle && (
-                  <p className="mt-2 text-sm md:text-base text-white/90">
-                    {s.subtitle}
-                  </p>
-                )}
-
-                {s.ctaText && (
-                  <a
-                    href={s.ctaHref}
-                    className="inline-block mt-4 bg-white text-foreground px-4 py-2 rounded shadow-sm font-medium"
-                  >
-                    {s.ctaText}
-                  </a>
-                )}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Controls */}
-      <div onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} className="absolute inset-x-0 bottom-10 flex items-center justify-center gap-3 z-20">
-        {slides.map((_, i) => (
+      {/* Dots / controls */}
+      <div className="absolute inset-x-0 bottom-12 flex items-center justify-center gap-4 z-30">
+        {IMAGES.map((_, i) => (
           <button
             key={i}
-            onClick={() => setIndex(i)}
             aria-label={`Go to slide ${i + 1}`}
-            className={`w-3 h-3 rounded-full transition-colors ${
-              i === index ? "bg-white" : "bg-white/40"
-            }`}
+            onClick={() => setIndex(i)}
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
+            className={`w-3 h-3 rounded-full transition-all duration-300 ${i === index ? 'bg-red-500 w-8' : 'bg-white/40 hover:bg-white/60'}`}
           />
         ))}
       </div>
 
-      {/* prev/next controls removed as requested */}
+      {/* Pause on hover area */}
+      <div onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} className="absolute inset-0 z-20" />
     </section>
   );
 }
+

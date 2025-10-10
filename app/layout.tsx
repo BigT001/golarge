@@ -29,8 +29,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
-        <Header />
-        <main className="flex-1 container mx-auto w-full px-6 py-8">{children}</main>
+  <Header />
+  {/* add top padding equal to header height (h-16) so fixed header doesn't overlap page content */}
+  <main className="flex-1 w-full pt-16 py-8">{children}</main>
         <Footer />
       </body>
     </html>
