@@ -61,22 +61,28 @@ export function OutreachCard({ o, i }: { o: any; i: number }) {
   const textColor = i % 2 === 0 ? "text-white" : "text-gray-800";
 
   return (
-    <article key={o.id} role="article" aria-labelledby={`outreach-${o.id}-title`} className="group">
+    <article key={o.id} role="article" aria-labelledby={`outreach-${o.id}-title`} className="group relative">
+      {/* colorful halo behind each card */}
+      <div className="absolute -inset-1 rounded-3xl bg-gradient-to-br from-pink-400 via-indigo-500 to-amber-400 opacity-20 blur-2xl pointer-events-none group-hover:opacity-60 transition-opacity" />
       <Link
         href={o.href}
-        className={`block rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 focus:outline-none focus-visible:ring-4 focus-visible:ring-offset-2 focus-visible:ring-amber-300 ${cardBg}`}
+        className={`block rounded-2xl overflow-hidden shadow-2xl transform transition-all duration-300 will-change-transform hover:scale-105 hover:-translate-y-3 focus:outline-none focus-visible:ring-4 focus-visible:ring-offset-2 focus-visible:ring-amber-300 ${cardBg}`}
         aria-label={`Visit ${o.title} outreach page`}
       >
-        <div className="relative w-full h-64 md:h-56 lg:h-64">
+        {/* skew stripe accent */}
+        <div className="absolute -top-6 left-6 w-28 h-8 rounded-full bg-gradient-to-r from-indigo-500 to-red-500 opacity-95 transform rotate-12 pointer-events-none transition-transform group-hover:rotate-6" />
+  <div className="relative w-full h-56 md:h-52 lg:h-56">
           <Image
             src={o.image}
             alt={o.title}
             fill
             style={{ objectFit: "cover", objectPosition: "top center" }}
-            className="group-hover:scale-105 transition-transform duration-500"
+            className="group-hover:scale-110 transition-transform duration-500"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
-            <div className={`absolute top-4 left-4 rounded-full px-3 py-1 text-xs font-semibold ${i % 2 === 0 ? 'text-white' : 'text-gray-800'} ${i % 2 === 0 ? 'bg-white/10' : 'bg-amber-50'} backdrop-blur-sm shadow-md border ${i % 2 === 0 ? 'border-white/20' : 'border-amber-100'}`}>{o.id.toUpperCase()}</div>
+            <div className={`absolute top-4 left-4 rounded-full px-3 py-1 text-xs font-semibold ${i % 2 === 0 ? 'text-white' : 'text-gray-800'} ${i % 2 === 0 ? 'bg-white/10' : 'bg-amber-50'} backdrop-blur-sm shadow-md border ${i % 2 === 0 ? 'border-white/20' : 'border-amber-100'} transform rotate-6`}>{o.id.toUpperCase()}</div>
+            {/* sparkle */}
+            <div className="absolute right-6 top-6 w-6 h-6 rounded-full bg-white/80 opacity-60 blur-sm animate-pulse pointer-events-none" />
           <div className="absolute left-4 bottom-4">
             <span id={`outreach-${o.id}-title`} className={`text-base md:text-lg font-semibold drop-shadow ${textColor}`}>{o.title}</span>
           </div>
@@ -102,18 +108,15 @@ export function OutreachCard({ o, i }: { o: any; i: number }) {
 
 export default function OutreachCards() {
   return (
-    <section className="w-full bg-white py-20">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <h2 className="text-3xl md:text-4xl font-extrabold mb-8 text-center">Go Large Outreach</h2>
+    <section className="w-full relative py-20 overflow-hidden bg-transparent">
+      {/* no background decorations — clean section so cards are the focus */}
 
-        <div className="relative">
-          {/* animated decorative background */}
-          <div aria-hidden className="pointer-events-none absolute inset-x-0 -top-12 -bottom-8 flex items-center justify-center">
-            <div className="w-full max-w-[1200px] h-[280px] sm:h-[360px] bg-gradient-to-r from-amber-200 via-rose-200 to-sky-200 bg-gradient-pan decorative-glow rounded-3xl" />
-          </div>
+      <div className="relative z-10">
+        <h2 className="text-3xl md:text-4xl font-extrabold mb-8 text-center text-foreground">Go Large Outreach</h2>
 
-          <div className="px-2 sm:px-4 lg:px-6 relative">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
+  <div className="relative w-full  lg:px-0">
+          <div className="relative w-full">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
               {outreach.map((o, i) => (
                 <OutreachCard key={o.id} o={o} i={i} />
               ))}

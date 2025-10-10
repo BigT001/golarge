@@ -44,22 +44,22 @@ export default function Header() {
   const topText = "text-white";
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 p-4 transition-transform duration-300 backdrop-blur ${
+      className={`fixed inset-x-0 top-0 z-50 p-3 sm:p-4 transition-transform duration-300 backdrop-blur ${
         scrolled ? "bg-black/70 border-b border-black/30 shadow-sm" : "bg-black/30 border-b border-black/10"
       } ${topText} ${visible ? 'translate-y-0' : '-translate-y-full'}`}
       style={{ willChange: 'transform' }}
     >
-  <div className=" mx-auto px-4">
+  <div className="mx-auto px-3 sm:px-4">
     <div className="flex items-center justify-between h-16">
-          <Link href="/" className="flex items-center gap-3 pr-6">
-            <div className="relative w-120 h-120 flex items-center justify-center overflow-hidden rounded-md">
+          <Link href="/" className="">
+            <div className="w-60 h-60 flex overflow-hidden">
               <Image
                 src="/logofolder/golargelogo.png"
                 alt="Go Large Logo"
-                width={250}
-                height={250}
+                width={200}
+                height={200}
                 priority={true}
-                unoptimized
+                unoptimized  
               />
             </div>
           </Link>
@@ -68,7 +68,7 @@ export default function Header() {
           <button
             ref={toggleButtonRef}
             onClick={() => setMobileOpen((s) => !s)}
-            className="md:hidden p-3 rounded-lg text-current  ml-4"
+            className="md:hidden p-3 rounded-lg text-current ml-2 z-60 bg-black/20 backdrop-blur-sm"
             aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={mobileOpen}
             aria-controls="mobile-menu"
@@ -127,7 +127,7 @@ export default function Header() {
           <div
             id="mobile-menu"
             ref={menuRef}
-            className={`absolute left-0 top-full w-full md:hidden border-t ${scrolled ? 'bg-black/80' : 'bg-black/70'} transition-transform duration-200`}
+            className={`absolute left-1/2 top-full z-50 md:hidden transform -translate-x-1/2 mt-2 w-[min(92%,720px)] ${scrolled ? 'bg-black/95' : 'bg-black/90'} transition-transform duration-200 rounded-xl shadow-lg`}
             role="menu"
             aria-hidden={!mobileOpen}
             style={{ display: mobileOpen ? 'block' : 'none' }}
@@ -158,27 +158,37 @@ export default function Header() {
               }
             }}
           >
-            <div className={`px-6 py-4 flex flex-col gap-3 text-white`}>
-              <Link href="/about" onClick={() => { setMobileOpen(false); toggleButtonRef.current?.focus(); }}>About</Link>
-              <Link href="/outreach" onClick={() => { setMobileOpen(false); toggleButtonRef.current?.focus(); }}>Outreach</Link>
-              <Link href="/events" onClick={() => { setMobileOpen(false); toggleButtonRef.current?.focus(); }}>Events</Link>
-              <Link href="/contact" onClick={() => { setMobileOpen(false); toggleButtonRef.current?.focus(); }}>Contact</Link>
-              <Link
-                href="/mission"
-                onClick={() => { setMobileOpen(false); toggleButtonRef.current?.focus(); }}
-                className={`w-full text-center rounded-full px-4 py-3 text-sm inline-block font-medium shadow-lg transition-all duration-300 border border-white/10`}
-                style={{ background: 'linear-gradient(135deg, #1a2f5f 0%, #0a1836 100%)' }}
-                role="menuitem"
-              >
-                <span className="relative inline-flex items-center justify-center gap-2">
-                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="2.5" y="6" width="19" height="12" rx="2" stroke="currentColor" strokeWidth="1.6" />
-                    <path d="M11.2 8.8c-.4.6.2 1.2.9 1.2s1.3-.4 1.3-1c0-.7-.6-1.1-1.3-1.1-.6 0-1.2.4-1.1.9" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
-                    <path d="M12 7v10" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
-                  </svg>
-                  Give Online
-                </span>
-              </Link>
+            <div className={`flex flex-col divide-y divide-white/10 text-white`}>
+              <div className="px-6 py-4 text-center text-base sm:text-lg">
+                <Link href="/about" className="block" onClick={() => { setMobileOpen(false); toggleButtonRef.current?.focus(); }}>About</Link>
+              </div>
+              <div className="px-6 py-4 text-center text-base sm:text-lg">
+                <Link href="/outreach" className="block" onClick={() => { setMobileOpen(false); toggleButtonRef.current?.focus(); }}>Outreach</Link>
+              </div>
+              <div className="px-6 py-4 text-center text-base sm:text-lg">
+                <Link href="/events" className="block" onClick={() => { setMobileOpen(false); toggleButtonRef.current?.focus(); }}>Events</Link>
+              </div>
+              <div className="px-6 py-4 text-center text-base sm:text-lg">
+                <Link href="/contact" className="block" onClick={() => { setMobileOpen(false); toggleButtonRef.current?.focus(); }}>Contact</Link>
+              </div>
+              <div className="px-6 py-4 text-center">
+                <Link
+                  href="/mission"
+                  onClick={() => { setMobileOpen(false); toggleButtonRef.current?.focus(); }}
+                  className={`inline-block w-full text-center rounded-full px-4 py-3 text-sm sm:text-base font-semibold shadow-lg transition-all duration-300`}
+                  style={{ background: 'linear-gradient(135deg, #1a2f5f 0%, #0a1836 100%)' }}
+                  role="menuitem"
+                >
+                  <span className="relative inline-flex items-center justify-center gap-2">
+                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="2.5" y="6" width="19" height="12" rx="2" stroke="currentColor" strokeWidth="1.6" />
+                      <path d="M11.2 8.8c-.4.6.2 1.2.9 1.2s1.3-.4 1.3-1c0-.7-.6-1.1-1.3-1.1-.6 0-1.2.4-1.1.9" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+                      <path d="M12 7v10" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+                    </svg>
+                    <span className="font-bold">Give Online</span>
+                  </span>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
