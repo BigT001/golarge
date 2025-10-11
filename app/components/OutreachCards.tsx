@@ -112,7 +112,7 @@ export default function OutreachCards() {
       {/* no background decorations — clean section so cards are the focus */}
 
       <div className="relative z-10">
-        <h2 className="text-3xl md:text-4xl font-extrabold mb-8 text-center text-foreground">Go Large Outreach</h2>
+        <h2 className="text-3xl md:text-4xl font-extrabold mb-8 text-center text-red">Go Large Outreach</h2>
 
   <div className="relative w-full  lg:px-0">
           <div className="relative w-full">
