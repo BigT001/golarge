@@ -16,17 +16,15 @@ export default function Home() {
           <HeroCarousel />
         </div>
       
-      
         <div className="mt-12 lg:px-40">
           <VisionMission />
         </div>
 
         <div className="mt-12 px-4 lg:px-20 ">
         <OutreachCards />
-       
+        </div>
 
-          </div>
-         <div className="mt-12">
+         <div className="mt-12 lg:px-20">
           <VisionSchoolCard />
         </div>
 
