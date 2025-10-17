@@ -7,42 +7,42 @@ export const outreach = [
     title: "Golarge Nigeria",
     desc: "Nigeria is one of our largest and most active networks. We run community development projects, vocational training, youth mentorship and emergency relief programs in urban and rural communities. Our focus is sustainable impact and local leadership.",
     href: "/outreach/ng",
-    image: "/pastor1.png",
+    image: "/heroimages/image1.jpeg",
   },
   {
     id: "ca",
     title: "Golarge Canada",
     desc: "The Canadian chapters are focused on youth, education and cross-cultural exchange. We partner with schools, community centers and local nonprofits to provide mentoring and scholarship initiatives.",
     href: "/outreach/ca",
-    image: "/pastor2.png",
+    image: "/heroimages/image2.jpeg",
   },
   {
     id: "uk",
     title: "Golarge UK",
     desc: "In the UK we run regular community events, training sessions, and volunteer programs that support integration, employment readiness and local community projects.",
     href: "/outreach/uk",
-    image: "/pastor1.png",
+    image: "/heroimages/image3.jpeg",
   },
   {
     id: "us",
     title: "Golarge USA",
     desc: "Our North American outreach focuses on building partnerships, supporting churches and community groups, and delivering large-scale events and conferences that equip leaders and volunteers.",
     href: "/outreach/us",
-    image: "/pastor2.png",
+    image: "/heroimages/image4.jpeg",
   },
   {
     id: "de",
     title: "Golarge Germany",
     desc: "The European hub coordinates regional partnerships, training programs and exchange initiatives designed to foster collaboration across neighboring countries.",
     href: "/outreach/de",
-    image: "/pastor1.png",
+    image: "/heroimages/image5.jpeg",
   },
   {
     id: "ldn",
     title: "Golarge London",
     desc: "London hosts a vibrant chapter that focuses on community engagement, creative arts, and local outreach events that bring people together across diverse neighborhoods.",
     href: "/outreach/london",
-    image: "/pastor2.png",
+    image: "/heroimages/image1.jpeg",
   },
 ];
 
@@ -114,7 +114,7 @@ export default function OutreachCards() {
       <div className="relative z-10">
         <h2 className="text-3xl md:text-4xl font-extrabold mb-8 text-center text-red">Go Large Outreach</h2>
 
-  <div className="relative w-full  lg:px-0">
+      <div className="relative w-full  lg:px-0">
           <div className="relative w-full">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
               {outreach.map((o, i) => (
