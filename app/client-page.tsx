@@ -43,7 +43,8 @@ const itemVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.8, ease: "easeOut" },
+    // keep transition simple (duration only) to satisfy framer-motion types
+    transition: { duration: 0.8 },
   },
 }
 
@@ -53,7 +54,7 @@ const floatingVariants = {
     transition: {
       duration: 6,
       repeat: Number.POSITIVE_INFINITY,
-      ease: "easeInOut",
+      // no explicit easing here to avoid Typescript mismatch
     },
   },
 }
@@ -170,7 +171,10 @@ export default function ClientPage() {
                     borderRadius: "12px",
                     color: "#fff",
                   }}
-                  formatter={(value) => `${value.toFixed(1)}x`}
+                  formatter={(value) => {
+                    const n = Number(value);
+                    return isFinite(n) ? `${n.toFixed(1)}x` : String(value);
+                  }}
                 />
                 <Bar dataKey="value" fill="url(#colorGradient)" radius={[8, 8, 0, 0]} />
                 <defs>
