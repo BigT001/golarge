@@ -61,7 +61,7 @@ export function OutreachCard({ o, i }: { o: any; i: number }) {
   const textColor = i % 2 === 0 ? "text-white" : "text-gray-800";
 
   return (
-    <article key={o.id} role="article" aria-labelledby={`outreach-${o.id}-title`} className="group relative">
+    <article role="article" aria-labelledby={`outreach-${o.id}-title`} className="group relative">
       {/* colorful halo behind each card */}
       <div className="absolute -inset-1 rounded-3xl bg-gradient-to-br from-pink-400 via-indigo-500 to-amber-400 opacity-20 blur-2xl pointer-events-none group-hover:opacity-60 transition-opacity" />
       <Link

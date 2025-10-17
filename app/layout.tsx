@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     shortcut: "/favicon.ico",
     apple: "/favicon.svg",
   },
-  themeColor: [{ media: "(prefers-color-scheme: light)", color: "#ffffff" }, { media: "(prefers-color-scheme: dark)", color: "#000000" }],
+  // themeColor was moved to the `viewport` export per Next.js guidance
   robots: {
     index: true,
     follow: true,
@@ -64,6 +64,11 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+};
+
+// Per Next.js guidance, move themeColor into a `viewport` export
+export const viewport = {
+  themeColor: [{ media: "(prefers-color-scheme: light)", color: "#ffffff" }, { media: "(prefers-color-scheme: dark)", color: "#000000" }],
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
