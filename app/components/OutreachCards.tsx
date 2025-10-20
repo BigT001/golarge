@@ -42,7 +42,8 @@ export const outreach = [
     title: "Golarge London",
     desc: "London hosts a vibrant chapter that focuses on community engagement, creative arts, and local outreach events that bring people together across diverse neighborhoods.",
     href: "/outreach/london",
-    image: "/heroimages/image1.jpeg",
+    image: "/galleryimages/54.jpeg",
+    imagePosition: 'center center',
   },
 ];
 
@@ -71,18 +72,18 @@ export function OutreachCard({ o, i }: { o: any; i: number }) {
       >
         {/* skew stripe accent */}
         <div className="absolute -top-6 left-6 w-28 h-8 rounded-full bg-gradient-to-r from-indigo-500 to-red-500 opacity-95 transform rotate-12 pointer-events-none transition-transform group-hover:rotate-6" />
-  <div className="relative w-full h-56 md:h-52 lg:h-56">
+        <div className="relative w-full h-56 md:h-52 lg:h-56">
           <Image
             src={o.image}
             alt={o.title}
             fill
-            style={{ objectFit: "cover", objectPosition: "top center" }}
+            style={{ objectFit: "cover", objectPosition: o.imagePosition || "top center" }}
             className="group-hover:scale-110 transition-transform duration-500"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
-            <div className={`absolute top-4 left-4 rounded-full px-3 py-1 text-xs font-semibold ${i % 2 === 0 ? 'text-white' : 'text-gray-800'} ${i % 2 === 0 ? 'bg-white/10' : 'bg-amber-50'} backdrop-blur-sm shadow-md border ${i % 2 === 0 ? 'border-white/20' : 'border-amber-100'} transform rotate-6`}>{o.id.toUpperCase()}</div>
-            {/* sparkle */}
-            <div className="absolute right-6 top-6 w-6 h-6 rounded-full bg-white/80 opacity-60 blur-sm animate-pulse pointer-events-none" />
+          <div className={`absolute top-4 left-4 rounded-full px-3 py-1 text-xs font-semibold ${i % 2 === 0 ? 'text-white' : 'text-gray-800'} ${i % 2 === 0 ? 'bg-white/10' : 'bg-amber-50'} backdrop-blur-sm shadow-md border ${i % 2 === 0 ? 'border-white/20' : 'border-amber-100'} transform rotate-6`}>{o.id.toUpperCase()}</div>
+          {/* sparkle */}
+          <div className="absolute right-6 top-6 w-6 h-6 rounded-full bg-white/80 opacity-60 blur-sm animate-pulse pointer-events-none" />
           <div className="absolute left-4 bottom-4">
             <span id={`outreach-${o.id}-title`} className={`text-base md:text-lg font-semibold drop-shadow ${textColor}`}>{o.title}</span>
           </div>
@@ -108,13 +109,13 @@ export function OutreachCard({ o, i }: { o: any; i: number }) {
 
 export default function OutreachCards() {
   return (
-    <section className="w-full relative py-20 overflow-hidden bg-transparent">
+    <section className="w-full relative py-10 overflow-hidden bg-transparent">
       {/* no background decorations — clean section so cards are the focus */}
 
       <div className="relative z-10">
         <h2 className="text-3xl md:text-4xl font-extrabold mb-8 text-center text-red">Go Large Outreach</h2>
 
-      <div className="relative w-full  lg:px-0">
+        <div className="relative w-full  lg:px-0">
           <div className="relative w-full">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
               {outreach.map((o, i) => (

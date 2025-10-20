@@ -31,7 +31,7 @@ export default function Home() {
           <VisionMission />
         </div>        
         
-        <div className="mt-12 px-4 lg:px-20 ">
+        <div className="px-4 lg:px-20 ">
         <OutreachCards />
         </div>
 
