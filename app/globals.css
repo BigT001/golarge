@@ -119,6 +119,18 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html, body {
+    /* prevent accidental horizontal overflow from 100vw elements */
+    overflow-x: hidden;
+  }
+
+  img, svg, video {
+    /* ensure media never exceeds their container */
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
   body {
     @apply bg-background text-foreground;
   }

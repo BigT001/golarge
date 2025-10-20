@@ -42,6 +42,42 @@ export default function AboutCard({
         return () => obs.disconnect();
     }, []);
 
+    // Parallax effect for image wrappers inside this component
+    useEffect(() => {
+        if (!rootRef.current) return;
+        const els = Array.from(rootRef.current.querySelectorAll<HTMLElement>(".about-parallax"));
+        if (!els.length) return;
+
+        let ticking = false;
+
+        const update = () => {
+            els.forEach((el) => {
+                const rect = el.getBoundingClientRect();
+                // compute a small translate based on element's distance from center
+                const speed = 0.12; // tweak for subtlety
+                const centerOffset = rect.top + rect.height / 2 - window.innerHeight / 2;
+                const translate = Math.max(Math.min(-centerOffset * speed, 40), -40);
+                el.style.transform = `translateY(${translate}px)`;
+            });
+            ticking = false;
+        };
+
+        const onScroll = () => {
+            if (!ticking) {
+                ticking = true;
+                requestAnimationFrame(update);
+            }
+        };
+
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll);
+        return () => {
+            window.removeEventListener('scroll', onScroll);
+            window.removeEventListener('resize', onScroll);
+        };
+    }, []);
+
     return (
         <section ref={rootRef} className={`about-collection mx-auto max-w-6xl px-4 md:px-6 py-10 animate-slide ${inView ? 'in-view' : ''}`}>
             <div className="flex flex-col md:flex-row items-stretch gap-8">
@@ -49,23 +85,29 @@ export default function AboutCard({
                 {/* Image column: expand to section edges on small screens so image reads full-width */}
                 <div className="w-full md:w-1/3 flex-shrink-0 flex items-center md:items-start">
                     <div className="relative group w-full">
-                        {/* Mobile: centered image that respects section padding (equal left/right spacing) */}
-                        <div className="block md:hidden w-full px-4 sm:px-6 md:px-0 flex justify-center">
-                            {/* tall mobile image with rounded edges (uses viewport height but respects padding) */}
-                            <div className="relative w-full max-w-3xl h-[80vh] sm:h-[80vh] overflow-hidden rounded-2xl bg-slate-100">
+                        {/* Mobile full-bleed: use negative margins on mobile only so edges touch viewport */}
+                        <div
+                            className="block md:hidden"
+                            style={{ position: 'relative', left: '50%', transform: 'translateX(-50%)', width: '100vw', boxSizing: 'border-box' }}
+                        >
+                            <div className="relative w-full h-screen sm:min-h-[80vh] overflow-hidden rounded-2xl bg-slate-100 about-parallax">
                                 <Image
                                     src={imageSrc}
                                     alt={imageAlt}
                                     fill
-                                    className="object-cover object-top  w-full h-full"
+                                    className="object-cover object-top origin-top w-full h-full"
                                     priority
                                 />
+
+                                {/* gradient fade and caption overlay */}
+                                <div className="absolute left-0 right-0 bottom-0 h-40 bg-gradient-to-t from-black/60 via-black/20 to-transparent rounded-b-2xl pointer-events-none" />
+                                <div className="absolute left-4 right-4 bottom-6 text-white text-sm md:text-base">{imageAlt}</div>
                             </div>
                         </div>
 
-                        {/* Desktop/tablet: in-flow rounded image */}
+                        {/* Desktop/tablet: in-flow rounded image with parallax class for subtle movement */}
                         <div className="hidden md:block relative w-full">
-                            <div className="relative w-full h-72 md:h-96 lg:h-[520px] rounded-2xl overflow-hidden bg-slate-100">
+                            <div className="relative w-full h-72 md:h-96 lg:h-[520px] rounded-2xl overflow-hidden bg-slate-100 about-parallax">
                                 <Image
                                     src={imageSrc}
                                     alt={imageAlt}

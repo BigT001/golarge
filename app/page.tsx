@@ -22,12 +22,12 @@ export default function Home() {
         </AnimatedBackground>
 
         <AnimatedBackground className="" variant="bold">
-          <div className="mx-auto  lg:px-10">
+          <div className="mx-auto lg:py-10 lg:px-10">
             <AboutCard />
           </div>
         </AnimatedBackground>
 
-        <div className="mt-12 lg:px-40">
+        <div className="lg:px-10 lg:py-10">
           <VisionMission />
         </div>        
         

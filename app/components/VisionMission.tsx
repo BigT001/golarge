@@ -57,7 +57,7 @@ const VisionMission = () => {
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-8">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900">Vision & Mission</h2>
-          <p className="mt-3 text-lg text-gray-600">See Clearly. Think Deeply. Build Boldly — our guiding principles for raising leaders who shape culture with purpose.</p>
+          <p className="mt-3 text-lg text-gray-600">Empowering Kingdom leaders to see prophetically, lead purposefully, and transform generations.</p>
         </div>
 
         <motion.div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start" variants={containerVariants} initial="hidden" animate="show">
@@ -74,20 +74,20 @@ const VisionMission = () => {
           >
             <div className="absolute -top-8 -right-8 w-40 h-40 rounded-full bg-gradient-to-br from-[#002a5c] to-[#dc3545] opacity-20 blur-3xl pointer-events-none" />
 
-            <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 bg-[#002a5c] text-white rounded-lg p-3 shadow-sm">
-                <FaCrown size={28} />
+            <div>
+              <div className="md:float-left md:mr-6 md:mb-0 mr-0 mb-4 w-16 h-16 md:w-20 md:h-20 flex items-center justify-center bg-[#002a5c] text-white rounded-lg shadow-sm">
+                <FaCrown size={20} aria-hidden="true" />
               </div>
               <div>
                 <h3 id="vision-title" className="text-2xl font-bold text-[#062b4a]">{cards.vision.title}</h3>
-                <p className="mt-3 text-gray-700 leading-relaxed">{cards.vision.statement}</p>
+                <p className="mt-0 text-gray-700 leading-relaxed">{cards.vision.statement}</p>
               </div>
             </div>
 
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.12 }} className="mt-6">
-              <div className="rounded-lg bg-[#062b4a] text-white p-4 mb-6">
+              {/* <div className="rounded-lg bg-[#062b4a] text-white p-4 mb-6">
                 <p className="italic font-medium">"{cards.vision.quote}"</p>
-              </div>
+              </div> */}
 
               <div className="grid grid-cols-2 gap-3">
                 {cards.vision.pillars.map((pillar, i) => {
@@ -120,13 +120,13 @@ const VisionMission = () => {
           >
             <div className="absolute -top-8 -left-8 w-40 h-40 rounded-full bg-gradient-to-br from-[#dc3545] to-[#002a5c] opacity-20 blur-3xl pointer-events-none" />
 
-            <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 bg-[#dc3545] text-white rounded-lg p-3 shadow-sm">
-                <FaGlobe size={28} />
+            <div>
+              <div className="md:float-left md:mr-6 md:mb-0 mr-0 mb-4 w-16 h-16 md:w-20 md:h-20 flex items-center justify-center bg-[#dc3545] text-white rounded-lg shadow-sm">
+                <FaGlobe size={20} aria-hidden="true" />
               </div>
               <div>
                 <h3 id="mission-title" className="text-2xl font-bold text-[#062b4a]">{cards.mission.title}</h3>
-                <p className="mt-3 text-gray-700 leading-relaxed">{cards.mission.statement}</p>
+                <p className="mt-0 text-gray-700 leading-relaxed">{cards.mission.statement}</p>
               </div>
             </div>
 
@@ -134,8 +134,8 @@ const VisionMission = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {cards.mission.points.map((point, i) => (
                   <motion.div key={i} className="p-4 rounded-lg bg-gradient-to-br from-[#062b4a] to-[#003a7c] text-white shadow-md hover:scale-102 transition-transform" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.14 + i * 0.06 }}>
-                    <h4 className="font-bold text-lg">{point.title}</h4>
-                    <p className="text-sm mt-1 text-white/90">{point.desc || 'Learn more about this focus area.'}</p>
+                    <h4 className="font-bold text-sm">{point.title}</h4>
+                    {/* <p className="text-sm mt-1 text-white/90">{point.desc || 'Learn more about this focus area.'}</p> */}
                   </motion.div>
                 ))}
               </div>

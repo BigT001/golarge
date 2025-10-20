@@ -42,9 +42,9 @@ export default function Header() {
   }, []);
 
   const topText = "text-white";
-  return (
+    return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 p-3 sm:p-4 transition-transform duration-300 backdrop-blur ${
+      className={`fixed inset-x-0 top-0 z-50 p-3 sm:p-4 transition-transform duration-300 backdrop-blur overflow-x-hidden ${
         scrolled ? "bg-black/70 border-b border-black/30 shadow-sm" : "bg-black/30 border-b border-black/10"
       } ${topText} ${visible ? 'translate-y-0' : '-translate-y-full'}`}
       style={{ willChange: 'transform' }}
@@ -52,14 +52,14 @@ export default function Header() {
   <div className="mx-auto px-3 sm:px-4">
     <div className="flex items-center justify-between h-16">
           <Link href="/" className="">
-            <div className="w-60 h-60 flex overflow-hidden">
+            <div className="w-20 h-20 sm:w-36 sm:h-36 flex overflow-hidden">
               <Image
                 src="/logofolder/golargelogo.png"
                 alt="Go Large Logo"
-                width={200}
-                height={200}
+                width={160}
+                height={160}
                 priority={true}
-                unoptimized  
+                unoptimized
               />
             </div>
           </Link>
@@ -127,7 +127,7 @@ export default function Header() {
           <div
             id="mobile-menu"
             ref={menuRef}
-            className={`absolute left-1/2 top-full z-50 md:hidden transform -translate-x-1/2 mt-2 w-[min(92%,720px)] ${scrolled ? 'bg-black/95' : 'bg-black/90'} transition-transform duration-200 rounded-xl shadow-lg`}
+            className={`absolute left-4 right-4 top-full z-50 md:hidden mt-2 w-[min(92%,720px)] ${scrolled ? 'bg-black/95' : 'bg-black/90'} transition-transform duration-200 rounded-xl shadow-lg`}
             role="menu"
             aria-hidden={!mobileOpen}
             style={{ display: mobileOpen ? 'block' : 'none' }}
