@@ -32,16 +32,24 @@ export default function VisionSignupForm(){
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-6 backdrop-blur-sm rounded-xl p-6 relative overflow-hidden">
+      {/* Decorative background elements */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-purple-600/20 opacity-50"></div>
+      <div className="absolute inset-x-0 -top-40 -bottom-40 [background:radial-gradient(circle_500px_at_50%_50%,rgba(255,255,255,0.15),transparent)] animate-pulse"></div>
+      
+      <div className="relative space-y-4">
         <div className="relative group">
-          <label className="block text-sm font-medium text-white/90 mb-1">Full Name</label>
-          <div className="relative">
+          <label className="block text-sm font-medium text-white/90 mb-1 group-hover:text-white transition-colors">
+            Full Name
+          </label>
+          <div className="relative overflow-hidden rounded-lg">
             <input 
               required 
               value={name} 
               onChange={e=>setName(e.target.value)} 
-              className="w-full rounded-lg bg-white/10 border border-white/10 px-4 py-3 text-white placeholder-white/50 focus:border-white/20 focus:ring-2 focus:ring-white/10 transition-all duration-200 outline-none"
+              className="w-full bg-white/10 border border-white/20 px-4 py-3 text-white placeholder-white/50 
+                focus:border-white/30 focus:ring-2 focus:ring-white/20 transition-all duration-300 outline-none
+                backdrop-blur-lg group-hover:bg-white/[0.15]"
               placeholder="Enter your full name" 
             />
             <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-white/[0.05] to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
@@ -99,14 +107,34 @@ export default function VisionSignupForm(){
       </div>
 
       {status==='success' && (
-        <div className="rounded-lg bg-emerald-500/10 border border-emerald-500/20 p-4">
-          <p className="text-sm text-emerald-400 font-medium">Thank you for your interest! We've received your application and will be in touch soon.</p>
+        <div className="rounded-lg bg-emerald-500/10 border border-emerald-500/20 p-4 animate-fade-in backdrop-blur-sm">
+          <div className="flex items-center gap-3">
+            <div className="flex-none w-8 h-8 rounded-full bg-emerald-500 text-white grid place-items-center animate-bounce">
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"/>
+              </svg>
+            </div>
+            <div>
+              <p className="text-emerald-400 font-medium">Application Received!</p>
+              <p className="text-sm text-emerald-300 mt-1">We'll be in touch soon with next steps.</p>
+            </div>
+          </div>
         </div>
       )}
       
       {status==='error' && (
-        <div className="rounded-lg bg-rose-500/10 border border-rose-500/20 p-4">
-          <p className="text-sm text-rose-400 font-medium">We couldn't process your request. Please try again or contact support if the issue persists.</p>
+        <div className="rounded-lg bg-rose-500/10 border border-rose-500/20 p-4 animate-fade-in backdrop-blur-sm">
+          <div className="flex items-center gap-3">
+            <div className="flex-none w-8 h-8 rounded-full bg-rose-500 text-white grid place-items-center animate-pulse">
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/>
+              </svg>
+            </div>
+            <div>
+              <p className="text-rose-400 font-medium">Submission Error</p>
+              <p className="text-sm text-rose-300 mt-1">Please try again or contact support if the issue persists.</p>
+            </div>
+          </div>
         </div>
       )}
     </form>

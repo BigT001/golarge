@@ -3,112 +3,127 @@
 import { ReactNode } from 'react'
 
 interface AnimatedBackgroundProps {
-  children: ReactNode
+  children?: ReactNode;
+  className?: string;
+  withPattern?: boolean;
+  intensity?: 'low' | 'medium' | 'high';
+  // optional convenience prop used across the app (e.g. <AnimatedBackground variant="bold">)
+  variant?: 'normal' | 'bold';
 }
 
-export default function AnimatedBackground({ children }: AnimatedBackgroundProps) {
+export default function AnimatedBackground({
+  children,
+  className = '',
+  withPattern = true,
+  intensity = 'medium',
+  variant = 'normal',
+}: AnimatedBackgroundProps) {
+  // intensity drives opacity/scale of decorative blobs
+  const intensityMap = {
+    low: { opacity: 0.35, scale: 0.9 },
+    medium: { opacity: 0.55, scale: 1 },
+    high: { opacity: 0.8, scale: 1.15 },
+  } as const;
+
+  // allow variant to override intensity for simpler markup elsewhere
+  const resolvedIntensity: AnimatedBackgroundProps['intensity'] = variant === 'bold' ? 'high' : intensity;
+
+  const { opacity, scale } = intensityMap[resolvedIntensity];
+
   return (
-    <>
-      {children}
-      <style jsx global>{`
-        @keyframes gradient { 
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-        
-        .animate-gradient {
-          animation: gradient 6s ease infinite;
-          background-size: 200% auto;
-        }
-        
-        .animate-gradient-delayed {
-          animation: gradient 6s ease infinite;
-          animation-delay: 2s;
-          background-size: 200% auto;
-        }
-        
-        .animation-delay-2000 {
-          animation-delay: 2s;
-        }
-        
-        .animation-delay-4000 {
-          animation-delay: 4s;
-        }
-        
-        @keyframes blob {
-          0% { transform: translate(0px, 0px) scale(1); }
-          33% { transform: translate(30px, -50px) scale(1.1); }
-          66% { transform: translate(-20px, 20px) scale(0.9); }
-          100% { transform: translate(0px, 0px) scale(1); }
-        }
-        
-        .animate-blob {
-          animation: blob 7s infinite;
-        }
-        
-        @keyframes moving-line {
-          0% { transform: translateX(0%); }
-          100% { transform: translateX(400%); }
-        }
-        
-        .animate-moving-line {
-          animation: moving-line 15s linear infinite;
-        }
-        
-        .animate-moving-line-delayed {
-          animation: moving-line 15s linear infinite;
-          animation-delay: 7.5s;
-        }
-        
-        @keyframes light-sweep {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
-        }
-        
-        .animate-light-sweep {
-          animation: light-sweep 10s linear infinite;
-        }
-        
-        .stars-small, .stars-medium, .stars-large {
-          position: fixed;
-          width: 100%;
-          height: 100%;
-        }
-        
-        .stars-small {
-          background-image: radial-gradient(1px 1px at 50% 50%, white, rgba(255,255,255,0));
-          background-size: 50px 50px;
-          animation: stars-animation-small 100s linear infinite;
-        }
-        
-        .stars-medium {
-          background-image: radial-gradient(2px 2px at 50% 50%, white, rgba(255,255,255,0));
-          background-size: 100px 100px;
-          animation: stars-animation-medium 150s linear infinite;
-        }
-        
-        .stars-large {
-          background-image: radial-gradient(3px 3px at 50% 50%, white, rgba(255,255,255,0));
-          background-size: 200px 200px;
-          animation: stars-animation-large 200s linear infinite;
-        }
-        
-        @keyframes stars-animation-small {
-          from { transform: translateY(0); }
-          to { transform: translateY(-50px); }
-        }
-        
-        @keyframes stars-animation-medium {
-          from { transform: translateY(0); }
-          to { transform: translateY(-100px); }
-        }
-        
-        @keyframes stars-animation-large {
-          from { transform: translateY(0); }
-          to { transform: translateY(-150px); }
-        }
-      `}</style>
-    </>
+    <div className={`relative overflow-hidden ${className}`} aria-hidden={true}>
+      {/* Decorative blobs */}
+      <div className="absolute inset-0 -z-10 pointer-events-none">
+        <div
+          className="absolute rounded-full filter blur-3xl mix-blend-overlay"
+          style={{
+            width: 520,
+            height: 520,
+            left: '-12%',
+            top: '-8%',
+            background: 'radial-gradient(circle at 30% 30%, #7dd3fc, #60a5fa 40%, rgba(96,165,250,0) 60%)',
+            opacity: opacity,
+            transform: `scale(${scale})`,
+            animation: 'blob 18s ease-in-out infinite',
+            animationDelay: '0s',
+          }}
+        />
+
+        <div
+          className="absolute rounded-full filter blur-3xl mix-blend-screen"
+          style={{
+            width: 420,
+            height: 420,
+            right: '-8%',
+            top: '10%',
+            background: 'radial-gradient(circle at 70% 30%, #fda4af, #fb7185 40%, rgba(251,113,133,0) 60%)',
+            opacity: opacity * 0.9,
+            transform: `scale(${scale * 0.95})`,
+            animation: 'blob 20s ease-in-out infinite',
+            animationDelay: '4s',
+          }}
+        />
+
+        <div
+          className="absolute rounded-full filter blur-2xl mix-blend-multiply"
+          style={{
+            width: 360,
+            height: 360,
+            left: '10%',
+            bottom: '-10%',
+            background: 'radial-gradient(circle at 20% 80%, #a78bfa, #7c3aed 40%, rgba(124,58,237,0) 60%)',
+            opacity: opacity * 0.8,
+            transform: `scale(${scale * 0.9})`,
+            animation: 'blob 22s ease-in-out infinite',
+            animationDelay: '2s',
+          }}
+        />
+
+        {/* subtle floating SVG accents */}
+        {withPattern && (
+          <svg
+            className="absolute left-1/2 top-1/3 -translate-x-1/2 -z-20 opacity-30"
+            width="900"
+            height="600"
+            viewBox="0 0 900 600"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <g style={{ filter: 'url(#blur)' }}>
+              <circle cx="120" cy="80" r="10" fill="#fff" opacity="0.6">
+                <animate attributeName="cy" dur="8s" values="80;120;80" repeatCount="indefinite" />
+              </circle>
+              <circle cx="780" cy="460" r="8" fill="#fff" opacity="0.5">
+                <animate attributeName="cy" dur="10s" values="460;420;460" repeatCount="indefinite" />
+              </circle>
+              <circle cx="450" cy="300" r="6" fill="#fff" opacity="0.4">
+                <animate attributeName="cx" dur="12s" values="450;480;450" repeatCount="indefinite" />
+              </circle>
+            </g>
+            <defs>
+              <filter id="blur">
+                <feGaussianBlur stdDeviation="20" />
+              </filter>
+            </defs>
+          </svg>
+        )}
+
+        {/* inline keyframes for blob movement (scoped to this component) */}
+        <style>{`
+          @keyframes blob {
+            0% { transform: translateY(0) translateX(0) scale(1) rotate(0deg); }
+            33% { transform: translateY(-18px) translateX(12px) scale(1.06) rotate(10deg); }
+            66% { transform: translateY(8px) translateX(-16px) scale(0.96) rotate(-6deg); }
+            100% { transform: translateY(0) translateX(0) scale(1) rotate(0deg); }
+          }
+        `}</style>
+      </div>
+
+      {/* Content layer: keep above decorations */}
+      <div className="relative z-10">
+        {children}
+      </div>
+    </div>
   )
 }

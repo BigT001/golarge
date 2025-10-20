@@ -9,18 +9,28 @@ import OutreachCards from "./components/OutreachCards";
 import EventsList from "./components/EventsList";
 import ContactForm from "./components/ContactForm";
 import Vision2020 from "./components/Vision2020";
+import AboutCard from "./components/AboutCard";
+import AnimatedBackground from "./components/AnimatedBackground";
 
 export default function Home() {
   return (
     <div className="">
+      <AnimatedBackground className="" variant="bold">
         <div className="lg:mt-8 mt-6">
           <HeroCarousel />
         </div>
-      
+        </AnimatedBackground>
+
+        <AnimatedBackground className="" variant="bold">
+          <div className="mx-auto  lg:px-10">
+            <AboutCard />
+          </div>
+        </AnimatedBackground>
+
         <div className="mt-12 lg:px-40">
           <VisionMission />
-        </div>
-
+        </div>        
+        
         <div className="mt-12 px-4 lg:px-20 ">
         <OutreachCards />
         </div>
