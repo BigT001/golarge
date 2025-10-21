@@ -109,29 +109,7 @@ export default function VisionSchoolPage() {
                 <h4 className="text-lg font-bold text-emerald-800">Impact</h4>
                 <p className="text-emerald-900 mt-2">Measuring success through transformation and lasting change.</p>
               </div>
-            </section>
-
-            {/* Image Gallery */}
-            <section className="grid grid-cols-12 gap-6">
-              <div className="col-span-12 md:col-span-8 rounded-2xl overflow-hidden shadow-xl">
-                <Image 
-                  src="/heroimages/image2.jpeg" 
-                  alt="Students collaborating" 
-                  width={800} 
-                  height={480} 
-                  className="object-cover w-full h-full hover:scale-110 transition-transform duration-700" 
-                />
-              </div>
-              <div className="col-span-12 md:col-span-4 rounded-2xl overflow-hidden shadow-xl">
-                <Image 
-                  src="/heroimages/image3.jpeg" 
-                  alt="Learning in action" 
-                  width={400} 
-                  height={600} 
-                  className="object-cover w-full h-full hover:scale-110 transition-transform duration-700" 
-                />
-              </div>
-            </section>
+            </section>            
           </div>
 
           <aside className="md:col-span-4">
