@@ -100,6 +100,8 @@ export default function Header() {
           <nav className="hidden md:flex gap-6 items-center text-sm">
             <Link href="/about" className={`${topText} hover:underline`}>About</Link>
             <Link href="/outreach" className={`${topText} hover:underline`}>Outreach</Link>
+            <Link href="/vision-school" className={`${topText} hover:underline`}>Vision School</Link>
+            <Link href="/vision2020" className={`${topText} hover:underline`}>Vision 2020</Link>
             <Link href="/events" className={`${topText} hover:underline`}>Events</Link>
             <Link href="/contact" className={`${topText} hover:underline`}>Contact</Link>
             <Link
@@ -179,6 +181,12 @@ export default function Header() {
                     </div>
                     <div className="px-6 py-4 text-center text-base sm:text-lg">
                       <Link href="/outreach" className="block" onClick={() => { setMobileOpen(false); toggleButtonRef.current?.focus(); }}>Outreach</Link>
+                    </div>
+                    <div className="px-6 py-4 text-center text-base sm:text-lg">
+                      <Link href="/vision-school" className="block" onClick={() => { setMobileOpen(false); toggleButtonRef.current?.focus(); }}>Vision School</Link>
+                    </div>
+                    <div className="px-6 py-4 text-center text-base sm:text-lg">
+                      <Link href="/vision2020" className="block" onClick={() => { setMobileOpen(false); toggleButtonRef.current?.focus(); }}>Vision 2020</Link>
                     </div>
                     <div className="px-6 py-4 text-center text-base sm:text-lg">
                       <Link href="/events" className="block" onClick={() => { setMobileOpen(false); toggleButtonRef.current?.focus(); }}>Events</Link>

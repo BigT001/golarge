@@ -27,18 +27,44 @@ export async function POST(req: Request){
   try{
     const body = await req.json()
 
-    const { name, email, phone, notes, createdAt } = body || {}
+    const { 
+      name, 
+      email, 
+      phone, 
+      message, 
+      spouse,
+      familySize,
+      childrenAges,
+      city,
+      subject,
+      formType,
+      createdAt 
+    } = body || {}
 
-    // Basic validation: require name and email and createdAt
+    // Basic validation: require name and email
     if(!name || !email){
       return NextResponse.json({ ok: false, error: 'name and email are required' }, { status: 400 })
     }
     if(!isEmail(email)){
       return NextResponse.json({ ok: false, error: 'invalid email' }, { status: 400 })
     }
+    if(!message){
+      return NextResponse.json({ ok: false, error: 'prayer request is required' }, { status: 400 })
+    }
 
-    // Prepare row: createdAt, name, email, phone, notes
-    const row = [ createdAt || new Date().toISOString(), name, email, phone || '', notes || '' ]
+    // Prepare row with all fields for Vision School form
+    const row = [
+      createdAt || new Date().toISOString(),
+      name,
+      email,
+      phone || '',
+      spouse || '',
+      familySize || '',
+      childrenAges || '',
+      city || '',
+      message || '',
+      subject || 'Vision School Registration'
+    ]
 
     // Attempt to append to Google Sheets if env is configured
     const SPREADSHEET_ID = process.env.GOOGLE_SHEET_ID
@@ -71,7 +97,7 @@ export async function POST(req: Request){
         })
 
         // Also keep a local copy
-        writeLocal({ name, email, phone, notes, createdAt: row[0], _stored: 'gsheets' })
+        writeLocal({ ...body, createdAt: row[0], _stored: 'gsheets' })
 
         return NextResponse.json({ ok: true, stored: 'gsheets' })
       }catch(err){
@@ -81,7 +107,7 @@ export async function POST(req: Request){
     }
 
     // fallback: write locally
-    writeLocal({ name, email, phone, notes, createdAt: row[0], _stored: 'local' })
+    writeLocal({ ...body, createdAt: row[0], _stored: 'local' })
     return NextResponse.json({ ok: true, stored: 'local' })
   }catch(err){
     console.error(err)

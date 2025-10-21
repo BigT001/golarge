@@ -1,10 +1,21 @@
-"use client"
+"use client";
 
-import { useState } from 'react'
+import { useState } from "react";
 
-export default function Vision2020Form(){
-  const [form, setForm] = useState({ name: '', email: '', phone: '', spouse: '', familySize: '', childrenAges: '', city: '', prayer: '' })
-  const [status, setStatus] = useState<'idle'|'sending'|'success'|'error'>('idle')
+const DRAFT_KEY = "vision-school:draft:v1";
+
+export default function Vision2020Form() {
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    spouse: "",
+    familySize: "",
+    childrenAges: "",
+    city: "",
+    prayer: ""
+  });
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>){
     setForm({ ...form, [e.target.name]: e.target.value })
@@ -33,7 +44,9 @@ export default function Vision2020Form(){
         familySize: form.familySize,
         childrenAges: form.childrenAges,
         city: form.city,
-        notes: form.prayer,
+        message: form.prayer, // Changed to match spreadsheet column
+        subject: "Vision School Registration", // Added for sheet integration
+        formType: "vision-school", // Added to identify form type
         createdAt: new Date().toISOString()
       }
 
@@ -58,10 +71,10 @@ export default function Vision2020Form(){
 
   return (
     <div className="bg-white p-6 rounded-2xl shadow-xl border border-slate-100">
-      <h3 className="text-xl font-semibold mb-3">Submit a Prayer Request</h3>
+      <h3 className="text-xl font-semibold mb-3">Vision School Registration</h3>
 
       {status === 'success' ? (
-        <div className="p-4 bg-emerald-50 border border-emerald-100 text-emerald-800 rounded">Thank you — your prayer request has been received.</div>
+        <div className="p-4 bg-emerald-50 border border-emerald-100 text-emerald-800 rounded">Thank you — your Vision School registration has been submitted successfully.</div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -107,8 +120,24 @@ export default function Vision2020Form(){
           </div>
 
           <div className="flex items-center gap-3">
-            <button type="submit" className="px-4 py-2 bg-gradient-to-r from-blue-600 to-[#dc2626] text-white rounded-md shadow hover:opacity-95 transition">Send Prayer</button>
-            <button type="button" onClick={() => { setForm({ name: '', email: '', phone: '', spouse: '', familySize: '', childrenAges: '', city: '', prayer: '' }); setStatus('idle') }} className="px-4 py-2 border rounded-md text-sm">Reset</button>
+            <button 
+              type="submit" 
+              disabled={status === 'sending'} 
+              className={`px-4 py-2 bg-gradient-to-r from-blue-600 to-[#dc2626] text-white rounded-md shadow hover:opacity-95 transition ${status === 'sending' ? 'opacity-50 cursor-not-allowed' : ''}`}
+            >
+              {status === 'sending' ? 'Submitting...' : 'Submit Registration'}
+            </button>
+            <button 
+              type="button" 
+              disabled={status === 'sending'}
+              onClick={() => { 
+                setForm({ name: '', email: '', phone: '', spouse: '', familySize: '', childrenAges: '', city: '', prayer: '' }); 
+                setStatus('idle') 
+              }} 
+              className={`px-4 py-2 border rounded-md text-sm ${status === 'sending' ? 'opacity-50 cursor-not-allowed' : ''}`}
+            >
+              Reset
+            </button>
           </div>
         </form>
       )}

@@ -1,16 +1,12 @@
-"use client";
-
-import Image from "next/image";
-import Link from "next/link";
-import HeroCarousel from "./components/HeroCarousel";
-import VisionMission from "./components/VisionMission";
-import VisionSchoolCard from "./components/VisionSchoolCard";
-import OutreachCards from "./components/OutreachCards";
-import EventsList from "./components/EventsList";
-import ContactForm from "./components/ContactForm";
-import Vision2020 from "./components/Vision2020";
-import AboutCard from "./components/AboutCard";
-import AnimatedBackground from "./components/AnimatedBackground";
+"use client"
+import HeroCarousel from "./components/HeroCarousel"
+import VisionMission from "./components/VisionMission"
+import VisionSchoolCard from "./components/VisionSchoolCard"
+import OutreachCards from "./components/OutreachCards"
+import ContactForm from "./components/ContactForm"
+import Vision2020 from "./components/Vision2020"
+import AboutCard from "./components/AboutCard"
+import AnimatedBackground from "./components/AnimatedBackground"
 
 export default function Home() {
   return (
@@ -19,44 +15,33 @@ export default function Home() {
         <div className="lg:mt-8 mt-6">
           <HeroCarousel />
         </div>
-        </AnimatedBackground>
+      </AnimatedBackground>
 
-        <AnimatedBackground className="" variant="bold">
-          <div className="mx-auto lg:py-10 lg:px-10">
-            <AboutCard />
-          </div>
-        </AnimatedBackground>
+      <AnimatedBackground className="" variant="subtle">
+        <div className="mx-auto lg:py-10 lg:px-10">
+          <AboutCard />
+        </div>
+      </AnimatedBackground>
 
-        <div className="lg:px-10 lg:py-10">
-          <VisionMission />
-        </div>        
-        
-        <div className="px-4 lg:px-20 ">
+      <AnimatedBackground className="lg:px-10 lg:py-10" variant="accent">
+        <VisionMission />
+      </AnimatedBackground>
+
+      <AnimatedBackground className="px-4 lg:px-20" variant="bold">
         <OutreachCards />
-        </div>
+      </AnimatedBackground>
 
-         <div className="mt-12 lg:px-10">
-          <VisionSchoolCard />
-        </div>
+      <AnimatedBackground className="mt-12 lg:px-10" variant="subtle">
+        <VisionSchoolCard />
+      </AnimatedBackground>
 
-         <div className="mt-12 lg:px-10">
-          <Vision2020 />
-        </div>
+      <AnimatedBackground className="mt-12 lg:px-10" variant="accent">
+        <Vision2020 />
+      </AnimatedBackground>
 
-
-        <div className="mt-12">
-          <EventsList />
-        </div>
-
-        <div className="mt-12">
-          <ContactForm />
-        </div>
-    
-
-      {/* full-bleed Outreach section (placed outside the centered container) */}
-      
-   
+      <AnimatedBackground className="mt-12" variant="bold">
+        <ContactForm />
+      </AnimatedBackground>
     </div>
-  );
+  )
 }
-    
