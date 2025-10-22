@@ -1,79 +1,142 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { motion } from "framer-motion";
+import Link from "next/link";
 import { outreach } from "../components/OutreachCards";
 import { OutreachCard } from "../components/OutreachCards";
-import Link from "next/link";
-
-// metadata moved to server-only `head.tsx` to avoid exporting from a client component
 
 export default function OutreachPage() {
-  const [query, setQuery] = useState("");
-  const [filter, setFilter] = useState("all");
   const spotlight = outreach[0];
 
-  const regions = useMemo(() => {
-    return outreach.filter((o) => (filter === 'all' ? true : o.id === filter));
-  }, [filter]);
-
-  const results = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    if (!q) return regions;
-    return regions.filter((r) => r.title.toLowerCase().includes(q) || r.desc.toLowerCase().includes(q) || r.id.toLowerCase().includes(q));
-  }, [query, regions]);
-
   return (
-    <main>
-      <section className="bg-gradient-to-b from-amber-50 to-white py-20">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-4">Go Large Outreach</h1>
-          <p className="text-lg text-gray-700">We partner with local leaders across multiple countries to run community programs, training, and events. Find your nearest chapter below and learn how to get involved.</p>
-        </div>
+    <main className="relative overflow-hidden">
+      {/* === Animated Background === */}
+      <div className="absolute inset-0 -z-10">
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-b from-amber-100 via-white to-amber-50"
+          animate={{
+            backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        {/* Soft floating orbs */}
+        <motion.div
+          className="absolute top-[10%] left-[5%] w-[400px] h-[400px] bg-amber-300/30 blur-[120px] rounded-full"
+          animate={{ y: [0, 20, -20, 0], opacity: [0.4, 0.6, 0.4] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute bottom-[10%] right-[10%] w-[450px] h-[450px] bg-amber-400/25 blur-[100px] rounded-full"
+          animate={{ y: [0, -30, 30, 0], opacity: [0.4, 0.7, 0.4] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        />
+      </div>
+
+      {/* === Hero Section === */}
+      <section className="relative py-24 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          className="max-w-4xl mx-auto px-6"
+        >
+          <h1 className="text-5xl md:text-6xl font-extrabold mb-6 bg-gradient-to-r from-amber-600 via-amber-800 to-amber-700 bg-clip-text text-transparent">
+            Go Large Outreach
+          </h1>
+          <p className="text-lg md:text-xl text-gray-700 leading-relaxed">
+            Empowering local leaders and communities across nations to ignite
+            Kingdom transformation. Explore our chapters and see how we’re
+            impacting lives globally.
+          </p>
+        </motion.div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-6 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2">
-            <div className="mb-6 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
-              <div className="flex gap-3">
-                <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search regions, programs, keywords..." className="px-4 py-3 rounded-lg border w-full sm:w-80" />
-                <select value={filter} onChange={(e) => setFilter(e.target.value)} className="px-4 py-3 rounded-lg border">
-                  <option value="all">All regions</option>
-                  {outreach.map((o) => (
-                    <option key={o.id} value={o.id}>{o.title}</option>
-                  ))}
-                </select>
-              </div>
-              <div className="text-sm text-gray-600">Showing <strong>{results.length}</strong> of {outreach.length}</div>
-            </div>
+      {/* === Outreach Cards Section === */}
+      <section className="max-w-[95rem] mx-auto px-4 sm:px-6 lg:px-10 pb-24">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10"
+        >
+          {outreach.map((o, i) => (
+            <motion.div
+              key={o.id}
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{
+                duration: 0.6,
+                delay: i * 0.05,
+                ease: "easeOut",
+              }}
+              whileHover={{ scale: 1.02, y: -5 }}
+              className="transition-transform"
+            >
+              <OutreachCard o={o} i={i} />
+            </motion.div>
+          ))}
+        </motion.div>
+      </section>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-              {results.map((o, i) => (
-                <OutreachCard key={o.id} o={o} i={i} />
+      {/* === Sidebar (Moved to Bottom for Mobile) === */}
+      <section className="max-w-6xl mx-auto px-6 pb-24">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="grid md:grid-cols-2 gap-8"
+        >
+          {/* Spotlight Card */}
+          <motion.div
+            whileHover={{ scale: 1.02 }}
+            className="rounded-3xl overflow-hidden shadow-lg p-8 bg-white/80 backdrop-blur-md border border-amber-100 transition-all duration-500"
+          >
+            <h3 className="font-bold text-2xl mb-3 bg-gradient-to-r from-amber-700 to-amber-500 bg-clip-text text-transparent">
+              Spotlight
+            </h3>
+            <p className="text-gray-700">
+              Featured Chapter:{" "}
+              <strong className="text-amber-700">{spotlight.title}</strong>
+            </p>
+            <p className="mt-3 text-gray-600 leading-relaxed">
+              {spotlight.desc.slice(0, 180)}...
+            </p>
+            <Link
+              href={spotlight.href}
+              className="inline-block mt-4 text-amber-700 font-semibold hover:underline"
+            >
+              Learn more →
+            </Link>
+          </motion.div>
+
+          {/* Quick Links */}
+          <motion.div
+            whileHover={{ scale: 1.02 }}
+            className="rounded-3xl overflow-hidden shadow-lg p-8 bg-white/80 backdrop-blur-md border border-amber-100 transition-all duration-500"
+          >
+            <h4 className="font-bold text-2xl mb-4 bg-gradient-to-r from-amber-700 to-amber-500 bg-clip-text text-transparent">
+              Quick Links
+            </h4>
+            <div className="flex flex-col gap-2">
+              {outreach.map((o) => (
+                <Link
+                  key={o.id}
+                  href={o.href}
+                  className="text-base text-gray-700 hover:text-amber-600 transition-colors"
+                >
+                  {o.title}
+                </Link>
               ))}
             </div>
-          </div>
-
-          <aside className="hidden lg:block">
-            <div className="sticky top-24 space-y-6">
-              <div className="rounded-xl overflow-hidden shadow-md p-4 bg-white">
-                <h3 className="font-semibold text-lg mb-2">Spotlight</h3>
-                <p className="text-sm text-gray-700">Featured chapter: <strong>{spotlight.title}</strong></p>
-                <p className="mt-2 text-sm text-gray-600">{spotlight.desc.slice(0, 120)}...</p>
-                <Link href={spotlight.href} className="inline-block mt-3 text-amber-600 underline">Learn more</Link>
-              </div>
-
-              <div className="rounded-xl overflow-hidden shadow-md p-4 bg-white">
-                <h4 className="font-medium mb-2">Quick links</h4>
-                <div className="flex flex-col gap-2">
-                  {outreach.map((o) => (
-                    <Link key={o.id} href={o.href} className="text-sm text-gray-700 hover:text-amber-600">{o.title}</Link>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </aside>
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
     </main>
   );

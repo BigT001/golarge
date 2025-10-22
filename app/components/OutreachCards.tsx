@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 export const outreach = [
   {
@@ -64,45 +67,71 @@ export function OutreachCard({ o, i }: { o: any; i: number }) {
   const textColor = i % 2 === 0 ? "text-white" : "text-gray-800";
 
   return (
-    <article role="article" aria-labelledby={`outreach-${o.id}-title`} className="group relative">
+    <motion.article
+      role="article"
+      aria-labelledby={`outreach-${o.id}-title`}
+      className="group relative w-full max-w-[420px] sm:max-w-[480px] md:max-w-[500px]"
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      viewport={{ once: true }}
+    >
       <Link
         href={o.href}
-        className={`block rounded-2xl overflow-hidden shadow-xl transform transition-all duration-300 hover:scale-105 hover:-translate-y-2 focus:outline-none focus-visible:ring-4 focus-visible:ring-offset-2 focus-visible:ring-red-300 ${cardBg}`}
+        className={`block rounded-3xl overflow-hidden shadow-2xl transform transition-all duration-300 hover:scale-[1.04] hover:-translate-y-3 focus:outline-none focus-visible:ring-4 focus-visible:ring-offset-2 focus-visible:ring-red-300 ${cardBg}`}
         aria-label={`Visit ${o.title} outreach page`}
       >
-        <div className="relative w-full h-56 md:h-52 lg:h-56">
+        {/* Image Section */}
+        <div className="relative w-full h-64 md:h-72 lg:h-64">
           <Image
             src={o.image}
             alt={o.title}
             fill
-            style={{ objectFit: "cover", objectPosition: o.imagePosition || "top center" }}
-            className="group-hover:scale-110 transition-transform duration-500"
+            style={{ objectFit: "cover", objectPosition: "center top" }}
+            className="group-hover:scale-110 transition-transform duration-700 ease-out"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+
           <div
             className={`absolute top-4 left-4 rounded-full px-3 py-1 text-xs font-semibold ${
-              i % 2 === 0 ? "text-white bg-white/10 border-white/20" : "text-gray-800 bg-gray-100 border-gray-200"
-            } backdrop-blur-sm border transform rotate-6`}
+              i % 2 === 0
+                ? "text-white bg-white/10 border-white/20"
+                : "text-gray-800 bg-gray-100 border-gray-200"
+            } backdrop-blur-sm border rotate-6`}
           >
             {o.id.toUpperCase()}
           </div>
+
           <div className="absolute left-4 bottom-4">
             <span
               id={`outreach-${o.id}-title`}
-              className={`text-base md:text-lg font-semibold drop-shadow ${textColor}`}
+              className={`text-lg md:text-xl font-semibold drop-shadow ${textColor}`}
             >
               {o.title}
             </span>
           </div>
         </div>
 
-        <div className={`p-4 sm:p-6 ${i % 2 === 0 ? "bg-transparent" : "bg-white"}`}>
-          <h3 className={`text-base md:text-2xl font-semibold mb-2 ${textColor}`}>{o.title}</h3>
-          <p className={`text-sm md:text-base mb-4 ${i % 2 === 0 ? "text-white/90" : "text-gray-700"}`}>
+        {/* Text Section */}
+        <div className={`p-6 ${i % 2 === 0 ? "bg-transparent" : "bg-white"}`}>
+          <h3
+            className={`text-xl md:text-2xl font-semibold mb-3 ${textColor}`}
+          >
+            {o.title}
+          </h3>
+          <p
+            className={`text-sm md:text-base mb-5 leading-relaxed ${
+              i % 2 === 0 ? "text-white/90" : "text-gray-700"
+            }`}
+          >
             {o.desc}
           </p>
           <div className="flex items-center justify-between">
-            <span className={`text-sm font-medium ${i % 2 === 0 ? "text-white/90" : "text-gray-700"}`}>
+            <span
+              className={`text-sm font-medium ${
+                i % 2 === 0 ? "text-white/90" : "text-gray-700"
+              }`}
+            >
               Learn more
             </span>
             <span
@@ -110,32 +139,70 @@ export function OutreachCard({ o, i }: { o: any; i: number }) {
                 i % 2 === 0 ? "text-white" : "text-red-500"
               }`}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 12h14M12 5l7 7-7 7" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-4 h-4"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M5 12h14M12 5l7 7-7 7"
+                />
               </svg>
-              <span className="sr-only">Explore</span>
             </span>
           </div>
         </div>
       </Link>
-    </article>
+    </motion.article>
   );
 }
 
 export default function OutreachCards() {
   return (
-    <section className="w-full relative py-10 bg-transparent">
-      <div className="relative z-10">
-        <h2 className="text-3xl md:text-4xl font-extrabold mb-8 text-center text-gray-900">
-          Go Large Outreach
-        </h2>
+    <section className="w-full relative py-20 bg-transparent overflow-hidden">
+      {/* Animated Glow Behind Title */}
+      <motion.div
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-gradient-to-r from-blue-500/20 via-red-500/20 to-black/20 rounded-full blur-3xl"
+        animate={{
+          scale: [1, 1.2, 1],
+          opacity: [0.4, 0.6, 0.4],
+          x: ["-10%", "10%", "-10%"],
+        }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+      />
 
-        <div className="w-full lg:px-0">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-            {outreach.map((o, i) => (
-              <OutreachCard key={o.id} o={o} i={i} />
-            ))}
-          </div>
+      <div className="relative z-10 max-w-[95%] md:max-w-[90%] mx-auto">
+        {/* Header */}
+        <div className="text-center mb-14">
+          <motion.h2
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            viewport={{ once: true }}
+            className="text-5xl md:text-6xl font-extrabold mb-5 bg-gradient-to-r from-red-500 via-blue-500 to-red-500 bg-clip-text text-transparent animate-gradient-x drop-shadow-lg"
+          >
+            Go Large Outreach
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
+            className="text-lg text-gray-500 max-w-3xl mx-auto font-medium"
+          >
+            Expanding Kingdom impact across the globe — empowering communities,
+            transforming lives, and building lasting change.
+          </motion.p>
+        </div>
+
+        {/* Cards Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+          {outreach.map((o, i) => (
+            <OutreachCard key={o.id} o={o} i={i} />
+          ))}
         </div>
       </div>
     </section>

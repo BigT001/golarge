@@ -28,31 +28,36 @@ export default function VisionSchoolCard() {
     <section className="relative py-16 px-4 overflow-hidden bg-white">
       <div className="relative max-w-7xl mx-auto">
         {/* Header */}
-        <header className="text-center mb-12">
-          <h3 className="text-lg md:text-xl font-bold text-slate-800 uppercase tracking-wide">
+        <header className="text-center mb-16">
+          <motion.h3
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-5xl md:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-[#002a5c] via-[#1e3a8a] to-[#e11d48] bg-clip-text text-transparent drop-shadow-sm"
+          >
             Vision School
-          </h3>
+          </motion.h3>
 
           <motion.h2
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="mt-4 text-4xl md:text-5xl font-extrabold leading-tight text-slate-900"
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="mt-6 text-3xl md:text-4xl font-bold leading-snug text-slate-900"
           >
-            <span className="block bg-gradient-to-r from-[#002a5c] via-[#1e3a8a] to-[#e11d48] bg-clip-text text-transparent">
-              Transform Your Vision into Impact
-            </span>
+            Transform Your Vision into <br />{" "}
+            <span className="text-[#e11d48]">Lasting Impact</span>
           </motion.h2>
 
           <motion.p
             initial={{ opacity: 0, y: 6 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.15 }}
-            className="mt-4 text-lg text-slate-600 max-w-3xl mx-auto"
+            transition={{ duration: 0.6, delay: 0.25 }}
+            className="mt-5 text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed"
           >
             A practical, spiritually grounded program that equips leaders to
-            think strategically and act faithfully.
+            think strategically, lead faithfully, and execute their God-given
+            vision with excellence.
           </motion.p>
         </header>
 
@@ -121,46 +126,64 @@ export default function VisionSchoolCard() {
                     src="/schoolimg.jpeg"
                     alt="Vision School"
                     fill
-                    className="object-cover"
+                    className="object-cover object-top"
                   />
-                  <div className="absolute inset-0 bg-black/30" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                 </div>
-                <div className="p-6">
-                  <h4 className="text-2xl font-bold text-slate-900">
-                    Start Your Journey
-                  </h4>
-                  <p className="mt-2 text-slate-600">
-                    Discover practical training, mentorship, and a global
-                    network that helps you turn vision into sustainable impact.
-                  </p>
 
-                  <div className="mt-6 flex flex-col sm:flex-row gap-3">
-                    <Link href="/vision-school" className="inline-block">
+                <div className="p-7">
+                  {/* Vision & Mission Section */}
+                  <motion.h4
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
+                    className="text-2xl font-extrabold bg-gradient-to-r from-[#002a5c] via-[#1e3a8a] to-[#e11d48] bg-clip-text text-transparent"
+                  >
+                    Vision & Mission
+                  </motion.h4>
+
+                  <motion.p
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.1 }}
+                    className="mt-3 text-base text-slate-700 leading-relaxed"
+                  >
+                    Empowering <span className="font-semibold text-[#002a5c]">Kingdom leaders</span> 
+                    to see prophetically, lead purposefully, and transform generations. 
+                    We’re building a movement of visionaries who merge <span className="text-[#e11d48] font-semibold">faith, strategy,</span> 
+                    and <span className="text-[#1e3a8a] font-semibold">innovation</span> to advance lasting change.
+                  </motion.p>
+
+                  <div className="mt-6">
+                    <Link href="/vision-school" className="group inline-flex items-center gap-2">
                       <motion.span
-                        whileHover={{ scale: 1.03 }}
-                        whileTap={{ scale: 0.98 }}
-                        transition={{ duration: 0.18 }}
-                        className="inline-block px-5 py-3 rounded-lg border border-slate-300 text-sm font-medium text-slate-800 bg-white hover:shadow transition"
+                        whileHover={{ x: 4 }}
+                        transition={{ duration: 0.25 }}
+                        className="text-lg font-semibold bg-gradient-to-r from-[#002a5c] via-[#1e3a8a] to-[#e11d48] bg-clip-text text-transparent group-hover:underline decoration-2 decoration-[#e11d48]"
                       >
-                        Learn more
+                        Learn More
                       </motion.span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-5 h-5 text-[#e11d48] group-hover:translate-x-1 transition-transform"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 12h14M12 5l7 7-7 7"
+                        />
+                      </svg>
                     </Link>
-
-                    <motion.button
-                      onClick={() => router.push("/vision-school#apply")}
-                      whileHover={{ scale: 1.04 }}
-                      whileTap={{ scale: 0.98 }}
-                      transition={{ duration: 0.16 }}
-                      className="inline-block px-5 py-3 rounded-lg text-sm font-semibold bg-gradient-to-r from-[#002a5c] to-[#e11d48] text-white shadow-md"
-                    >
-                      Get started
-                    </motion.button>
                   </div>
 
-                  <div className="mt-4 text-sm text-slate-600">
-                    Open enrollment — everyone passionate about Kingdom impact
-                    is welcome. Join the community and start building.
-                  </div>
+                  <p className="mt-4 text-sm text-slate-600 italic">
+                    Open enrollment — join a vibrant global community of leaders
+                    passionate about Kingdom impact.
+                  </p>
                 </div>
               </div>
             </motion.div>
@@ -186,41 +209,18 @@ const PILLARS = [
   {
     title: "Clarity",
     icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        className="w-6 h-6"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          d="M21 12.79A9 9 0 1111.21 3"
-        />
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12.79A9 9 0 1111.21 3" />
       </svg>
     ),
-    description:
-      "Precise frameworks that translate revelation into a clear, actionable plan.",
+    description: "Precise frameworks that translate revelation into a clear, actionable plan.",
     outcomes: "Clear vision statements • Prioritized objectives",
   },
   {
     title: "Integrity",
     icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        className="w-6 h-6"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          d="M12 11c0-1.657-1.343-3-3-3S6 9.343 6 11s1.343 3 3 3 3-1.343 3-3zM21 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2"
-        />
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 11c0-1.657-1.343-3-3-3S6 9.343 6 11s1.343 3 3 3 3-1.343 3-3zM21 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2" />
       </svg>
     ),
     description: "Character-anchored leadership and sustainable practices.",
@@ -229,41 +229,18 @@ const PILLARS = [
   {
     title: "Faith",
     icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        className="w-6 h-6"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          d="M12 8v4l3 3"
-        />
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3" />
       </svg>
     ),
-    description:
-      "Courageous, disciplined steps that steward revelation into practice.",
+    description: "Courageous, disciplined steps that steward revelation into practice.",
     outcomes: "Pilot initiatives • Spiritual rhythms in strategy",
   },
   {
     title: "Innovation",
     icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        className="w-6 h-6"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          d="M13 10V3L4 14h7v7l9-11h-7z"
-        />
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
       </svg>
     ),
     description: "Rapid prototyping, community testing, and refinement.",
@@ -272,23 +249,11 @@ const PILLARS = [
   {
     title: "Impact",
     icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        className="w-6 h-6"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2-1.343-2-3-2zM21 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2"
-        />
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2-1.343-2-3-2zM21 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2" />
       </svg>
     ),
-    description:
-      "Measurable transformation that improves lives and communities.",
+    description: "Measurable transformation that improves lives and communities.",
     outcomes: "Roadmap-driven projects • Tracking dashboards",
   },
 ];

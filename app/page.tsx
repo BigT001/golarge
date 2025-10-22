@@ -16,7 +16,7 @@ export default function Home() {
           <HeroCarousel />
         </div>
       
-        <div className="mx-auto lg:py-10 lg:px-10">
+        <div className="mx-auto lg:py-10 lg:px-10 lg:mt-20">
           <AboutCard />
         </div>
       
