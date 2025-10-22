@@ -51,7 +51,7 @@ export default function HeroCarousel() {
   }, [paused]);
 
   return (
-  <section className="relative w-full h-[80vh] sm:h-screen overflow-hidden" role="region" aria-label="Homepage hero slideshow">
+  <section className="relative w-full h-[80vh] sm:h-screen overflow-hidden z-0" role="region" aria-label="Homepage hero slideshow">
       {/* Slides */}
       {IMAGES.map((src, i) => (
         <div
@@ -85,7 +85,7 @@ export default function HeroCarousel() {
             className="max-w-4xl mx-auto"
           >
             <motion.h1 
-              className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white mb-3 tracking-tight leading-[1.1] whitespace-pre-line"
+              className="text-4xl sm:text-6xl md:text-7xl xl:text-8xl font-extrabold text-white mb-4 tracking-tight leading-[0.9] whitespace-pre-line"
               initial={{ opacity: 0, y: 40, rotateX: 30 }}
               animate={{ opacity: 1, y: 0, rotateX: 0 }}
               exit={{ opacity: 0, y: -40, rotateX: -30 }}
@@ -105,7 +105,7 @@ export default function HeroCarousel() {
               </motion.span>
             </motion.h1>
             <motion.h2 
-              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 mb-4 tracking-wide"
+              className="text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-bold text-red-500 mb-8 tracking-wide"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 1.2 }}
@@ -118,7 +118,7 @@ export default function HeroCarousel() {
               {HERO_CONTENT[index].subtitle}
             </motion.h2>
             <motion.p 
-              className="text-lg sm:text-xl md:text-2xl text-gray-100 max-w-3xl mx-auto font-medium tracking-wide leading-snug"
+              className="text-xl sm:text-2xl md:text-3xl text-gray-100 max-w-4xl mx-auto font-medium tracking-wide leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
               animate={{ 
                 opacity: 1, 

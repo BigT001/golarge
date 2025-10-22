@@ -1,188 +1,128 @@
-
 "use client";
 
 import Image from "next/image";
+import { motion } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
 
 type AboutCardProps = {
-    title?: string;
-    subtitle?: string;
-    imageSrc?: string;
-    imageAlt?: string;
-    ctaLabel?: string;
-    ctaHref?: string;
+  title?: string;
+  subtitle?: string;
+  imageSrc?: string;
+  imageAlt?: string;
 };
 
 export default function AboutCard({
-    title = "Dipo Obisesan",
-    subtitle = "Dipo Obisesan is a prophetic voice, teacher, and leader with a passion for awakening purpose and rebuilding spiritual foundations in nations. As the visionary founder of GoLarge Global Mandate, he carries a divine assignment to raise kingdom builders who influence culture, systems, and generations.\nThrough his ministry, Dipo has inspired many to pursue transformation, divine wisdom, and spiritual maturity. His message blends revelation with practicality, calling believers to rise above survival and walk in their God-given dominion.\nHe believes that when the manna stops, it is not the end—it is the beginning of a greater harvest.",
-    imageSrc = "/galleryimages/aboutpic.jpeg",
-    imageAlt = "Portrait of Dipo Obisesan",
-    ctaLabel = "Learn more",
-    ctaHref = "/vision-school",
+  title = "Dipo Obisesan",
+  subtitle = `Dipo Obisesan is a prophetic voice, teacher, and leader with a passion for awakening purpose and rebuilding spiritual foundations in nations. As the visionary founder of GoLarge Global Mandate, he carries a divine assignment to raise kingdom builders who influence culture, systems, and generations.
+Through his ministry, Dipo has inspired many to pursue transformation, divine wisdom, and spiritual maturity. His message blends revelation with practicality, calling believers to rise above survival and walk in their God-given dominion.
+He believes that when the manna stops, it is not the end—it is the beginning of a greater harvest.`,
+  imageSrc = "/galleryimages/aboutpic.jpeg",
+  imageAlt = "Portrait of Dipo Obisesan",
 }: AboutCardProps) {
-    const rootRef = useRef<HTMLElement | null>(null);
-    const [inView, setInView] = useState(false);
+  const [inView, setInView] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-        if (!rootRef.current) return;
-        const el = rootRef.current;
-        const obs = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        setInView(true);
-                        obs.unobserve(el);
-                    }
-                });
-            },
-            { threshold: 0.12 }
-        );
-        obs.observe(el);
-        return () => obs.disconnect();
-    }, []);
-
-    // Parallax effect for image wrappers inside this component
-    useEffect(() => {
-        if (!rootRef.current) return;
-        const els = Array.from(rootRef.current.querySelectorAll<HTMLElement>(".about-parallax"));
-        if (!els.length) return;
-
-        let ticking = false;
-
-        const update = () => {
-            els.forEach((el) => {
-                const rect = el.getBoundingClientRect();
-                // compute a small translate based on element's distance from center
-                const speed = 0.12; // tweak for subtlety
-                const centerOffset = rect.top + rect.height / 2 - window.innerHeight / 2;
-                const translate = Math.max(Math.min(-centerOffset * speed, 40), -40);
-                el.style.transform = `translateY(${translate}px)`;
-            });
-            ticking = false;
-        };
-
-        const onScroll = () => {
-            if (!ticking) {
-                ticking = true;
-                requestAnimationFrame(update);
-            }
-        };
-
-        onScroll();
-        window.addEventListener('scroll', onScroll, { passive: true });
-        window.addEventListener('resize', onScroll);
-        return () => {
-            window.removeEventListener('scroll', onScroll);
-            window.removeEventListener('resize', onScroll);
-        };
-    }, []);
-
-    return (
-        <section ref={rootRef} className={`about-collection mx-auto max-w-6xl px-4 md:px-6 py-10 animate-slide ${inView ? 'in-view' : ''}`}>
-            <div className="flex flex-col md:flex-row items-stretch gap-8">
-                {/* Image column - on mobile the image becomes full width above the text */}
-                {/* Image column: expand to section edges on small screens so image reads full-width */}
-                <div className="w-full md:w-1/3 flex-shrink-0 flex items-center md:items-start">
-                    <div className="relative group w-full">
-                        {/* Mobile full-bleed: use negative margins on mobile only so edges touch viewport */}
-                        <div
-                            className="block md:hidden"
-                            style={{ position: 'relative', left: '50%', transform: 'translateX(-50%)', width: '100vw', boxSizing: 'border-box' }}
-                        >
-                            <div className="relative w-full h-screen sm:min-h-[80vh] overflow-hidden rounded-2xl bg-slate-100 about-parallax">
-                                <Image
-                                    src={imageSrc}
-                                    alt={imageAlt}
-                                    fill
-                                    className="object-cover object-top origin-top w-full h-full"
-                                    priority
-                                />
-
-                                {/* gradient fade and caption overlay */}
-                                <div className="absolute left-0 right-0 bottom-0 h-40 bg-gradient-to-t from-black/60 via-black/20 to-transparent rounded-b-2xl pointer-events-none" />
-                                <div className="absolute left-4 right-4 bottom-6 text-white text-sm md:text-base">{imageAlt}</div>
-                            </div>
-                        </div>
-
-                        {/* Desktop/tablet: in-flow rounded image with parallax class for subtle movement */}
-                        <div className="hidden md:block relative w-full">
-                            <div className="relative w-full h-72 md:h-96 lg:h-[520px] rounded-2xl overflow-hidden bg-slate-100 about-parallax">
-                                <Image
-                                    src={imageSrc}
-                                    alt={imageAlt}
-                                    fill
-                                    className="object-cover object-top origin-top w-full h-full transform transition-transform duration-500 group-hover:scale-105"
-                                    priority
-                                />
-                            </div>
-                        </div>
-
-                        {/* subtle accent - positioned relative to section (keep visible on md+) */}
-                        <div className="pointer-events-none absolute -bottom-4 left-6 right-6 h-6 bg-gradient-to-r from-blue-200/30 to-red-200/30 blur-lg rounded-lg md:block hidden" />
-                    </div>
-                </div>
-
-                {/* Content column - remove card backgrounds so text sits on page */}
-                <div className="w-full md:w-2/3 flex flex-col gap-4 mt-5">
-                    <header className="text-center">
-                        <h2 className="text-3xl md:text-4xl font-extrabold">{title}</h2>
-                        <div className="mt-2 flex items-center gap-3 justify-center">
-                            <span className="text-sm text-slate-500 dark:text-slate-400">• Founder, GoLarge Global Mandate</span>
-                        </div>
-                    </header>
-
-
-
-                    <div className="px-0 md:px-4">
-                        <div className="mx-auto max-w-3xl">
-                            {/* lead sentence */}
-                            <p className="text-sm md:text-base text-blue-600 dark:text-blue-400 font-medium">A life called to awaken purpose and rebuild spiritual foundations across nations.</p>
-
-                            {/* expanded write-up split into smaller digestible paragraphs */}
-                            <p className="mt-3 text-base md:text-lg text-slate-700 dark:text-slate-200 leading-relaxed">{subtitle}</p>
-
-                        </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 px-0 md:px-2 items-start">
-                        <div className="sm:pr-6">
-                            <h5 className="text-base font-semibold">Ministry Focus</h5>
-                            <p className="mt-2 text-base text-slate-700 dark:text-slate-300">Inspiring transformation, divine wisdom, and spiritual maturity.</p>
-                        </div>
-
-                        {/* divider: vertical on md+, horizontal on small screens */}
-                        <div className="relative">
-                            <div className="hidden md:block absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-slate-200 to-transparent dark:from-transparent dark:via-slate-700 dark:to-transparent -translate-x-3" />
-                            <div className="block md:hidden w-full h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent dark:via-slate-700 mt-4 mb-4" />
-
-                            <div className="pl-0 md:pl-6">
-                                <h5 className="text-base font-semibold">Highlights</h5>
-                                <ul className="mt-2 text-base text-slate-700 dark:text-slate-300 space-y-1">
-                                    <li>• Global ministry initiatives</li>
-                                    <li>• Teaching & mentorship</li>
-                                    <li>• Cultural influence work</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+  useEffect(() => {
+    if (!ref.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => entry.isIntersecting && setInView(true),
+      { threshold: 0.15 }
     );
-}
+    observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
 
-// local styles are minimal and scoped — small slide/fade animation used for the component entrance
-/* Note: Tailwind could be used instead, but inline style keeps it self-contained */
-const _styles = `
-.animate-slide { opacity: 0; transform: translateY(14px); transition: opacity 520ms ease, transform 520ms ease; }
-.animate-slide.in-view { opacity: 1; transform: translateY(0); }
-`;
+  return (
+    <section ref={ref} className="py-12 md:py-20">
+      {/* Mobile header */}
+      <div className="md:hidden text-center mb-6 px-4">
+        <h3 className="text-xs uppercase tracking-widest text-slate-500 mb-1">
+          About the Founder
+        </h3>
+        <h2 className="text-3xl font-extrabold bg-gradient-to-r from-blue-600 via-slate-800 to-red-600 bg-clip-text text-transparent">
+          {title}
+        </h2>
+      </div>
 
-// append style to document head when module is imported (idempotent)
-if (typeof document !== 'undefined' && !document.getElementById('aboutcard-styles')) {
-    const s = document.createElement('style');
-    s.id = 'aboutcard-styles';
-    s.innerHTML = _styles;
-    document.head.appendChild(s);
+      <div className="flex flex-col md:flex-row items-center gap-10 md:gap-14 mx-auto px-3 sm:px-5 md:px-6 max-w-[95rem]">
+        {/* Image */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="relative group w-full md:w-1/2 lg:w-[45%]"
+        >
+          {/* Mobile Image - Rounded and half-height */}
+          <div className="relative md:hidden w-full h-[50vh] overflow-hidden rounded-2xl">
+            <Image
+              src={imageSrc}
+              alt={imageAlt}
+              fill
+              className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+          </div>
+
+          {/* Desktop Image */}
+          <div className="hidden md:block relative w-full h-[600px] rounded-3xl overflow-hidden">
+            <Image
+              src={imageSrc}
+              alt={imageAlt}
+              fill
+              className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
+          </div>
+        </motion.div>
+
+        {/* Text Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.9, ease: "easeOut", delay: 0.2 }}
+          className="w-full md:w-1/2 lg:w-[55%] px-2 sm:px-4"
+        >
+          <div className="hidden md:block mb-6">
+            <h3 className="text-sm uppercase tracking-widest text-slate-500 mb-2">
+              About the Founder
+            </h3>
+            <h2 className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-blue-600 via-slate-900 to-red-600 bg-clip-text text-transparent">
+              {title}
+            </h2>
+          </div>
+
+          <p className="text-base md:text-lg text-slate-700 leading-relaxed mb-4">
+            A life called to awaken purpose and rebuild spiritual foundations
+            across nations.
+          </p>
+
+          <p className="whitespace-pre-line text-slate-800/90 leading-relaxed md:text-lg">
+            {subtitle}
+          </p>
+
+          <div className="mt-8 grid sm:grid-cols-2 gap-8">
+            <div>
+              <h4 className="font-semibold text-slate-800 mb-1">
+                Ministry Focus
+              </h4>
+              <p className="text-slate-600">
+                Inspiring transformation, divine wisdom, and spiritual maturity.
+              </p>
+            </div>
+
+            <div>
+              <h4 className="font-semibold text-slate-800 mb-1">Highlights</h4>
+              <ul className="text-slate-600 space-y-1">
+                <li>• Global ministry initiatives</li>
+                <li>• Teaching & mentorship</li>
+                <li>• Cultural influence work</li>
+              </ul>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
 }

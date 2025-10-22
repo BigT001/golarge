@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <div className="">
       
-        <div className="lg:mt-8 mt-6">
+        <div className="">
           <HeroCarousel />
         </div>
       

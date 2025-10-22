@@ -3,7 +3,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState, useRef } from "react";
-import ReactDOM from 'react-dom';
+import ReactDOM from "react-dom";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -11,35 +12,25 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const lastY = useRef(0);
   const ticking = useRef(false);
-  // navToggleRef removed; menu is now JS-controlled via toggleButtonRef and mobileOpen
   const toggleButtonRef = useRef<HTMLButtonElement | null>(null);
   const menuRef = useRef<HTMLDivElement | null>(null);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // mark client mount to avoid SSR hydration mismatch for portals
     setMounted(true);
-
     function onScroll() {
       const y = window.scrollY;
       if (!ticking.current) {
         window.requestAnimationFrame(() => {
           setScrolled(y > 24);
-          if (y > lastY.current && y > 80) {
-            // scrolling down -> hide
-            setVisible(false);
-          } else {
-            // scrolling up -> show
-            setVisible(true);
-          }
+          if (y > lastY.current && y > 80) setVisible(false);
+          else setVisible(true);
           lastY.current = y;
           ticking.current = false;
         });
         ticking.current = true;
       }
     }
-
-    // initialize
     lastY.current = window.scrollY;
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -47,179 +38,202 @@ export default function Header() {
   }, []);
 
   const topText = "text-white";
-    return (
-    <header
-      className={`fixed inset-x-0 top-0 z-[11000] p-3 sm:p-4 transition-transform duration-300 backdrop-blur overflow-x-hidden ${
-        scrolled ? "bg-black/70 border-b border-black/30 shadow-sm" : "bg-black/30 border-b border-black/10"
-      } ${topText} ${visible ? 'translate-y-0' : '-translate-y-full'}`}
-      style={{ willChange: 'transform' }}
+
+  return (
+    <motion.header
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className={`fixed inset-x-0 top-0 z-[11000] transition-all duration-300 backdrop-blur-md ${
+        scrolled
+          ? "bg-gradient-to-r from-black/70 via-blue-950/60 to-red-950/60 shadow-lg border-b border-white/10"
+          : "bg-black/40 border-b border-transparent"
+      } ${visible ? "translate-y-0" : "-translate-y-full"}`}
+      style={{ willChange: "transform" }}
     >
-  <div className="mx-auto px-3 sm:px-4">
-    <div className="flex items-center justify-between h-16">
-          <Link href="/" className="">
-            <div className="w-20 h-20 sm:w-36 sm:h-36 flex overflow-hidden">
+      <div className="mx-auto px-3 sm:px-6">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <Link href="/" className="flex items-center">
+            <div className="w-20 h-20 sm:w-28 sm:h-28 flex overflow-hidden">
               <Image
                 src="/logofolder/golargelogo.png"
                 alt="Go Large Logo"
                 width={160}
                 height={160}
-                priority={true}
+                priority
                 unoptimized
               />
             </div>
           </Link>
 
-          {/* Mobile menu toggle (JS controlled) */}
+          {/* Mobile menu button */}
           <button
             ref={toggleButtonRef}
             onClick={() => setMobileOpen((s) => !s)}
-            className="md:hidden p-3 rounded-lg text-current ml-2 z-60 bg-black/20 backdrop-blur-sm"
-            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={mobileOpen}
-            aria-controls="mobile-menu"
+            className="md:hidden p-3 rounded-lg bg-black/30 backdrop-blur-md text-white hover:bg-black/50 transition-all"
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
           >
-            {/* Animated icon: hamburger -> X */}
-            <svg width="24" height="24" viewBox="0 0 24 24" className="block" aria-hidden="true">
-              <g className="transform transition-transform duration-200 ease-in-out" style={{ transformOrigin: 'center' }}>
-                {!mobileOpen ? (
-                  <>
-                    <rect x="4" y="6" width="16" height="2" rx="1" fill="currentColor" />
-                    <rect x="4" y="11" width="16" height="2" rx="1" fill="currentColor" />
-                    <rect x="4" y="16" width="16" height="2" rx="1" fill="currentColor" />
-                  </>
-                ) : (
-                  <>
-                    <path d="M6 6 L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                    <path d="M6 18 L18 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                  </>
-                )}
-              </g>
-            </svg>
+            {!mobileOpen ? (
+              <motion.div
+                key="open"
+                initial={{ rotate: -90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: 90, opacity: 0 }}
+              >
+                <svg width="26" height="26" viewBox="0 0 24 24">
+                  <rect x="4" y="6" width="16" height="2" rx="1" fill="currentColor" />
+                  <rect x="4" y="11" width="16" height="2" rx="1" fill="currentColor" />
+                  <rect x="4" y="16" width="16" height="2" rx="1" fill="currentColor" />
+                </svg>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="close"
+                initial={{ rotate: -90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: 90, opacity: 0 }}
+              >
+                <svg width="26" height="26" viewBox="0 0 24 24">
+                  <path
+                    d="M6 6L18 18M6 18L18 6"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </motion.div>
+            )}
           </button>
 
-          <nav className="hidden md:flex gap-6 items-center text-sm">
-            <Link href="/about" className={`${topText} hover:underline`}>About</Link>
-            <Link href="/outreach" className={`${topText} hover:underline`}>Outreach</Link>
-            <Link href="/vision-school" className={`${topText} hover:underline`}>Vision School</Link>
-            <Link href="/vision2020" className={`${topText} hover:underline`}>Vision 2020</Link>
-            <Link href="/events" className={`${topText} hover:underline`}>Events</Link>
-            <Link href="/contact" className={`${topText} hover:underline`}>Contact</Link>
-            <Link
-              href="/donate"
-              className="group relative inline-flex items-center gap-3 px-6 py-2.5 rounded-full bg-navy-800 text-white shadow-lg overflow-visible transition-all duration-300 hover:bg-navy-900 hover:shadow-xl border border-white/10"
-              style={{ background: 'linear-gradient(135deg, #1a2f5f 0%, #0a1836 100%)' }}
-              aria-label="Give Online"
-            >
-              {/* Decorative red accent */}
-              <span className="absolute inset-0 rounded-full bg-gradient-to-r from-red-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" aria-hidden="true"></span>
-              {/* Icon container */}
-              <span
-                className="absolute -left-3 -top-4 w-11 h-11 rounded-full bg-gradient-to-br from-navy-700 to-navy-900 flex items-center justify-center shadow-lg overflow-visible border border-white/10 transition-transform duration-300 group-hover:scale-110"
-                aria-hidden={true}
-                style={{ background: 'linear-gradient(135deg, #233876 0%, #1a2f5f 100%)' }}
+          {/* Desktop nav */}
+          <nav className="hidden md:flex items-center gap-8 text-sm">
+            {[
+              { href: "/about", label: "About" },
+              { href: "/outreach", label: "Outreach" },
+              { href: "/vision-school", label: "Vision School" },
+              { href: "/vision2020", label: "Vision 2020" },
+              { href: "/events", label: "Events" },
+              { href: "/contact", label: "Contact" },
+            ].map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`${topText} hover:text-blue-400 transition-colors`}
               >
-                <svg className="transform transition-transform duration-300 group-hover:scale-105" width={22} height={22} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden={true}>
-                  <rect x="2.5" y="6" width="19" height="12" rx="2" stroke="white" strokeWidth="1.6" />
-                  <line x1="2.5" y1="9" x2="21.5" y2="9" stroke="white" strokeWidth="1" opacity="0.9" />
-                  <line x1="2.5" y1="15" x2="21.5" y2="15" stroke="white" strokeWidth="1" opacity="0.9" />
-                  <path d="M11.2 8.8c-.4.6.2 1.2.9 1.2s1.3-.4 1.3-1c0-.7-.6-1.1-1.3-1.1-.6 0-1.2.4-1.1.9" stroke="white" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
-                  <path d="M12 7v10" stroke="white" strokeWidth="1.2" strokeLinecap="round" />
-                </svg>
-              </span>
-              <span className="text-sm font-medium ml-7 tracking-wide">Give Online</span>
-            </Link>
-          </nav>
+                {item.label}
+              </Link>
+            ))}
 
-          {/* legacy checkbox label removed; using JS button (above) for mobile toggle */}
-          {mounted && ReactDOM.createPortal(
-            <div className={`fixed inset-0 z-[900] ${mobileOpen ? 'pointer-events-auto' : 'pointer-events-none'}`} aria-hidden={!mobileOpen}>
-              {/* Backdrop */}
-              <div
-                className={`absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300 ${mobileOpen ? 'opacity-100' : 'opacity-0'}`}
-                onClick={() => setMobileOpen(false)}
-                aria-hidden="true"
-              />
-              {/* Menu box placed under header */}
-              <div className={`absolute left-4 right-4 top-[5.25rem] mx-auto max-w-[720px] ${mobileOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'} transition-all duration-300 ease-out`}> 
-                <div
-                  id="mobile-menu"
-                  ref={menuRef}
-                  className={`md:hidden rounded-xl shadow-2xl transform origin-top border border-white/10 backdrop-blur-md ${scrolled ? 'bg-black/95' : 'bg-black/95'} ${mobileOpen ? '' : 'pointer-events-none'}`}
-                  role="menu"
-                  aria-hidden={!mobileOpen}
-                  style={{ transformOrigin: 'top center' }}
-                  onKeyDown={(e) => {
-                    // handle Escape and focus trap
-                    if (e.key === 'Escape') {
-                      setMobileOpen(false);
-                      toggleButtonRef.current?.focus();
-                    }
-                    if (e.key === 'Tab') {
-                      const container = menuRef.current;
-                      if (!container) return;
-                      const focusable = container.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])');
-                      if (focusable.length === 0) return;
-                      const first = focusable[0];
-                      const last = focusable[focusable.length - 1];
-                      if (e.shiftKey) {
-                        if (document.activeElement === first) {
-                          e.preventDefault();
-                          (last as HTMLElement).focus();
-                        }
-                      } else {
-                        if (document.activeElement === last) {
-                          e.preventDefault();
-                          (first as HTMLElement).focus();
-                        }
-                      }
-                    }
-                  }}
+            {/* Modernized “Give Online” button */}
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
+              <Link
+                href="/donate"
+                className="relative inline-flex items-center gap-3 px-7 py-3 rounded-full text-white font-medium shadow-lg overflow-hidden transition-all border border-white/20 bg-gradient-to-r from-blue-800 via-black to-red-800 hover:shadow-blue-500/30"
+              >
+                {/* Glow Pulse Effect */}
+                <span className="absolute inset-0 bg-gradient-to-r from-blue-600/30 via-transparent to-red-600/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full blur-md"></span>
+
+                {/* Animated ring */}
+                <span className="absolute inset-0 rounded-full ring-1 ring-white/20 group-hover:ring-blue-400/30 transition-all duration-300"></span>
+
+                {/* Icon */}
+                <motion.span
+                  initial={{ scale: 1 }}
+                  whileHover={{ scale: 1.15, rotate: 10 }}
+                  className="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-r from-blue-600 to-red-600"
                 >
-                  <div className={`flex flex-col divide-y divide-white/10 text-white`}>
-                    <div className="px-6 py-4 text-center text-base sm:text-lg">
-                      <Link href="/about" className="block" onClick={() => { setMobileOpen(false); toggleButtonRef.current?.focus(); }}>About</Link>
-                    </div>
-                    <div className="px-6 py-4 text-center text-base sm:text-lg">
-                      <Link href="/outreach" className="block" onClick={() => { setMobileOpen(false); toggleButtonRef.current?.focus(); }}>Outreach</Link>
-                    </div>
-                    <div className="px-6 py-4 text-center text-base sm:text-lg">
-                      <Link href="/vision-school" className="block" onClick={() => { setMobileOpen(false); toggleButtonRef.current?.focus(); }}>Vision School</Link>
-                    </div>
-                    <div className="px-6 py-4 text-center text-base sm:text-lg">
-                      <Link href="/vision2020" className="block" onClick={() => { setMobileOpen(false); toggleButtonRef.current?.focus(); }}>Vision 2020</Link>
-                    </div>
-                    <div className="px-6 py-4 text-center text-base sm:text-lg">
-                      <Link href="/events" className="block" onClick={() => { setMobileOpen(false); toggleButtonRef.current?.focus(); }}>Events</Link>
-                    </div>
-                    <div className="px-6 py-4 text-center text-base sm:text-lg">
-                      <Link href="/contact" className="block" onClick={() => { setMobileOpen(false); toggleButtonRef.current?.focus(); }}>Contact</Link>
-                    </div>
-                    <div className="px-6 py-4 text-center">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="white"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M12 5v14" />
+                    <path d="M5 12h14" />
+                  </svg>
+                </motion.span>
+
+                <span className="ml-2">Give Online</span>
+              </Link>
+            </motion.div>
+          </nav>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      {mounted &&
+        ReactDOM.createPortal(
+          <AnimatePresence>
+            {mobileOpen && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 z-[900]"
+              >
+                <div
+                  className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+                  onClick={() => setMobileOpen(false)}
+                />
+                <motion.div
+                  initial={{ y: -30, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: -20, opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="absolute left-4 right-4 top-[5.25rem] mx-auto max-w-[720px] rounded-2xl border border-white/10 bg-gradient-to-br from-black/90 via-blue-950/90 to-red-950/90 text-white shadow-2xl"
+                >
+                  <div className="flex flex-col divide-y divide-white/10 text-center">
+                    {[
+                      "About",
+                      "Outreach",
+                      "Vision School",
+                      "Vision 2020",
+                      "Events",
+                      "Contact",
+                    ].map((item) => (
                       <Link
-                        href="/mission"
-                        onClick={() => { setMobileOpen(false); toggleButtonRef.current?.focus(); }}
-                        className={`inline-block w-full text-center rounded-full px-4 py-3 text-sm sm:text-base font-semibold shadow-lg transition-all duration-300`}
-                        style={{ background: 'linear-gradient(135deg, #1a2f5f 0%, #0a1836 100%)' }}
-                        role="menuitem"
+                        key={item}
+                        href={`/${item.toLowerCase().replace(" ", "-")}`}
+                        onClick={() => setMobileOpen(false)}
+                        className="py-4 text-lg hover:text-blue-400 transition-colors"
                       >
-                        <span className="relative inline-flex items-center justify-center gap-2">
-                          <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="2.5" y="6" width="19" height="12" rx="2" stroke="currentColor" strokeWidth="1.6" />
-                            <path d="M11.2 8.8c-.4.6.2 1.2.9 1.2s1.3-.4 1.3-1c0-.7-.6-1.1-1.3-1.1-.6 0-1.2.4-1.1.9" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
-                            <path d="M12 7v10" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
-                          </svg>
-                          <span className="font-bold">Give Online</span>
-                        </span>
+                        {item}
+                      </Link>
+                    ))}
+                    <div className="py-5">
+                      <Link
+                        href="/donate"
+                        onClick={() => setMobileOpen(false)}
+                        className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-blue-700 via-black to-red-700 text-white shadow-lg hover:shadow-blue-500/20 transition-all duration-300"
+                      >
+                        <svg
+                          width="18"
+                          height="18"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="white"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M12 5v14" />
+                          <path d="M5 12h14" />
+                        </svg>
+                        <span>Give Online</span>
                       </Link>
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>,
-            document.body
-          )}
-        </div>
-      </div>
-    </header>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>,
+          document.body
+        )}
+    </motion.header>
   );
 }
