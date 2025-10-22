@@ -53,7 +53,7 @@ const VisionMission = () => {
   };
 
   return (
-    <section className="relative py-12 sm:py-16 bg-white">
+    <section className="relative py-12 sm:py-16">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-8">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900">Vision & Mission</h2>

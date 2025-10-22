@@ -11,37 +11,35 @@ import AnimatedBackground from "./components/AnimatedBackground"
 export default function Home() {
   return (
     <div className="">
-      <AnimatedBackground className="" variant="bold">
+      
         <div className="lg:mt-8 mt-6">
           <HeroCarousel />
         </div>
-      </AnimatedBackground>
-
-      <AnimatedBackground className="" variant="subtle">
+      
         <div className="mx-auto lg:py-10 lg:px-10">
           <AboutCard />
         </div>
-      </AnimatedBackground>
+      
 
-      <AnimatedBackground className="lg:px-10 lg:py-10" variant="accent">
+        <div className="mx-auto lg:py-10 lg:px-10">
         <VisionMission />
-      </AnimatedBackground>
+      </div>
 
-      <AnimatedBackground className="px-4 lg:px-20" variant="bold">
+        <div className="mx-auto lg:py-10 lg:px-10">
         <OutreachCards />
-      </AnimatedBackground>
+      </div>
 
-      <AnimatedBackground className="mt-12 lg:px-10" variant="subtle">
+        <div className="mx-auto lg:py-10 lg:px-10">
         <VisionSchoolCard />
-      </AnimatedBackground>
+      </div>
 
-      <AnimatedBackground className="mt-12 lg:px-10" variant="accent">
+        <div className="mx-auto lg:py-10 lg:px-10">
         <Vision2020 />
-      </AnimatedBackground>
+      </div>
 
-      <AnimatedBackground className="mt-12" variant="bold">
+        <div className="mx-auto lg:py-10 lg:px-10">
         <ContactForm />
-      </AnimatedBackground>
+      </div>
     </div>
   )
 }
