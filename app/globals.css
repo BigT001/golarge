@@ -115,6 +115,19 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+/* === Tailwind Custom Animation (add to globals.css) === */
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.animate-gradient {
+  background-size: 300% 300%;
+  animation: gradient 10s ease infinite;
+}
+
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -134,4 +147,20 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@keyframes gradient-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+.animate-gradient-flow {
+  background-size: 400% 400%;
+  animation: gradient-flow 18s ease infinite;
 }

@@ -112,7 +112,7 @@ export default function Header() {
               { href: "/about", label: "About" },
               { href: "/outreach", label: "Outreach" },
               { href: "/vision-school", label: "Vision School" },
-              { href: "/vision2020", label: "Vision 2020" },
+              { href: "/vision2020page", label: "Vision 2020" },
               { href: "/events", label: "Events" },
               { href: "/contact", label: "Contact" },
             ].map((item) => (

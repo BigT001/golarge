@@ -5,8 +5,71 @@ import Link from "next/link";
 
 export default function Vision2020() {
   return (
-    <section className="max-w-[90rem] mx-auto py-20 px-6 bg-transparent">
-      <div className="flex flex-col gap-12 max-w-7xl mx-auto">
+    <section className="relative max-w-[90rem] mx-auto py-20 px-6 overflow-hidden">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 z-0">
+        {/* Abstract Shapes */}
+        <motion.div
+          className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-br from-blue-500/20 to-transparent rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.2, 0.3],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div
+          className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-red-500/20 to-transparent rounded-full blur-3xl"
+          animate={{
+            scale: [1.2, 1, 1.2],
+            opacity: [0.2, 0.3, 0.2],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 4,
+          }}
+        />
+        
+        {/* Floating Particles */}
+        <div className="absolute inset-0" style={{ background: 'radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.1) 1px, transparent 1px)' }}>
+          <motion.div
+            className="w-full h-full"
+            animate={{
+              backgroundPosition: ["0px 0px", "100px 100px"],
+            }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+            style={{
+              position: 'absolute',
+              inset: 0,
+              backgroundImage: 'radial-gradient(circle at 50% 50%, rgba(220, 38, 38, 0.1) 1px, transparent 1px)',
+              backgroundSize: '50px 50px',
+            }}
+          />
+        </div>
+
+        {/* Light Beam Effect */}
+        <motion.div
+          className="absolute -inset-[100px] opacity-50"
+          initial={{ rotate: 0 }}
+          animate={{ rotate: 360 }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        >
+          <div className="absolute top-1/2 left-1/2 w-[1000px] h-2 bg-gradient-to-r from-transparent via-blue-400/30 to-transparent blur-xl transform -translate-x-1/2 -translate-y-1/2" />
+          <div className="absolute top-1/2 left-1/2 w-2 h-[1000px] bg-gradient-to-b from-transparent via-red-400/30 to-transparent blur-xl transform -translate-x-1/2 -translate-y-1/2" />
+        </motion.div>
+      </div>
+
+      {/* Content Container with Glass Effect */}
+      <div className="relative z-10 flex flex-col gap-12 max-w-7xl mx-auto backdrop-blur-sm bg-white/50 p-8 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 8 }}

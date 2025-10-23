@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import VisionSignupForm from "../components/VisionSignupForm";
+import Vision2020Form from "../components/forms/Vision2020Form";
+import VisionSignupForm from "../components/forms/VisionSignupForm";
 
 export const metadata = {
   title: "The Vision School — GoLarge",
@@ -58,7 +59,7 @@ export default function VisionSchoolPage() {
       </header>
 
       <main className="max-w-6xl mx-auto mt-16">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8">  
           <div className="md:col-span-8 space-y-8">
             {/* Vision Section */}
             <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -114,18 +115,17 @@ export default function VisionSchoolPage() {
 
           <aside className="md:col-span-4">
             <div className="sticky top-8">
-              <div className="relative p-8 rounded-3xl bg-gradient-to-br from-red-600 to-indigo-700 shadow-2xl overflow-hidden group">
-                <div className="absolute inset-0 bg-grid-white/10 opacity-20"></div>
-                <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/50 via-transparent to-indigo-600/50 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+              <div className="relative">
                 <div className="relative z-10">
-                  <div className="text-sm font-semibold text-blue-100 uppercase tracking-wider">Vision School</div>
-                  <h3 className="text-2xl font-bold text-white mt-2">Begin Your Journey</h3>
-                  <p className="text-blue-100 mt-3">Start your transformative journey with us today.</p>
-                  <div className="mt-6">
-                    <VisionSignupForm />
+                  <div className="text-sm font-semibold text-slate-700 uppercase tracking-wider">Vision School</div>
+                  <h3 className="text-2xl font-bold text-slate-900 mt-2">Begin Your Journey</h3>
+                  <p className="text-slate-700 mt-3">Start your transformative journey with us today.</p>
+                  <div id="signup" className="mt-6">
+                    <div className="text-slate-800">
+                      <VisionSignupForm />
+                    </div>
                   </div>
                 </div>
-                <div className="absolute -bottom-20 -right-20 w-48 h-48 bg-gradient-to-br from-white/10 to-transparent rounded-full blur-2xl transform rotate-45"></div>
               </div>
             </div>
           </aside>

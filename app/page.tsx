@@ -3,10 +3,11 @@ import HeroCarousel from "./components/HeroCarousel"
 import VisionMission from "./components/VisionMission"
 import VisionSchoolCard from "./components/VisionSchoolCard"
 import OutreachCards from "./components/OutreachCards"
-import ContactForm from "./components/ContactForm"
+import ContactForm from "./components/forms/ContactForm"
 import Vision2020 from "./components/Vision2020"
 import AboutCard from "./components/AboutCard"
 import AnimatedBackground from "./components/AnimatedBackground"
+import Vision2020Form from "./components/forms/Vision2020Form"
 
 export default function Home() {
   return (
@@ -40,6 +41,8 @@ export default function Home() {
         <div className="mx-auto lg:py-10 lg:px-10">
         <ContactForm />
       </div>
+
+      
     </div>
   )
 }

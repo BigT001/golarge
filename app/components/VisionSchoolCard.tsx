@@ -3,10 +3,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from 'react';
+import VisionSignupForm from "./forms/VisionSignupForm";
 
 export default function VisionSchoolCard() {
   const router = useRouter();
+  const [showForm, setShowForm] = useState(false);
 
   const containerVariants = {
     hidden: {},
@@ -25,8 +28,28 @@ export default function VisionSchoolCard() {
   };
 
   return (
-    <section className="relative py-16 px-4 overflow-hidden bg-white">
-      <div className="relative max-w-7xl mx-auto">
+    <section className="relative py-16 px-4 overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute inset-0 z-0">
+        <motion.div
+          className="absolute inset-0 opacity-20"
+          animate={{
+            background: [
+              'radial-gradient(circle at 0% 0%, #002a5c 0%, transparent 50%)',
+              'radial-gradient(circle at 100% 100%, #e11d48 0%, transparent 50%)',
+              'radial-gradient(circle at 0% 0%, #002a5c 0%, transparent 50%)',
+            ],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+        />
+        <div className="absolute inset-0 backdrop-blur-3xl bg-white/80" />
+      </div>
+      
+      <div className="relative z-10 max-w-7xl mx-auto">
         {/* Header */}
         <header className="text-center mb-16">
           <motion.h3
@@ -200,7 +223,7 @@ export default function VisionSchoolCard() {
             — Vision School Graduate
           </cite>
         </div>
-      </div>
+      </div> 
     </section>
   );
 }
