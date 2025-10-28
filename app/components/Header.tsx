@@ -5,8 +5,10 @@ import Image from "next/image";
 import { useEffect, useState, useRef } from "react";
 import ReactDOM from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { usePathname } from 'next/navigation';
 
 export default function Header() {
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [visible, setVisible] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -15,6 +17,11 @@ export default function Header() {
   const toggleButtonRef = useRef<HTMLButtonElement | null>(null);
   const menuRef = useRef<HTMLDivElement | null>(null);
   const [mounted, setMounted] = useState(false);
+
+  const isActive = (href: string) => {
+    if (href === '/') return pathname === '/';
+    return pathname.startsWith(href);
+  };
 
   useEffect(() => {
     setMounted(true);
@@ -119,9 +126,18 @@ export default function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`${topText} hover:text-blue-400 transition-colors`}
+                className={`relative ${topText} hover:text-blue-400 transition-colors`}
               >
                 {item.label}
+                {isActive(item.href) && (
+                  <motion.span
+                    layoutId="activeTab"
+                    className="absolute -bottom-1.5 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-400 to-red-400"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                  />
+                )}
               </Link>
             ))}
 
@@ -189,20 +205,33 @@ export default function Header() {
                 >
                   <div className="flex flex-col divide-y divide-white/10 text-center">
                     {[
-                      "About",
-                      "Outreach",
-                      "Vision School",
-                      "Vision 2020",
-                      "Events",
-                      "Contact",
+                      { href: "/about", label: "About" },
+                      { href: "/outreach", label: "Outreach" },
+                      { href: "/vision-school", label: "Vision School" },
+                      { href: "/vision2020page", label: "Vision 2020" },
+                      { href: "/events", label: "Events" },
+                      { href: "/contact", label: "Contact" },
                     ].map((item) => (
                       <Link
-                        key={item}
-                        href={`/${item.toLowerCase().replace(" ", "-")}`}
+                        key={item.href}
+                        href={item.href}
                         onClick={() => setMobileOpen(false)}
-                        className="py-4 text-lg hover:text-blue-400 transition-colors"
+                        className={`relative py-4 text-lg transition-colors ${
+                          isActive(item.href)
+                            ? 'text-blue-400 font-medium'
+                            : 'hover:text-blue-400'
+                        }`}
                       >
-                        {item}
+                        {item.label}
+                        {isActive(item.href) && (
+                          <motion.span
+                            layoutId="activeMobileTab"
+                            className="absolute -bottom-0.5 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-400 to-red-400"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                          />
+                        )}
                       </Link>
                     ))}
                     <div className="py-5">

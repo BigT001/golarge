@@ -2,52 +2,73 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import Faq from "../components/Faq";
+import MandateCard from "../components/MandateCard";
+import TimelineItem from "../components/TimelineItem";
 
 export default function AboutPage() {
   return (
-    <main className="relative overflow-hidden">
-      {/* Animated Gradient Background */}
-      <div className="absolute inset-0 -z-10 animate-gradient bg-gradient-to-r from-blue-500 via-red-500 to-blue-600 opacity-10 blur-3xl" />
+    <main className="relative overflow-hidden bg-gradient-to-b from-indigo-950 via-black to-black text-white">
+      {/* Decorative backgrounds */}
+      <div className="absolute inset-0 bg-[url('/logofolder/golargelogo.png')] bg-center bg-no-repeat opacity-[0.02] bg-fixed"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0,rgba(255,255,255,0.05),transparent_50%)]"></div>
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px]"></div>
+      
+      {/* Top gradient orbs */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl"></div>
+      <div className="absolute top-24 right-1/4 w-96 h-96 bg-rose-500/20 rounded-full blur-3xl"></div>
 
       {/* Hero Section */}
-      <header className="relative py-24 rounded-3xl overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-50 via-white to-red-50 opacity-90" />
+      <header className="relative pt-32 pb-24 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-indigo-950/50 via-transparent to-transparent"></div>
         <div className="relative max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-5xl md:text-6xl font-extrabold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-red-600 leading-tight">
-              About GoLarge Global Mandate
-            </h1>
-            <p className="text-lg text-gray-700 leading-relaxed mb-8">
+            <div className="relative">
+              <motion.span
+                initial={{ width: 0 }}
+                animate={{ width: "100%" }}
+                transition={{ duration: 1.5, ease: "easeOut" }}
+                className="absolute -left-4 top-1/2 h-px bg-gradient-to-r from-transparent via-indigo-500 to-transparent"
+              ></motion.span>
+              <h1 className="text-5xl md:text-6xl font-extrabold mb-8 bg-gradient-to-r from-white via-indigo-200 to-rose-200 bg-clip-text text-transparent leading-tight drop-shadow-2xl">
+                About GoLarge Global Mandate
+              </h1>
+            </div>
+            <p className="text-xl text-slate-300 leading-relaxed mb-8">
               GoLarge Global Mandate is a divine movement dedicated to raising a
               generation of{" "}
-              <span className="font-semibold text-blue-700">
+              <span className="font-semibold text-indigo-300">
                 Kingdom-minded leaders
               </span>{" "}
               who transform nations through prophetic insight, strategic
-              leadership, and intercession for the next generation. It carries a
-              burden to repair broken cities, rebuild destinies, and reveal God’s
+              leadership, and intercession for the next generation.
+            </p>
+            <p className="text-lg text-slate-400 leading-relaxed mb-8">
+              It carries a burden to repair broken cities, rebuild destinies, and reveal God's
               glory across every sphere of influence — from governance and
               business to education, culture, and ministry.
             </p>
           </motion.div>
 
           <motion.div
-            className="relative w-full h-80 rounded-3xl overflow-hidden shadow-2xl"
+            className="relative w-full h-[500px] group"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1 }}
           >
-            <Image
-              src="/pastor2.png"
-              alt="GoLarge Global Mandate"
-              fill
-              style={{ objectFit: "cover", objectPosition: "top center" }}
-            />
+            <div className="absolute -inset-4 bg-gradient-to-r from-indigo-500 via-purple-500 to-rose-500 rounded-2xl blur-xl opacity-30 group-hover:opacity-40 transition-all duration-700"></div>
+            <div className="relative w-full h-full rounded-2xl overflow-hidden">
+              <Image
+                src="/galleryimages/63.jpeg"
+                alt="GoLarge Global Mandate"
+                fill
+                className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                priority
+              />
+            </div>
           </motion.div>
         </div>
       </header>
@@ -61,73 +82,124 @@ export default function AboutPage() {
           viewport={{ once: true }}
           transition={{ staggerChildren: 0.2 }}
         >
-          <Card
+          <MandateCard
             title="Our Mission"
-            text="To empower believers to discover their divine assignment, cultivate prophetic understanding, and intercede for generational transformation."
+            text="To empower believers to discover their divine assignment, cultivate prophetic understanding, and intercede for generational transformation through teaching, leadership development, and apostolic movements."
+            gradient
           />
-          <Card
+          <MandateCard
             title="Our Vision"
             gradient
-            text="To raise a generation of Kingdom-minded leaders who transform nations through prophetic insight and intercession for future generations."
+            text="To raise a generation of Kingdom-minded leaders who transform nations through prophetic insight and intercession — repairing broken cities, rebuilding destinies, and revealing God's glory in every sphere of influence."
           />
-          <Card
+          <MandateCard
             title="Our Mandate"
-            text="To raise reformers, rebuild nations, and release God’s glory in every sphere — empowering believers to live with vision, lead with purpose, and impact generations."
+            text="To raise reformers, rebuild nations, and release God's glory in every sphere — empowering believers to live with vision, lead with purpose, and impact generations through divine wisdom and excellence."
+            gradient
           />
         </motion.div>
 
-        {/* Founder Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <motion.div
-            className="relative w-full h-96 rounded-3xl overflow-hidden shadow-2xl"
-            initial={{ opacity: 0, x: -60 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.9 }}
-          >
-            <Image
-              src="/pastor1.png"
-              alt="Pastor Dipo Obisesan"
-              fill
-              style={{ objectFit: "cover", objectPosition: "center" }}
-            />
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 60 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.9 }}
-          >
-            <h2 className="text-3xl font-bold mb-4 text-blue-700">
-              About the Founder
+        {/* Core Pillars */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="space-y-8"
+        >
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold bg-gradient-to-r from-white via-indigo-200 to-rose-200 bg-clip-text text-transparent">
+              Core Pillars of the Mandate
             </h2>
-            <h3 className="text-xl font-semibold mb-3 text-gray-800">
-              Pastor Dipo Obisesan
-            </h3>
-            <p className="text-gray-700 leading-relaxed mb-4">
-              A life called to awaken purpose and rebuild spiritual foundations
-              across nations. Dipo Obisesan is a prophetic voice, teacher, and
-              leader with a passion for awakening purpose and rebuilding
-              spiritual foundations in nations.
+            <div className="mt-4 w-24 h-1 bg-gradient-to-r from-indigo-500 to-rose-500 mx-auto rounded-full"></div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <MandateCard
+              title="Vision & Revelation"
+              text="Birthing divine ideas and guiding destinies through prophetic insight and heavenly revelation. We believe in seeing beyond the natural into God's perfect plan."
+            />
+            <MandateCard
+              title="Transformation & Leadership"
+              text="Raising leaders who embody Kingdom culture and character, equipped to transform spheres of influence with integrity, wisdom, and excellence."
+            />
+            <MandateCard
+              title="Intercession & Impact"
+              text="Standing in the gap for nations while turning spiritual fire into tangible societal change. Building prayer altars that shape generations."
+            />
+          </div>
+        </motion.div>
+
+        {/* Scripture Section */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          className="relative max-w-3xl mx-auto text-center"
+        >
+          <div className="absolute -inset-x-4 -inset-y-16 bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-rose-500/10 rounded-3xl blur-xl"></div>
+          <div className="relative space-y-6">
+            <blockquote className="text-2xl italic text-slate-300">
+              "You shall be called the repairer of the breach, the restorer of streets to dwell in."
+            </blockquote>
+            <p className="text-lg text-slate-400">— Isaiah 58:12</p>
+          </div>
+        </motion.div>
+
+        {/* Founder Section */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          className="relative grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
+        >
+          <div className="order-2 lg:order-1 relative w-full aspect-[4/3] rounded-2xl overflow-hidden group">
+            <div className="absolute -inset-4 bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-rose-500/20 rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-all duration-700"></div>
+            <div className="relative w-full h-full">
+              <Image
+                src="/founder-image.jpg"
+                alt="GoLarge Global Founder"
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+            </div>
+          </div>
+          
+          <div className="order-1 lg:order-2 space-y-6">
+            <div className="relative">
+              <motion.span
+                initial={{ width: 0 }}
+                whileInView={{ width: "100%" }}
+                transition={{ duration: 1, ease: "easeOut" }}
+                className="absolute -left-4 top-1/2 h-px bg-gradient-to-r from-transparent via-indigo-500 to-transparent"
+              ></motion.span>
+              <h2 className="text-4xl font-bold bg-gradient-to-r from-white via-indigo-200 to-rose-200 bg-clip-text text-transparent">
+                Meet Our Founder
+              </h2>
+            </div>
+            <p className="text-lg text-slate-300 leading-relaxed">
+              Our founder carries a powerful vision for national transformation and generational impact. Through years of ministry and leadership, they have demonstrated an unwavering commitment to raising Kingdom-minded leaders and establishing prayer altars across nations.
             </p>
-            <p className="text-gray-700 leading-relaxed mb-4">
-              Through his ministry, Dipo has inspired many to pursue divine
-              wisdom and transformation. His message blends revelation with
-              practicality—calling believers to walk in their God-given dominion.
+            <p className="text-lg text-slate-300 leading-relaxed">
+              Their prophetic insight and passionate intercession continue to inspire and equip believers worldwide to step into their divine assignments and transform their spheres of influence.
             </p>
-            <p className="text-blue-700 italic font-medium">
-              “He believes that when the manna stops, it is not the end — it is
-              the beginning of a greater harvest.”
-            </p>
-          </motion.div>
-        </div>
+          </div>
+        </motion.div>
 
         {/* Journey Timeline + CTA */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-          <div>
-            <h2 className="text-3xl font-semibold mb-8 text-center text-blue-700">
-              Our Journey
-            </h2>
-            <ol className="border-l-4 border-gradient pl-6 space-y-8 max-w-3xl mx-auto relative">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            className="relative"
+          >
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold bg-gradient-to-r from-white via-indigo-200 to-rose-200 bg-clip-text text-transparent">
+                Our Journey
+              </h2>
+              <div className="mt-4 w-24 h-1 bg-gradient-to-r from-indigo-500 to-rose-500 mx-auto rounded-full"></div>
+            </div>
+            <ol className="border-l-4 border-indigo-500/30 pl-6 space-y-8 max-w-3xl mx-auto relative">
               <TimelineItem
                 year="2010"
                 title="Birth of the Vision"
@@ -144,91 +216,42 @@ export default function AboutPage() {
                 description="Through leadership summits, global missions, and training hubs, GoLarge scaled its programs to empower reformers across multiple continents."
               />
             </ol>
-          </div>
+          </motion.div>
 
-          <motion.aside
-            className="rounded-3xl p-8 bg-gradient-to-br from-blue-100 to-red-100 shadow-xl border border-white/60 backdrop-blur"
-            initial={{ opacity: 0, y: 40 }}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9 }}
+            transition={{ duration: 0.8 }}
+            className="relative group rounded-2xl overflow-hidden"
           >
-            <h3 className="text-2xl font-semibold mb-3 text-blue-700">
-              Get Involved
-            </h3>
-            <p className="text-gray-700 mb-5">
-              Be part of what God is doing through GoLarge Global Mandate —
-              join a program, volunteer, or partner with us to extend our reach
-              and impact.
-            </p>
-            <div className="flex gap-4">
-              <a
-                href="/ministries"
-                className="px-5 py-3 rounded-xl bg-red-600 text-white font-medium hover:bg-red-700 transition-all shadow-lg hover:shadow-red-300/40"
-              >
-                Join a Program
-              </a>
-              <a
-                href="/contact"
-                className="px-5 py-3 rounded-xl border border-blue-500 text-blue-600 hover:bg-blue-50 font-medium transition"
-              >
-                Partner With Us
-              </a>
+            <div className="absolute -inset-4 bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-rose-500/20 rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-all duration-700"></div>
+            <div className="relative p-8 bg-gradient-to-b from-white/5 to-white/[0.02] border border-white/10">
+              <h3 className="text-2xl font-bold bg-gradient-to-r from-white via-indigo-200 to-rose-200 bg-clip-text text-transparent mb-6">
+                Get Involved
+              </h3>
+              <p className="text-lg text-slate-300 leading-relaxed mb-8">
+                Be part of what God is doing through GoLarge Global Mandate —
+                join a program, volunteer, or partner with us to extend our reach
+                and impact.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <a
+                  href="/ministries"
+                  className="px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-rose-500 text-white font-medium hover:brightness-110 transition-all shadow-lg"
+                >
+                  Join a Program
+                </a>
+                <a
+                  href="/contact"
+                  className="px-6 py-3 rounded-xl border border-white/20 hover:border-white/40 text-white font-medium transition-colors"
+                >
+                  Partner With Us
+                </a>
+              </div>
             </div>
-          </motion.aside>
+          </motion.div>
         </div>
       </section>
     </main>
   );
 }
-
-/* === Supporting Components === */
-
-function Card({
-  title,
-  text,
-  gradient,
-}: {
-  title: string;
-  text: string;
-  gradient?: boolean;
-}) {
-  return (
-    <motion.article
-      className={`p-8 rounded-3xl border transition-all hover:shadow-xl ${
-        gradient
-          ? "bg-gradient-to-br from-blue-50 via-white to-red-50 border-blue-100"
-          : "bg-white border-gray-100"
-      }`}
-      whileHover={{ scale: 1.03 }}
-    >
-      <h3 className="text-2xl font-semibold mb-3 text-blue-700">{title}</h3>
-      <p className="text-gray-700 leading-relaxed">{text}</p>
-    </motion.article>
-  );
-}
-
-function TimelineItem({
-  year,
-  title,
-  description,
-}: {
-  year: string;
-  title: string;
-  description: string;
-}) {
-  return (
-    <motion.li
-      className="relative pl-6"
-      initial={{ opacity: 0, x: -30 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.6 }}
-    >
-      <div className="absolute -left-[13px] w-6 h-6 bg-gradient-to-br from-blue-600 to-red-600 rounded-full border-4 border-white shadow-md" />
-      <div className="text-sm text-blue-600 font-semibold">{year}</div>
-      <div className="text-lg font-semibold text-gray-800">{title}</div>
-      <div className="text-gray-700">{description}</div>
-    </motion.li>
-  );
-}
-
-
