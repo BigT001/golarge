@@ -9,60 +9,54 @@ export default function OutreachPage() {
   const spotlight = outreach[0];
 
   return (
-    <main className="relative overflow-hidden">
-      {/* === Animated Background === */}
-      <div className="absolute inset-0 -z-10">
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-b from-amber-100 via-white to-amber-50"
-          animate={{
-            backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        {/* Soft floating orbs */}
-        <motion.div
-          className="absolute top-[10%] left-[5%] w-[400px] h-[400px] bg-amber-300/30 blur-[120px] rounded-full"
-          animate={{ y: [0, 20, -20, 0], opacity: [0.4, 0.6, 0.4] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="absolute bottom-[10%] right-[10%] w-[450px] h-[450px] bg-amber-400/25 blur-[100px] rounded-full"
-          animate={{ y: [0, -30, 30, 0], opacity: [0.4, 0.7, 0.4] }}
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </div>
+    <main className="relative overflow-hidden bg-gradient-to-b from-indigo-950 via-black to-black text-white">
+      {/* Decorative backgrounds */}
+      <div className="absolute inset-0 bg-[url('/logofolder/golargelogo.png')] bg-center bg-no-repeat opacity-[0.02] bg-fixed"></div>
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px]"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0,rgba(255,255,255,0.05),transparent_50%)]"></div>
+      
+      {/* Top gradient orbs */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl"></div>
+      <div className="absolute top-24 right-1/4 w-96 h-96 bg-rose-500/20 rounded-full blur-3xl"></div>
 
-      {/* === Hero Section === */}
-      <section className="relative py-24 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          className="max-w-4xl mx-auto px-6"
-        >
-          <h1 className="text-5xl md:text-6xl font-extrabold mb-6 bg-gradient-to-r from-amber-600 via-amber-800 to-amber-700 bg-clip-text text-transparent">
-            Go Large Outreach
-          </h1>
-          <p className="text-lg md:text-xl text-gray-700 leading-relaxed">
-            Empowering local leaders and communities across nations to ignite
-            Kingdom transformation. Explore our chapters and see how we’re
-            impacting lives globally.
-          </p>
-        </motion.div>
-      </section>
+      {/* Hero Section */}
+      <header className="relative pt-32 pb-24 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-indigo-950/50 via-transparent to-transparent"></div>
+        <div className="relative max-w-4xl mx-auto px-6 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="relative inline-block">
+              <motion.span
+                initial={{ width: 0 }}
+                animate={{ width: "100%" }}
+                transition={{ duration: 1.5, ease: "easeOut" }}
+                className="absolute -left-4 top-1/2 h-px bg-gradient-to-r from-transparent via-indigo-500 to-transparent"
+              ></motion.span>
+              <h1 className="text-5xl md:text-6xl font-extrabold mb-8 bg-gradient-to-r from-white via-indigo-200 to-rose-200 bg-clip-text text-transparent leading-tight drop-shadow-2xl">
+                Go Large Outreach
+              </h1>
+            </div>
+            <p className="text-xl text-slate-300 leading-relaxed mb-8">
+              Empowering local leaders and communities across nations to ignite{" "}
+              <span className="font-semibold text-indigo-300">
+                Kingdom transformation
+              </span>
+              . Explore our chapters and see how we're impacting lives globally.
+            </p>
+          </motion.div>
+        </div>
+      </header>
 
-      {/* === Outreach Cards Section === */}
-      <section className="max-w-[95rem] mx-auto px-4 sm:px-6 lg:px-10 pb-24">
+      {/* Outreach Cards Section */}
+      <section className="max-w-7xl mx-auto px-6 pb-24">
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {outreach.map((o, i) => (
             <motion.div
@@ -75,65 +69,85 @@ export default function OutreachPage() {
                 delay: i * 0.05,
                 ease: "easeOut",
               }}
-              whileHover={{ scale: 1.02, y: -5 }}
-              className="transition-transform"
+              className="group relative"
             >
-              <OutreachCard o={o} i={i} />
+              <div className="absolute -inset-4 bg-gradient-to-r from-indigo-500/20 to-rose-500/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+              <div className="relative">
+                <OutreachCard o={o} i={i} />
+              </div>
             </motion.div>
           ))}
         </motion.div>
       </section>
 
-      {/* === Sidebar (Moved to Bottom for Mobile) === */}
-      <section className="max-w-6xl mx-auto px-6 pb-24">
+      {/* Spotlight and Quick Links */}
+      <section className="max-w-7xl mx-auto px-6 pb-24">
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
           className="grid md:grid-cols-2 gap-8"
         >
           {/* Spotlight Card */}
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            className="rounded-3xl overflow-hidden shadow-lg p-8 bg-white/80 backdrop-blur-md border border-amber-100 transition-all duration-500"
-          >
-            <h3 className="font-bold text-2xl mb-3 bg-gradient-to-r from-amber-700 to-amber-500 bg-clip-text text-transparent">
-              Spotlight
-            </h3>
-            <p className="text-gray-700">
-              Featured Chapter:{" "}
-              <strong className="text-amber-700">{spotlight.title}</strong>
-            </p>
-            <p className="mt-3 text-gray-600 leading-relaxed">
-              {spotlight.desc.slice(0, 180)}...
-            </p>
-            <Link
-              href={spotlight.href}
-              className="inline-block mt-4 text-amber-700 font-semibold hover:underline"
-            >
-              Learn more →
-            </Link>
+          <motion.div className="group relative">
+            <div className="absolute -inset-4 bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-rose-500/20 rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-all duration-700"></div>
+            <div className="relative p-8 rounded-xl bg-gradient-to-b from-white/5 to-white/[0.02] border border-white/10 hover:border-white/20 transition-colors">
+              <div className="relative">
+                <motion.span
+                  initial={{ width: 0 }}
+                  whileInView={{ width: "100%" }}
+                  transition={{ duration: 1, ease: "easeOut" }}
+                  className="absolute -left-4 top-1/2 h-px bg-gradient-to-r from-transparent via-indigo-500 to-transparent"
+                ></motion.span>
+                <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-white via-indigo-200 to-rose-200 bg-clip-text text-transparent">
+                  Spotlight
+                </h3>
+              </div>
+              <p className="text-slate-300">
+                Featured Chapter:{" "}
+                <strong className="text-indigo-300">{spotlight.title}</strong>
+              </p>
+              <p className="mt-3 text-slate-400 leading-relaxed">
+                {spotlight.desc.slice(0, 180)}...
+              </p>
+              <Link
+                href={spotlight.href}
+                className="inline-flex items-center mt-4 text-indigo-300 font-semibold hover:text-indigo-200 transition-colors group"
+              >
+                Learn more
+                <span className="ml-1 transform transition-transform group-hover:translate-x-1">→</span>
+              </Link>
+            </div>
           </motion.div>
 
           {/* Quick Links */}
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            className="rounded-3xl overflow-hidden shadow-lg p-8 bg-white/80 backdrop-blur-md border border-amber-100 transition-all duration-500"
-          >
-            <h4 className="font-bold text-2xl mb-4 bg-gradient-to-r from-amber-700 to-amber-500 bg-clip-text text-transparent">
-              Quick Links
-            </h4>
-            <div className="flex flex-col gap-2">
-              {outreach.map((o) => (
-                <Link
-                  key={o.id}
-                  href={o.href}
-                  className="text-base text-gray-700 hover:text-amber-600 transition-colors"
-                >
-                  {o.title}
-                </Link>
-              ))}
+          <motion.div className="group relative">
+            <div className="absolute -inset-4 bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-rose-500/20 rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-all duration-700"></div>
+            <div className="relative p-8 rounded-xl bg-gradient-to-b from-white/5 to-white/[0.02] border border-white/10 hover:border-white/20 transition-colors">
+              <div className="relative">
+                <motion.span
+                  initial={{ width: 0 }}
+                  whileInView={{ width: "100%" }}
+                  transition={{ duration: 1, ease: "easeOut" }}
+                  className="absolute -left-4 top-1/2 h-px bg-gradient-to-r from-transparent via-indigo-500 to-transparent"
+                ></motion.span>
+                <h4 className="text-2xl font-bold mb-4 bg-gradient-to-r from-white via-indigo-200 to-rose-200 bg-clip-text text-transparent">
+                  Quick Links
+                </h4>
+              </div>
+              <div className="flex flex-col gap-3">
+                {outreach.map((o) => (
+                  <Link
+                    key={o.id}
+                    href={o.href}
+                    className="text-slate-300 hover:text-indigo-300 transition-colors group inline-flex items-center"
+                  >
+                    <span className="transform transition-transform group-hover:translate-x-1">→</span>
+                    <span className="ml-2">{o.title}</span>
+                  </Link>
+                ))}
+              </div>
             </div>
           </motion.div>
         </motion.div>

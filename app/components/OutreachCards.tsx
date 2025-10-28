@@ -50,21 +50,18 @@ export const outreach = [
 ];
 
 export const colorAccents = [
-  "from-blue-400 to-red-400",
-  "from-indigo-400 to-pink-400",
-  "from-teal-400 to-sky-400",
-  "from-rose-400 to-amber-400",
-  "from-cyan-400 to-blue-500",
-  "from-fuchsia-400 to-indigo-400",
+  "from-indigo-600 to-red-600",
+  "from-red-600 to-indigo-600",
+  "from-blue-600 to-red-600",
+  "from-red-600 to-blue-600",
+  "from-indigo-600 to-blue-600",
+  "from-blue-600 to-indigo-600",
 ];
 
 export function OutreachCard({ o, i }: { o: any; i: number }) {
   const accent = colorAccents[i % colorAccents.length];
-  const cardBg =
-    i % 2 === 0
-      ? `bg-gradient-to-br ${accent} text-white`
-      : `bg-gradient-to-br from-white to-gray-50`;
-  const textColor = i % 2 === 0 ? "text-white" : "text-gray-800";
+  const cardBg = `bg-gradient-to-br ${accent} bg-opacity-10`;
+  const textColor = "text-white";
 
   return (
     <motion.article
@@ -78,7 +75,7 @@ export function OutreachCard({ o, i }: { o: any; i: number }) {
     >
       <Link
         href={o.href}
-        className={`block rounded-3xl overflow-hidden shadow-2xl transform transition-all duration-300 hover:scale-[1.04] hover:-translate-y-3 focus:outline-none focus-visible:ring-4 focus-visible:ring-offset-2 focus-visible:ring-red-300 ${cardBg}`}
+        className={`block rounded-3xl overflow-hidden shadow-[0_0_35px_rgba(59,130,246,0.15)] backdrop-blur-sm bg-indigo-950/30 border border-indigo-500/10 transform transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_50px_rgba(239,68,68,0.3)] hover:-translate-y-2 focus:outline-none focus-visible:ring-4 focus-visible:ring-offset-2 focus-visible:ring-red-500/50 ${cardBg}`}
         aria-label={`Visit ${o.title} outreach page`}
       >
         {/* Image Section */}
@@ -93,11 +90,7 @@ export function OutreachCard({ o, i }: { o: any; i: number }) {
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
 
           <div
-            className={`absolute top-4 left-4 rounded-full px-3 py-1 text-xs font-semibold ${
-              i % 2 === 0
-                ? "text-white bg-white/10 border-white/20"
-                : "text-gray-800 bg-gray-100 border-gray-200"
-            } backdrop-blur-sm border rotate-6`}
+            className="absolute top-4 left-4 rounded-full px-3 py-1 text-xs font-semibold text-white/90 bg-white/5 border-white/10 backdrop-blur-sm border rotate-6 shadow-[0_0_15px_rgba(239,68,68,0.2)]"
           >
             {o.id.toUpperCase()}
           </div>
@@ -113,31 +106,25 @@ export function OutreachCard({ o, i }: { o: any; i: number }) {
         </div>
 
         {/* Text Section */}
-        <div className={`p-6 ${i % 2 === 0 ? "bg-transparent" : "bg-white"}`}>
+        <div className="p-6 bg-gradient-to-b from-black/0 via-black/20 to-black/40">
           <h3
-            className={`text-xl md:text-2xl font-semibold mb-3 ${textColor}`}
+            className="text-xl md:text-2xl font-semibold mb-3 bg-gradient-to-br from-white to-white/80 bg-clip-text text-transparent"
           >
             {o.title}
           </h3>
           <p
-            className={`text-sm md:text-base mb-5 leading-relaxed ${
-              i % 2 === 0 ? "text-white/90" : "text-gray-700"
-            }`}
+            className="text-sm md:text-base mb-5 leading-relaxed text-slate-300"
           >
             {o.desc}
           </p>
           <div className="flex items-center justify-between">
             <span
-              className={`text-sm font-medium ${
-                i % 2 === 0 ? "text-white/90" : "text-gray-700"
-              }`}
+              className="text-sm font-medium text-slate-300 group-hover:text-white/90 transition-colors duration-300"
             >
               Learn more
             </span>
             <span
-              className={`inline-flex items-center gap-2 text-sm font-medium ${
-                i % 2 === 0 ? "text-white" : "text-red-500"
-              }`}
+              className="inline-flex items-center gap-2 text-sm font-medium text-red-500 group-hover:text-red-400 transition-colors duration-300"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -166,13 +153,13 @@ export default function OutreachCards() {
     <section className="w-full relative py-20 bg-transparent overflow-hidden">
       {/* Animated Glow Behind Title */}
       <motion.div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-gradient-to-r from-blue-500/20 via-red-500/20 to-black/20 rounded-full blur-3xl"
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-gradient-to-r from-indigo-500/20 via-red-500/20 to-blue-500/20 rounded-full blur-3xl"
         animate={{
           scale: [1, 1.2, 1],
-          opacity: [0.4, 0.6, 0.4],
+          opacity: [0.3, 0.5, 0.3],
           x: ["-10%", "10%", "-10%"],
         }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
       />
 
       <div className="relative z-10 max-w-[95%] md:max-w-[90%] mx-auto">
@@ -183,7 +170,7 @@ export default function OutreachCards() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
             viewport={{ once: true }}
-            className="text-5xl md:text-6xl font-extrabold mb-5 bg-gradient-to-r from-red-500 via-blue-500 to-red-500 bg-clip-text text-transparent animate-gradient-x drop-shadow-lg"
+            className="text-5xl md:text-6xl font-extrabold mb-5 bg-gradient-to-r from-red-500 via-white to-blue-500 bg-clip-text text-transparent animate-gradient-x drop-shadow-lg"
           >
             Go Large Outreach
           </motion.h2>
@@ -191,7 +178,7 @@ export default function OutreachCards() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.6 }}
-            className="text-lg text-gray-500 max-w-3xl mx-auto font-medium"
+            className="text-lg text-slate-400 max-w-3xl mx-auto font-medium"
           >
             Expanding Kingdom impact across the globe — empowering communities,
             transforming lives, and building lasting change.

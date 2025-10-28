@@ -156,10 +156,10 @@ export default function AboutPage() {
             <div className="absolute -inset-4 bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-rose-500/20 rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-all duration-700"></div>
             <div className="relative w-full h-full">
               <Image
-                src="/founder-image.jpg"
+                src="/galleryimages/pststanding.jpeg"
                 alt="GoLarge Global Founder"
                 fill
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
               />
             </div>
           </div>
