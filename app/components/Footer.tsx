@@ -113,7 +113,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="pt-8 mt-8 border-t border-indigo-500/20">
+        <div className="pt-8  mt-8 border-t border-indigo-500/20">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-sm text-indigo-200">© {new Date().getFullYear()} Golarge. All rights reserved.</div>
             <div className="flex gap-6 text-sm">

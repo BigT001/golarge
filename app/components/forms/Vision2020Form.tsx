@@ -109,7 +109,7 @@ export default function Vision2020Form() {
         onChange={onChange}
         placeholder=" "
         required={required}
-        className="peer w-full px-5 py-4 rounded-lg border border-red-500/20 bg-transparent backdrop-blur-sm text-white placeholder-transparent focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-base"
+        className="peer w-full px-4 py-3 rounded-lg border border-red-500/20 bg-transparent backdrop-blur-sm text-white placeholder-transparent focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
       />
       <label
         htmlFor={id}
@@ -123,18 +123,18 @@ export default function Vision2020Form() {
 
   return (
     <div>
-      <section className="max-w-7xl mx-auto px-6 lg:px-12 py-20">
-        <div className="flex flex-col lg:flex-row gap-14 items-start">
+      <section className="max-w-7xl mx-auto px-6 lg:px-12 py-16">
+        <div className="flex flex-col lg:flex-row gap-10 items-start">
           {/* Form (left) */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
-            className="w-full lg:w-3/5 p-12 rounded-2xl border border-gray-800/40"
+            className="w-full lg:w-3/5 p-8 rounded-2xl border border-gray-800/40"
           >
             <div className="max-w-3xl">
-              <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">Vision 2020 Registration</h2>
-              <p className="text-lg text-gray-300 mb-8">Join our 20-year prayer investment movement. Register your family below.</p>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-3">Vision 2020 Registration</h2>
+              <p className="text-gray-300 mb-6">Join our 20-year prayer investment movement. Register your family below.</p>
 
               {status === "success" && (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="p-3 rounded-md mb-5 text-center bg-emerald-900/40 text-emerald-200 border border-emerald-500/20">
@@ -142,19 +142,19 @@ export default function Vision2020Form() {
                 </motion.div>
               )}
 
-              <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-10">
+              <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-6">
                 <Input id="familyName" label="Family Full Name" value={form.familyName} onChange={handleChange} required />
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <Input id="email" label="Email Address" type="email" value={form.email} onChange={handleChange} required />
                   <Input id="phone" label="Phone Number" type="tel" value={form.phone} onChange={handleChange} required />
                 </div>
 
                 <Input id="country" label="Country" value={form.country} onChange={handleChange} required />
 
-                <div className="space-y-4">
+                <div className="space-y-2">
                   <p className="text-sm text-gray-400">Optional — children's names</p>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <Input id="child1" label="Child 1" value={form.child1} onChange={handleChange} />
                     <Input id="child2" label="Child 2" value={form.child2} onChange={handleChange} />
                     <Input id="child3" label="Child 3" value={form.child3} onChange={handleChange} />
@@ -170,23 +170,23 @@ export default function Vision2020Form() {
                     name="specialPrayer"
                     value={form.specialPrayer}
                     onChange={handleChange}
-                    className="w-full px-6 py-5 rounded-lg border border-red-500/20 bg-transparent backdrop-blur-sm text-white placeholder-gray-400 h-44 resize-none focus:outline-none focus:ring-1 focus:ring-blue-500 text-base"
+                    className="w-full px-4 py-3 rounded-lg border border-red-500/20 bg-transparent backdrop-blur-sm text-white placeholder-gray-400 h-32 resize-none focus:outline-none focus:ring-1 focus:ring-blue-500"
                     placeholder="Share any requests or intentions"
                   />
                 </div>
 
-                <div className="flex flex-col sm:flex-row items-center gap-8 mt-6">
+                <div className="flex flex-col sm:flex-row items-center gap-4 mt-4">
                   <button
                     type="submit"
                     disabled={status === "sending"}
-                    className={`w-full sm:w-auto inline-flex items-center justify-center px-12 py-5 rounded-full font-semibold text-white bg-gradient-to-r from-red-600 to-blue-600 shadow-[0_18px_50px_rgba(59,130,246,0.18)] transition-transform ${
+                    className={`w-full sm:w-auto inline-flex items-center justify-center px-8 py-3 rounded-full font-semibold text-white bg-gradient-to-r from-red-600 to-blue-600 shadow-[0_10px_30px_rgba(59,130,246,0.18)] transition-transform ${
                       status === "sending" ? "opacity-60 cursor-not-allowed" : "hover:scale-105"
                     }`}
                   >
                     {status === "sending" ? "Submitting..." : "Submit Registration"}
                   </button>
 
-                  <button type="button" onClick={resetForm} className="w-full sm:w-auto px-10 py-4 rounded-full border border-red-500/20 text-gray-300 hover:bg-gray-900/20">
+                  <button type="button" onClick={resetForm} className="w-full sm:w-auto px-6 py-3 rounded-full border border-red-500/20 text-gray-300 hover:bg-gray-900/20">
                     Reset
                   </button>
                 </div>
