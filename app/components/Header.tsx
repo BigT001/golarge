@@ -58,7 +58,7 @@ export default function Header() {
       } ${visible ? "translate-y-0" : "-translate-y-full"}`}
       style={{ willChange: "transform" }}
     >
-      <div className="mx-auto px-3 sm:px-6">
+      <div className="mx-auto sm:px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center">

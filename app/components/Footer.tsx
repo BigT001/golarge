@@ -17,7 +17,7 @@ export default function Footer() {
   }
 
   return (
-    <footer className="w-full bg-gradient-to-b from-indigo-950 to-black text-white mt-12 relative overflow-hidden">
+  <footer className="w-full bg-gradient-to-b from-indigo-950 to-black text-white relative overflow-hidden">
       {/* Decorative background elements */}
       <div className="absolute inset-0 overflow-hidden opacity-20">
         <div className="absolute -top-24 -left-24 w-96 h-96 bg-indigo-500 rounded-full blur-3xl"></div>

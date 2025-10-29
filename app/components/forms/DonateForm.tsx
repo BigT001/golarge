@@ -190,10 +190,6 @@ export default function PartnershipForm() {
             'Become a Partner'
           )}
         </motion.button>
-
-        <button type="button" onClick={handleReset} className="px-10 py-3 rounded-full bg-white/5 text-gray-200 hover:bg-white/10 transition">
-          Clear
-        </button>
       </div>
 
       <p className="mt-6 text-sm text-gray-400 text-center">

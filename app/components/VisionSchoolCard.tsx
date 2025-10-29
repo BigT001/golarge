@@ -29,24 +29,26 @@ export default function VisionSchoolCard() {
 
   return (
     <section className="relative py-16 px-4 overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute inset-0 z-0">
+      {/* Background Effects (improved) */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
         <motion.div
-          className="absolute inset-0 opacity-20"
+          className="absolute inset-0 opacity-30 mix-blend-overlay"
           animate={{
             background: [
-              'radial-gradient(circle at 0% 0%, #002a5c 0%, transparent 50%)',
-              'radial-gradient(circle at 100% 100%, #e11d48 0%, transparent 50%)',
-              'radial-gradient(circle at 0% 0%, #002a5c 0%, transparent 50%)',
+              'radial-gradient(circle at 10% 10%, rgba(0,42,92,0.9) 0%, transparent 45%)',
+              'radial-gradient(circle at 90% 85%, rgba(225,29,72,0.85) 0%, transparent 45%)',
+              'radial-gradient(circle at 50% 20%, rgba(30,58,138,0.75) 0%, transparent 50%)',
             ],
           }}
           transition={{
-            duration: 10,
+            duration: 14,
             repeat: Infinity,
-            ease: "linear"
+            ease: "linear",
           }}
         />
-        <div className="absolute inset-0 backdrop-blur-3xl bg-white/80" />
+
+        {/* subtle dark frosted overlay to add depth and improve contrast */}
+        <div className="absolute inset-0 backdrop-blur-2xl bg-gradient-to-b from-black/30 via-black/12 to-transparent" />
       </div>
       
       <div className="relative z-10 max-w-7xl mx-auto">
@@ -65,7 +67,7 @@ export default function VisionSchoolCard() {
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.15 }}
-            className="mt-6 text-3xl md:text-4xl font-bold leading-snug text-slate-900"
+            className="mt-6 text-3xl md:text-4xl font-bold leading-snug text-"
           >
             Transform Your Vision into <br />{" "}
             <span className="text-[#e11d48]">Lasting Impact</span>

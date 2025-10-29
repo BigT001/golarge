@@ -143,8 +143,8 @@ export default function ContactSection() {
   );
 
   return (
-    <section className="relative py-24 px-6 overflow-hidden">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-14 items-start">
+    <section className="relative  overflow-hidden">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-start">
         {/* LEFT — Contact Info Card */}
         <motion.div
           initial={{ opacity: 0, y: 25 }}
@@ -234,7 +234,7 @@ export default function ContactSection() {
                 whileTap={{ scale: 0.98 }}
                 className={`px-12 py-4 rounded-full text-white font-semibold bg-gradient-to-r from-red-600 to-blue-600 shadow-[0_18px_50px_rgba(59,130,246,0.12)] ${sending ? "opacity-60 cursor-not-allowed" : "hover:scale-105"}`}
               >
-                {sending ? "Sending..." : "Send Message"}
+                {sending ? "Sending..." : "Send"}
               </motion.button>
 
               <button

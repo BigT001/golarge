@@ -1,109 +1,143 @@
-"use client";
-
+import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import MandateCard from "../components/MandateCard";
+import Vision2020Form from "../components/forms/Vision2020Form";
 import VisionSignupForm from "../components/forms/VisionSignupForm";
+
+export const metadata = {
+  title: "The Vision School — GoLarge",
+  description: "The Vision School: Raising conceptual thinkers who see possibilities through the lens of purpose. Equipping believers to carry divine vision and create lasting impact.",
+  openGraph: {
+    title: "The Vision School — GoLarge",
+    description: "The Vision School: Raising conceptual thinkers who see possibilities through the lens of purpose.",
+    images: ["//golargelogo.png"],
+  },
+};
 
 export default function VisionSchoolPage() {
   return (
-    <main className="relative overflow-hidden bg-gradient-to-b from-indigo-950 via-black to-black text-white">
-      {/* Decorative background */}
-      <div className="absolute inset-0 bg-[url('/logofolder/golargelogo.png')] bg-center bg-no-repeat opacity-[0.02] bg-fixed"></div>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0,rgba(255,255,255,0.03),transparent_50%)]"></div>
+    <div className="min-h-screen py-10 bg-gradient-to-b from-indigo-950 via-black to-black text-white px-6 md:px-0">
+  {/* grid background removed to give image more focus */}
 
-      {/* Top orbs */}
-      <div className="absolute top-0 left-1/4 w-72 h-72 bg-indigo-500/20 rounded-full blur-3xl"></div>
-      <div className="absolute top-24 right-1/4 w-72 h-72 bg-rose-500/20 rounded-full blur-3xl"></div>
+      {/* Animated hero */}
+      <header className="max-w-7xl mx-auto text-center relative overflow-hidden px-6 md:px-0">
+        <div className="absolute inset-0"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-white/10 via-white/5 to-transparent"></div>
 
-      {/* Hero */}
-      <header className="relative pt-24 pb-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-indigo-950/50 via-transparent to-transparent"></div>
-        <div className="relative max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <div className="relative">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 bg-gradient-to-r from-white via-indigo-200 to-rose-200 bg-clip-text text-transparent leading-tight">
-                The Vision School
-              </h1>
+        {/* Content */}
+        <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 mt-10 mb-10 gap-12 items-center">
+          <div className="space-y-6">
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-indigo-500/10 to-red-500/10 text-white font-medium text-sm">
+              Welcome to Excellence
             </div>
-            <p className="text-lg md:text-xl text-slate-300 leading-relaxed mb-6 max-w-2xl">
-              Practical training that helps believers translate revelation into real-world impact — think conceptually, build strategically, lead with purpose.
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-3">
+              <span className="inline-block bg-gradient-to-r from-indigo-600 to-blue-600 text-transparent bg-clip-text animate-gradient">
+                The Vision
+              </span>{" "}
+              <span className="inline-block bg-gradient-to-r from-red-600 to-red-500 text-transparent bg-clip-text animate-gradient-delayed">
+                School
+              </span>
+            </h1>
+            <p className="text-xl md:text-2xl text-slate-300 max-w-2xl mx-auto leading-relaxed font-medium">
+              See Clearly. Think Deeply. Build Boldly — practical training that helps you translate revelation into real-world impact.
             </p>
-            <div className="flex gap-4">
-              <a href="#signup" className="px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-rose-500 text-white font-medium hover:brightness-110 transition-all shadow-lg">
-                Apply Now
-              </a>
-              <a href="/contact" className="px-6 py-3 rounded-xl border border-white/20 hover:border-white/40 text-white font-medium transition-colors">
-                Contact Us
-              </a>
-            </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            className="relative w-full h-[420px] md:h-[520px] group rounded-2xl overflow-hidden"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.9 }}
-          >
-            <div className="absolute -inset-4 bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-rose-500/20 rounded-2xl blur-xl opacity-40 group-hover:opacity-60 transition-all duration-700"></div>
-            <div className="relative w-full h-full rounded-2xl overflow-hidden">
+          <div className="flex items-center justify-center">
+            <div className="relative w-full max-w-md rounded-3xl overflow-hidden shadow-2xl transform hover:scale-105 transition-all duration-500 group">
+              <div className="absolute inset-0 bg-gradient-to-tr from-indigo-600/20 to-red-600/20 group-hover:opacity-75 transition-opacity duration-500"></div>
               <Image
-                src="/visionschoolimg/12.jpeg"
+                src="/schoolimg.jpeg"
                 alt="Vision School"
-                fill
-                className="object-cover object-[center_15%] transition-transform duration-700 group-hover:scale-105"
+                width={900}
+                height={560}
+                className="object-cover hover:scale-110 transition-transform duration-700"
                 priority
               />
             </div>
-          </motion.div>
+          </div>
         </div>
       </header>
 
-      <section className="max-w-7xl mx-auto px-6 py-20 space-y-20">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <MandateCard
-            title="Program Focus"
-            text="Raising conceptual thinkers who see possibilities through the lens of purpose. We focus on revelation-to-implementation growth, leadership formation, and marketplace impact."
-            gradient
-          />
-          <MandateCard
-            title="Who It's For"
-            text="Believers who want to turn prophetic insight into strategy — ministers, marketplace leaders, innovators, and cultural shapers."
-          />
-          <MandateCard
-            title="Outcomes"
-            text="Graduates will be equipped to interpret vision, build teams, launch projects, and steward influence with integrity and excellence."
-            gradient
-          />
-        </div>
+      <main className="lg:px-20 mx-auto mt-16 px-2 md:px-0">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+          <div className="md:col-span-12 space-y-8">
+            {/* About / Photo (side-by-side on md+) */}
+            <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="rounded-2xl p-8 bg-gradient-to-b from-white/3 to-white/[0.02] border border-white/8 shadow-2xl">
+                <h2 className="text-2xl md:text-3xl font-extrabold mb-4 bg-gradient-to-r from-white via-indigo-200 to-rose-200 bg-clip-text text-transparent">About The Vision School</h2>
+                <p className="text-lg text-slate-300 leading-relaxed mb-6">The Vision School is a transformative learning platform dedicated to raising believers who think conceptually, lead purposefully, and create impact through divine insight. We exist to bridge revelation and application—helping individuals translate God-given visions into strategies that influence culture, ministry, and the marketplace. Through teaching, mentorship, and innovation, we equip a generation of leaders to see beyond limits and build according to divine patterns.</p>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-          <div className="space-y-6">
-            <h2 className="text-3xl font-bold bg-gradient-to-r from-white via-indigo-200 to-rose-200 bg-clip-text text-transparent">About the School</h2>
-            <p className="text-lg text-slate-300 leading-relaxed">
-              The Vision School is a transformative learning platform dedicated to equipping believers to receive, interpret, and implement divine ideas. Through teaching, mentorship, and practical projects, students learn to build with clarity and lead with purpose.
-            </p>
-            <p className="text-lg text-slate-300 leading-relaxed">
-              Our curriculum blends prophetic training with strategic planning and hands-on mentorship — preparing leaders who can influence culture, ministry, and the marketplace.
-            </p>
-          </div>
-
-          <div className="relative group rounded-2xl overflow-hidden">
-            <div className="absolute -inset-4 bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-rose-500/20 rounded-2xl blur-xl opacity-40 group-hover:opacity-75 transition-all duration-700"></div>
-            <div className="relative p-8 bg-gradient-to-b from-white/5 to-white/[0.02] border border-white/10">
-              <h3 className="text-2xl font-bold bg-gradient-to-r from-white via-indigo-200 to-rose-200 bg-clip-text text-transparent mb-4">Begin Your Journey</h3>
-              <p className="text-slate-300 mb-6">Ready to translate vision into action? Sign up below and we'll be in touch with next steps.</p>
-              <div id="signup">
-                <VisionSignupForm />
+                <h3 className="text-xl font-bold text-white mb-3">Program Overview</h3>
+                <p className="text-lg text-slate-300 leading-relaxed">The Vision School is a leadership development platform designed to awaken the visionary capacity in believers. Through teaching, mentorship, and guided practice, participants learn how to receive divine ideas, interpret purpose, and translate revelation into real-world solutions. It is a place where vision meets clarity, and faith meets strategy—raising a generation of thinkers, builders, and innovators who create change from a place of conviction and divine insight.</p>
               </div>
-            </div>
+
+                {/* Image (full-width large) */}
+                <div className="rounded-2xl overflow-hidden flex justify-center items-center w-full">
+                  <div className="w-full max-w-none md:max-w-4xl lg:max-w-4xl h-96 md:h-[36rem] lg:h-[36rem] overflow-hidden">
+                    <Image
+                      src="/visionschoolimg/12.jpeg"
+                      alt="Vision in Action"
+                      width={3000}
+                      height={2000}
+                      className="object-cover object-top w-full h-full transition-transform duration-700"
+                      priority
+                    />
+                  </div>
+                </div>
+            </section>
+
+            {/* Core Values + Inline Signup */}
+            <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* Core values (spans two columns on md+) */}
+              <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="p-6 rounded-2xl bg-gradient-to-br from-blue-950/40 to-black/20 border-2 border-blue-500/20 shadow-[0_0_25px_rgba(59,130,246,0.2)] group hover:-translate-y-2 hover:border-red-500/20 hover:shadow-[0_0_30px_rgba(239,68,68,0.2)] transition-all duration-300">
+                  <span className="text-3xl mb-4 block transform group-hover:scale-110 transition-transform duration-300">🔍</span>
+                  <h4 className="text-lg font-bold bg-gradient-to-r from-blue-500 to-blue-400 bg-clip-text text-transparent">Clarity</h4>
+                  <p className="text-slate-300 mt-2">We pursue understanding and revelation before action, building practices for discernment.</p>
+                </div>
+                <div className="p-6 rounded-2xl bg-gradient-to-br from-red-950/40 to-black/20 border-2 border-red-500/20 shadow-[0_0_25px_rgba(239,68,68,0.2)] group hover:-translate-y-2 hover:border-blue-500/20 hover:shadow-[0_0_30px_rgba(59,130,246,0.2)] transition-all duration-300">
+                  <span className="text-3xl mb-4 block transform group-hover:scale-110 transition-transform duration-300">⚖️</span>
+                  <h4 className="text-lg font-bold bg-gradient-to-r from-red-500 to-red-400 bg-clip-text text-transparent">Integrity</h4>
+                  <p className="text-slate-300 mt-2">We build lives and visions that reflect godly character, emphasizing leadership formation.</p>
+                </div>
+                <div className="p-6 rounded-2xl bg-gradient-to-br from-blue-950/40 to-black/20 border-2 border-blue-500/20 shadow-[0_0_25px_rgba(59,130,246,0.2)] group hover:-translate-y-2 hover:border-red-500/20 hover:shadow-[0_0_30px_rgba(239,68,68,0.2)] transition-all duration-300">
+                  <span className="text-3xl mb-4 block transform group-hover:scale-110 transition-transform duration-300">🙏</span>
+                  <h4 className="text-lg font-bold bg-gradient-to-r from-blue-500 to-blue-400 bg-clip-text text-transparent">Faith</h4>
+                  <p className="text-slate-300 mt-2">We trust God's process in the unfolding of every vision through practical steps.</p>
+                </div>
+                <div className="p-6 rounded-2xl bg-gradient-to-br from-red-950/40 to-black/20 border-2 border-red-500/20 shadow-[0_0_25px_rgba(239,68,68,0.2)] group hover:-translate-y-2 hover:border-blue-500/20 hover:shadow-[0_0_30px_rgba(59,130,246,0.2)] transition-all duration-300">
+                  <span className="text-3xl mb-4 block transform group-hover:scale-110 transition-transform duration-300">💡</span>
+                  <h4 className="text-lg font-bold bg-gradient-to-r from-red-500 to-red-400 bg-clip-text text-transparent">Innovation</h4>
+                  <p className="text-slate-300 mt-2">We embrace creativity and fresh ideas as expressions of divine wisdom.</p>
+                </div>
+                <div className="p-6 rounded-2xl bg-gradient-to-br from-blue-950/40 to-black/20 border-2 border-blue-500/20 shadow-[0_0_25px_rgba(59,130,246,0.2)] group hover:-translate-y-2 hover:border-red-500/20 hover:shadow-[0_0_30px_rgba(239,68,68,0.2)] transition-all duration-300">
+                  <span className="text-3xl mb-4 block transform group-hover:scale-110 transition-transform duration-300">✨</span>
+                  <h4 className="text-lg font-bold bg-gradient-to-r from-blue-500 to-blue-400 bg-clip-text text-transparent">Excellence</h4>
+                  <p className="text-slate-300 mt-2">Pursuing the highest standards in every endeavor.</p>
+                </div>
+                <div className="p-6 rounded-2xl bg-gradient-to-br from-red-950/40 to-black/20 border-2 border-red-500/20 shadow-[0_0_25px_rgba(239,68,68,0.2)] group hover:-translate-y-2 hover:border-blue-500/20 hover:shadow-[0_0_30px_rgba(59,130,246,0.2)] transition-all duration-300">
+                  <span className="text-3xl mb-4 block transform group-hover:scale-110 transition-transform duration-300">🎯</span>
+                  <h4 className="text-lg font-bold bg-gradient-to-r from-red-500 to-red-400 bg-clip-text text-transparent">Impact</h4>
+                  <p className="text-slate-300 mt-2">Measuring success through transformation and lasting change.</p>
+                </div>
+              </div>
+
+              {/* Signup card inside main flow */}
+              <div className="rounded-2xl p-6 bg-gradient-to-b from-white/3 to-white/[0.02] border border-white/8 shadow-2xl h-full">
+                <div className="text-sm font-semibold text-slate-300 uppercase tracking-wider">Vision School</div>
+                <h3 className="text-2xl font-bold text-white mt-2">Begin Your Journey</h3>
+                <p className="text-slate-300 mt-3">Start your transformative journey with us today.</p>
+                <div id="signup" className="mt-6">
+                  <div className="text-white">
+                    <VisionSignupForm />
+                  </div>
+                </div>
+              </div>
+            </section>
           </div>
+
         </div>
-      </section>
-    </main>
+      </main>
+    </div>
   );
 }
