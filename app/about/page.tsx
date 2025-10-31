@@ -8,24 +8,26 @@ export default function AboutPage() {
     <main className="relative overflow-hidden bg-white text-black mb-20">
 
       {/* Big dramatic page title */}
-      <div className="w-full bg-white mt-20">
-        <h1 className="text-center text-6xl md:text-8xl lg:text-[8rem] font-extrabold tracking-tight leading-none bg-gradient-to-r from-black via-gray-700 to-black bg-clip-text text-transparent">
-          Dipo Obisesan
-        </h1>
+      <div className="w-full bg-white mt-16">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 md:px-8">
+          <h1 className="text-center text-4xl sm:text-5xl md:text-6xl lg:text-[8rem] font-extrabold tracking-tight leading-tight md:leading-none bg-gradient-to-r from-black via-gray-700 to-black bg-clip-text text-transparent">
+            Dipo Obisesan
+          </h1>
+        </div>
       </div>
 
       {/* Hero */}
       <header className="relative pt-6 pb-6">
         {/* Load a stylish serif for the name */}
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet" />
-        <div className="px-40 mx-auto flex flex-col lg:flex-row items-start lg:items-stretch">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 flex flex-col lg:flex-row items-start lg:items-stretch gap-8">
           {/* Image column (full width on small, left half on lg) */}
-          <motion.div className="w-full lg:w-1/2 rounded-2xl overflow-hidden relative bg-white h-[60vh] md:h-[40rem] lg:h-auto lg:max-h-[70vh]" initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.9 }}>
-            <Image src="/galleryimages/pststanding.jpeg" alt="Dipo Obisesan" fill className="object-cover md:object-contain object-center" priority />
+          <motion.div className="w-full lg:w-1/2 rounded-2xl overflow-hidden relative bg-white h-96 sm:h-[36rem] md:h-[42rem] lg:h-auto lg:max-h-[80vh]" initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.9 }}>
+            <Image src="/galleryimages/pststanding.jpeg" alt="Dipo Obisesan" fill className="object-cover object-top md:object-contain" priority />
           </motion.div>
 
           {/* Text/content column (full width on small, right half on lg) */}
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="w-full lg:w-1/2 flex flex-col justify-center lg:pl-8 text-lg md:text-xl lg:text-2xl">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="w-full lg:w-1/2 flex flex-col justify-center lg:pl-8 text-base sm:text-lg md:text-xl lg:text-2xl">
            
 
             <p className="leading-relaxed mb-4 text-black">

@@ -83,7 +83,7 @@ const VisionMission = () => {
         <motion.div
           className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start"
           variants={containerVariants}
-          initial="hidden"
+          initial="show"
           animate="show"
         >
           {/* Vision Card */}
