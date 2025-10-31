@@ -2,56 +2,80 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { outreach } from "../components/OutreachCards";
 import { OutreachCard } from "../components/OutreachCards";
+import MandateCard from "../components/MandateCard";
+import TimelineItem from "../components/TimelineItem";
 
 export default function OutreachPage() {
   const spotlight = outreach[0];
 
   return (
-    <main className="relative overflow-hidden bg-gradient-to-b from-indigo-950 via-black to-black text-white">
-      {/* Decorative backgrounds */}
-      <div className="absolute inset-0 bg-[url('/logofolder/golargelogo.png')] bg-center bg-no-repeat opacity-[0.02] bg-fixed"></div>
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px]"></div>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0,rgba(255,255,255,0.05),transparent_50%)]"></div>
-      
-      {/* Top gradient orbs */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl"></div>
-      <div className="absolute top-24 right-1/4 w-96 h-96 bg-rose-500/20 rounded-full blur-3xl"></div>
+    <main className="relative overflow-hidden bg-white text-black">
+      <div className="relative max-w-4xl mx-auto px-6 text-center mt-20">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <div className="relative inline-block">
+            <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] font-extrabold mb-6 leading-tight text-black tracking-tight drop-shadow-lg">
+              <span className="inline-block pb-2 border-b-6 border-indigo-600">Go Large Outreach</span>
+            </h1>
+          </div>
+          <p className="text-lg md:text-xl lg:text-2xl text-slate-700 leading-relaxed mb-8 max-w-3xl mx-auto mb-20">
+            Praying Boldly, Transforming Globally. <span className="font-semibold text-indigo-600">
+              Empowering Kingdom leaders to see prophetically,</span> lead purposefully, and transform generations.
+          </p>
+        </motion.div>
+      </div>
 
-      {/* Hero Section */}
-      <header className="relative pt-32 pb-24 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-indigo-950/50 via-transparent to-transparent"></div>
-        <div className="relative max-w-4xl mx-auto px-6 text-center">
+      <header className="relative pt-16 pb-12">
+        <div className="relative max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.8 }}
+            className="order-last lg:order-first"
           >
-            <div className="relative inline-block">
-              <motion.span
-                initial={{ width: 0 }}
-                animate={{ width: "100%" }}
-                transition={{ duration: 1.5, ease: "easeOut" }}
-                className="absolute -left-4 top-1/2 h-px bg-gradient-to-r from-transparent via-indigo-500 to-transparent"
-              ></motion.span>
-              <h1 className="text-5xl md:text-6xl font-extrabold mb-8 bg-gradient-to-r from-white via-indigo-200 to-rose-200 bg-clip-text text-transparent leading-tight drop-shadow-2xl">
-                Go Large Outreach
-              </h1>
+            <div className="relative">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4 leading-tight text-black font-serif" style={{ fontFamily: "'Playfair Display', serif" }}>
+                About GoLarge Global Mandate
+              </h2>
             </div>
-            <p className="text-xl text-slate-300 leading-relaxed mb-8">
-              Empowering local leaders and communities across nations to ignite{" "}
-              <span className="font-semibold text-indigo-300">
-                Kingdom transformation
-              </span>
-              . Explore our chapters and see how we're impacting lives globally.
-            </p>
+            <p className="text-lg md:text-xl lg:text-2xl text-slate-700 leading-relaxed mb-4">
+              <span className="italic font-serif" style={{ fontFamily: "'Playfair Display', serif" }}>
+                GoLarge Global Mandate</span> is a divine movement dedicated to raising a generation of
+              <span className="font-semibold italic">Kingdom minded leaders</span> who transform nations through
+              <span className="italic">prophetic insight</span>, strategic leadership, and <span className="italic">
+                intercession</span> for the next generation.</p>
           </motion.div>
+
+          <motion.div className="relative w-full h-64 md:h-80 lg:h-[28rem] group order-first lg:order-last" initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ duration: 0.9 }}>
+            <div className="relative w-full h-full rounded-2xl overflow-hidden">
+              <Image src="/galleryimages/63.jpeg" alt="GoLarge" fill className="object-cover object-top" />
+            </div>
+          </motion.div>
+        </div>
+        <div className="lg:px-80 mx-auto px-4 sm:px-6 md:px-8 mt-8 text-base md:text-lg lg:text-xl text-slate-700 leading-relaxed md:leading-loose space-y-6">
+
+          <p>
+            The mandate carries a heavy call to <span className="italic">repair broken cities</span>, <span className="italic">rebuild destinies</span>, and <span className="italic">release God's glory</span> across every sphere — from governance and business to education, culture, and ministry. We equip, train and send leaders through prayer altars, leadership summits, and targeted global missions so they can serve communities with excellence and sacrificial love.
+          </p>
+
+          <p>
+            In short, <span className="font-semibold italic">GoLarge</span> exists to raise reformers, rebuild nations, and steward God's presence into the public square — manifesting the realities of the Kingdom in tangible ways.
+          </p>
         </div>
       </header>
 
       {/* Outreach Cards Section */}
-      <section className="max-w-7xl mx-auto px-6 pb-24">
+      <section className="max-w-7xl mx-auto px-6 pb-24 mt-20">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-center text-black tracking-tight mb-10 leading-tight drop-shadow-md">
+          <span className="inline-block pb-3 border-b-4 border-indigo-600">Outreach</span>
+        </h1>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -71,8 +95,10 @@ export default function OutreachPage() {
               }}
               className="group relative"
             >
-              <div className="absolute -inset-4 bg-gradient-to-r from-indigo-500/20 to-rose-500/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+              {/* subtle hover effect removed (no gradient) */}
+
               <div className="relative">
+
                 <OutreachCard o={o} i={i} />
               </div>
             </motion.div>
@@ -80,78 +106,7 @@ export default function OutreachPage() {
         </motion.div>
       </section>
 
-      {/* Spotlight and Quick Links */}
-      <section className="max-w-7xl mx-auto px-6 pb-24">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="grid md:grid-cols-2 gap-8"
-        >
-          {/* Spotlight Card */}
-          <motion.div className="group relative">
-            <div className="absolute -inset-4 bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-rose-500/20 rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-all duration-700"></div>
-            <div className="relative p-8 rounded-xl bg-gradient-to-b from-white/5 to-white/[0.02] border border-white/10 hover:border-white/20 transition-colors">
-              <div className="relative">
-                <motion.span
-                  initial={{ width: 0 }}
-                  whileInView={{ width: "100%" }}
-                  transition={{ duration: 1, ease: "easeOut" }}
-                  className="absolute -left-4 top-1/2 h-px bg-gradient-to-r from-transparent via-indigo-500 to-transparent"
-                ></motion.span>
-                <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-white via-indigo-200 to-rose-200 bg-clip-text text-transparent">
-                  Spotlight
-                </h3>
-              </div>
-              <p className="text-slate-300">
-                Featured Chapter:{" "}
-                <strong className="text-indigo-300">{spotlight.title}</strong>
-              </p>
-              <p className="mt-3 text-slate-400 leading-relaxed">
-                {spotlight.desc.slice(0, 180)}...
-              </p>
-              <Link
-                href={spotlight.href}
-                className="inline-flex items-center mt-4 text-indigo-300 font-semibold hover:text-indigo-200 transition-colors group"
-              >
-                Learn more
-                <span className="ml-1 transform transition-transform group-hover:translate-x-1">→</span>
-              </Link>
-            </div>
-          </motion.div>
 
-          {/* Quick Links */}
-          <motion.div className="group relative">
-            <div className="absolute -inset-4 bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-rose-500/20 rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-all duration-700"></div>
-            <div className="relative p-8 rounded-xl bg-gradient-to-b from-white/5 to-white/[0.02] border border-white/10 hover:border-white/20 transition-colors">
-              <div className="relative">
-                <motion.span
-                  initial={{ width: 0 }}
-                  whileInView={{ width: "100%" }}
-                  transition={{ duration: 1, ease: "easeOut" }}
-                  className="absolute -left-4 top-1/2 h-px bg-gradient-to-r from-transparent via-indigo-500 to-transparent"
-                ></motion.span>
-                <h4 className="text-2xl font-bold mb-4 bg-gradient-to-r from-white via-indigo-200 to-rose-200 bg-clip-text text-transparent">
-                  Quick Links
-                </h4>
-              </div>
-              <div className="flex flex-col gap-3">
-                {outreach.map((o) => (
-                  <Link
-                    key={o.id}
-                    href={o.href}
-                    className="text-slate-300 hover:text-indigo-300 transition-colors group inline-flex items-center"
-                  >
-                    <span className="transform transition-transform group-hover:translate-x-1">→</span>
-                    <span className="ml-2">{o.title}</span>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        </motion.div>
-      </section>
     </main>
   );
 }

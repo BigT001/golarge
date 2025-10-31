@@ -20,11 +20,11 @@ export default function Home() {
       </div>
 
 
-      <div className="mx-auto lg:py-10 lg:px-10">
+      <div className="mx-auto lg:py-10 lg:px-10 mt-20 mb-20">
         <VisionMission />
       </div>
 
-      <div className="mx-auto lg:py-10 lg:px-10">
+      <div className="mx-auto lg:py-10 lg:px-10 mt=20">
         <Gvv />
       </div>
 

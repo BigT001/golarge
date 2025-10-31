@@ -31,7 +31,9 @@ export default function Gvv() {
   return (
     <section className="text-white">
       <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-center text-4xl md:text-7xl text-black font-extrabold mb-10">Mandates</h2>
+        <h2 className="text-center text-7xl sm:text-9xl md:text-10xl lg:text-10xl font-extrabold mb-10 bg-gradient-to-r from-[#002a5c] via-[#dc3545] to-[#002a5c] bg-clip-text text-transparent animate-gradient-x leading-tight drop-shadow-md">
+          Mandates
+        </h2>
       </div>
       <div className="mx-auto px-4 sm:px-6 lg:px-0">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">

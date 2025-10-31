@@ -60,11 +60,20 @@ const VisionMission = () => {
     <section className="relative py-12 sm:py-16">
       <div className="container mx-auto px-4">
         {/* ======= UPDATED HEADER SECTION ======= */}
-        <div className="text-center max-w-3xl mx-auto mb-8">
-          <h2 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-[#002a5c] via-[#dc3545] to-[#002a5c] bg-clip-text text-transparent animate-gradient-x">
-            Vision & Mission
+        <div className="text-center max-w-3xl mx-auto mb-8 relative">
+          {/* decorative blurred orb behind heading */}
+          <div className="pointer-events-none -z-10 absolute inset-0 flex justify-center items-start">
+            <div className="w-56 h-56 sm:w-72 sm:h-72 md:w-96 md:h-96 rounded-full bg-gradient-to-br from-[#002a5c]/20 via-[#dc3545]/15 to-[#002a5c]/20 blur-3xl translate-y-6" />
+          </div>
+
+          {/* oversized subtle quote mark */}
+          <span className="pointer-events-none select-none absolute -top-6 left-1/2 -translate-x-1/2 text-[110px] sm:text-[140px] md:text-[180px] text-[#dc3545] opacity-8 font-extrabold">“</span>
+
+          <h2 className="relative text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold bg-gradient-to-r from-[#002a5c] via-[#dc3545] to-[#002a5c] bg-clip-text text-transparent animate-gradient-x leading-tight drop-shadow-md">
+            Vision &amp; Mission
           </h2>
-          <p className="mt-3 text-lg text-gray-600">
+
+          <p className="mt-4 text-lg sm:text-xl md:text-2xl text-gray-700 max-w-2xl mx-auto leading-relaxed tracking-wide">
             Empowering Kingdom leaders to see prophetically, lead purposefully,
             and transform generations.
           </p>

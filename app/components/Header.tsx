@@ -14,6 +14,13 @@ export default function Header() {
     return pathname === href || pathname.startsWith(href + "/");
   };
 
+  const navItemClass = (href: string) =>
+    `px-3 py-2 rounded-full transition text-base lg:text-lg font-semibold tracking-wide ${
+      isActive(href)
+        ? "bg-black text-white shadow-sm"
+        : "text-slate-700 hover:text-slate-900"
+    }`;
+
   return (
     <header className="w-full bg-transparent sticky top-0 z-50">
       <div className=" mx-auto px-4 sm:px-6 lg:px-8">
@@ -34,25 +41,35 @@ export default function Header() {
 
           {/* Center: nav (hidden on small screens) */}
           <nav aria-label="Primary" className="hidden lg:flex justify-center">
-            <ul className="flex items-center gap-8 text-sm sm:text-base">
+            <ul className="flex items-center gap-6 lg:gap-10">
               <li>
-                <Link href="/about" className={`text-slate-700 hover:text-slate-900 ${isActive('/about') ? 'text-rose-600 font-semibold' : ''}`}>
+                <Link href="/about" className={navItemClass("/about")}>
                   About
                 </Link>
               </li>
               <li>
-                <Link href="/outreach" className={`text-slate-700 hover:text-slate-900 ${isActive('/') ? 'text-rose-600 font-semibold' : ''}`}>
+                <Link href="/outreach" className={navItemClass("/outreach")}>
                   GoLarge
                 </Link>
-              </li>
+              </li>    
               <li>
-                <Link href="/vision-school" className={`text-slate-700 hover:text-slate-900 ${isActive('/vision-school') ? 'text-rose-600 font-semibold' : ''}`}>
+                <Link href="/vision-school" className={navItemClass("/vision-school")}>
                   VisionSchool
                 </Link>
               </li>
               <li>
-                <Link href="/vision2020page" className={`text-slate-700 hover:text-slate-900 ${isActive('/vision2020page') ? 'text-rose-600 font-semibold' : ''}`}>
+                <Link href="/vision2020page" className={navItemClass("/vision2020page")}>
                   Vision2020
+                </Link>
+              </li>
+               <li>
+                <Link href="/events" className={navItemClass("/events")}>
+                  Events
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className={navItemClass("/contact")}>
+                  Contact
                 </Link>
               </li>
             </ul>
@@ -69,7 +86,7 @@ export default function Header() {
 
             {/* Hamburger for small screens */}
             <button
-              className="lg:hidden inline-flex items-center justify-center p-3 rounded-md text-slate-700 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-300"
+              className="lg:hidden inline-flex items-center justify-center p-3 rounded-md text-slate-700 hover:bg-slate-100 focus:outline-none focus:ring-0 focus-visible:ring-2 focus-visible:ring-black/10"
               aria-controls="mobile-menu"
               aria-expanded={open}
               onClick={() => setOpen((s) => !s)}
@@ -92,11 +109,13 @@ export default function Header() {
       {/* Mobile menu (small screens) */}
       {open && (
         <div id="mobile-menu" className="lg:hidden absolute inset-x-4 top-full mt-2 bg-white/95 backdrop-blur-md rounded-md shadow-md z-40">
-          <div className="px-4 py-4 space-y-3 flex flex-col items-center text-center">
-            <Link href="/about" onClick={() => setOpen(false)} className="block text-slate-800 font-medium">About</Link>
-            <Link href="/" onClick={() => setOpen(false)} className="block text-slate-800 font-medium">GoLarge</Link>
-            <Link href="/vision-school" onClick={() => setOpen(false)} className="block text-slate-800 font-medium">VisionSchool</Link>
-            <Link href="/vision2020page" onClick={() => setOpen(false)} className="block text-slate-800 font-medium">Vision2020</Link>
+            <div className="px-4 py-4 space-y-3 flex flex-col items-center text-center">
+            <Link href="/about" onClick={() => setOpen(false)} className="block text-slate-800 font-medium text-lg">About</Link>
+            <Link href="/outreach" onClick={() => setOpen(false)} className="block text-slate-800 font-medium text-lg">GoLarge</Link>
+            <Link href="/vision-school" onClick={() => setOpen(false)} className="block text-slate-800 font-medium text-lg">VisionSchool</Link>
+            <Link href="/vision2020page" onClick={() => setOpen(false)} className="block text-slate-800 font-medium text-lg">Vision2020</Link>
+            <Link href="/events" onClick={() => setOpen(false)} className="block text-slate-800 font-medium text-lg">Events</Link>
+            <Link href="/contact" onClick={() => setOpen(false)} className="block text-slate-800 font-medium text-lg">Contact</Link>
 
             <div className="pt-2 border-t border-slate-200 w-full flex justify-center">
               <Link
