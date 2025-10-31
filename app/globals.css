@@ -164,3 +164,14 @@
   background-size: 400% 400%;
   animation: gradient-flow 18s ease infinite;
 }
+
+/* subtle horizontal wiggle for small arrow icons used in CTAs */
+@keyframes arrow-wiggle {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(6px); }
+  100% { transform: translateX(0); }
+}
+.arrow-wiggle {
+  display: inline-block;
+  animation: arrow-wiggle 1.6s ease-in-out infinite;
+}

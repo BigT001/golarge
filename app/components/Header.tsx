@@ -1,268 +1,115 @@
 "use client";
 
+import { useState } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState, useRef } from "react";
-import ReactDOM from "react-dom";
-import { motion, AnimatePresence } from "framer-motion";
-import { usePathname } from 'next/navigation';
 
 export default function Header() {
-  const pathname = usePathname();
-  const [scrolled, setScrolled] = useState(false);
-  const [visible, setVisible] = useState(true);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const lastY = useRef(0);
-  const ticking = useRef(false);
-  const toggleButtonRef = useRef<HTMLButtonElement | null>(null);
-  const menuRef = useRef<HTMLDivElement | null>(null);
-  const [mounted, setMounted] = useState(false);
+  const [open, setOpen] = useState(false);
+  const pathname = usePathname() || "/";
 
   const isActive = (href: string) => {
-    if (href === '/') return pathname === '/';
-    return pathname.startsWith(href);
+    if (href === "/") return pathname === "/";
+    return pathname === href || pathname.startsWith(href + "/");
   };
 
-  useEffect(() => {
-    setMounted(true);
-    function onScroll() {
-      const y = window.scrollY;
-      if (!ticking.current) {
-        window.requestAnimationFrame(() => {
-          setScrolled(y > 24);
-          if (y > lastY.current && y > 80) setVisible(false);
-          else setVisible(true);
-          lastY.current = y;
-          ticking.current = false;
-        });
-        ticking.current = true;
-      }
-    }
-    lastY.current = window.scrollY;
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  const topText = "text-white";
-
   return (
-    <motion.header
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`fixed inset-x-0 top-0 z-[11000] transition-all duration-300 backdrop-blur-md ${
-        scrolled
-          ? "bg-gradient-to-r from-black/70 via-blue-950/60 to-red-950/60 shadow-lg border-b border-white/10"
-          : "bg-black/40 border-b border-transparent"
-      } ${visible ? "translate-y-0" : "-translate-y-full"}`}
-      style={{ willChange: "transform" }}
-    >
-      <div className="mx-auto sm:px-6">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-center">
-            <div className="w-20 h-20 sm:w-28 sm:h-28 flex overflow-hidden">
+    <header className="w-full bg-transparent sticky top-0 z-50">
+      <div className=" mx-auto px-4 sm:px-6 lg:px-8">
+  <div className="grid grid-cols-2 lg:grid-cols-3 items-center h-20 md:h-24 lg:h-24">
+          {/* Left: logo */}
+          <div className="flex items-center">
+            <Link href="/" className="inline-flex items-center gap-3">
               <Image
                 src="/logofolder/golargelogo.png"
-                alt="Go Large Logo"
-                width={160}
-                height={160}
+                alt="GoLarge logo"
+                width={144}
+                height={144}
+                className="block w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-28 lg:h-28 object-contain"
                 priority
-                unoptimized
               />
-            </div>
-          </Link>
+            </Link>
+          </div>
 
-          {/* Mobile menu button */}
-          <button
-            ref={toggleButtonRef}
-            onClick={() => setMobileOpen((s) => !s)}
-            className="md:hidden p-3 rounded-lg bg-black/30 backdrop-blur-md text-white hover:bg-black/50 transition-all"
-            aria-label={mobileOpen ? "Close menu" : "Open menu"}
-          >
-            {!mobileOpen ? (
-              <motion.div
-                key="open"
-                initial={{ rotate: -90, opacity: 0 }}
-                animate={{ rotate: 0, opacity: 1 }}
-                exit={{ rotate: 90, opacity: 0 }}
-              >
-                <svg width="26" height="26" viewBox="0 0 24 24">
-                  <rect x="4" y="6" width="16" height="2" rx="1" fill="currentColor" />
-                  <rect x="4" y="11" width="16" height="2" rx="1" fill="currentColor" />
-                  <rect x="4" y="16" width="16" height="2" rx="1" fill="currentColor" />
-                </svg>
-              </motion.div>
-            ) : (
-              <motion.div
-                key="close"
-                initial={{ rotate: -90, opacity: 0 }}
-                animate={{ rotate: 0, opacity: 1 }}
-                exit={{ rotate: 90, opacity: 0 }}
-              >
-                <svg width="26" height="26" viewBox="0 0 24 24">
-                  <path
-                    d="M6 6L18 18M6 18L18 6"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </motion.div>
-            )}
-          </button>
-
-          {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-8 text-sm">
-            {[
-              { href: "/about", label: "About" },
-              { href: "/outreach", label: "Outreach" },
-              { href: "/vision-school", label: "Vision School" },
-              { href: "/vision2020page", label: "Vision 2020" },
-              { href: "/events", label: "Events" },
-              { href: "/contact", label: "Contact" },
-            ].map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`relative ${topText} hover:text-blue-400 transition-colors`}
-              >
-                {item.label}
-                {isActive(item.href) && (
-                  <motion.span
-                    layoutId="activeTab"
-                    className="absolute -bottom-1.5 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-400 to-red-400"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                  />
-                )}
-              </Link>
-            ))}
-
-            {/* Modernized “Give Online” button */}
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
-              <Link
-                href="/donate"
-                className="relative inline-flex items-center gap-3 px-7 py-3 rounded-full text-white font-medium shadow-lg overflow-hidden transition-all border border-white/20 bg-gradient-to-r from-blue-800 via-black to-red-800 hover:shadow-blue-500/30"
-              >
-                {/* Glow Pulse Effect */}
-                <span className="absolute inset-0 bg-gradient-to-r from-blue-600/30 via-transparent to-red-600/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full blur-md"></span>
-
-                {/* Animated ring */}
-                <span className="absolute inset-0 rounded-full ring-1 ring-white/20 group-hover:ring-blue-400/30 transition-all duration-300"></span>
-
-                {/* Icon */}
-                <motion.span
-                  initial={{ scale: 1 }}
-                  whileHover={{ scale: 1.15, rotate: 10 }}
-                  className="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-r from-blue-600 to-red-600"
-                >
-                  <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="white"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M12 5v14" />
-                    <path d="M5 12h14" />
-                  </svg>
-                </motion.span>
-
-                <span className="ml-2">Give Online</span>
-              </Link>
-            </motion.div>
+          {/* Center: nav (hidden on small screens) */}
+          <nav aria-label="Primary" className="hidden lg:flex justify-center">
+            <ul className="flex items-center gap-8 text-sm sm:text-base">
+              <li>
+                <Link href="/about" className={`text-slate-700 hover:text-slate-900 ${isActive('/about') ? 'text-rose-600 font-semibold' : ''}`}>
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link href="/outreach" className={`text-slate-700 hover:text-slate-900 ${isActive('/') ? 'text-rose-600 font-semibold' : ''}`}>
+                  GoLarge
+                </Link>
+              </li>
+              <li>
+                <Link href="/vision-school" className={`text-slate-700 hover:text-slate-900 ${isActive('/vision-school') ? 'text-rose-600 font-semibold' : ''}`}>
+                  VisionSchool
+                </Link>
+              </li>
+              <li>
+                <Link href="/vision2020page" className={`text-slate-700 hover:text-slate-900 ${isActive('/vision2020page') ? 'text-rose-600 font-semibold' : ''}`}>
+                  Vision2020
+                </Link>
+              </li>
+            </ul>
           </nav>
+
+          {/* Right: actions */}
+          <div className="flex justify-end items-center gap-4">
+            <Link
+              href="/donate"
+              className="hidden lg:inline-flex items-center gap-2 bg-rose-600 text-white px-5 py-2 rounded-none text-sm shadow-lg hover:brightness-110 transform transition focus:outline-none focus:ring-2 focus:ring-rose-300 border-2 border-rose-600"
+            >
+              <span className="hidden sm:inline font-semibold uppercase">Give Online</span>
+            </Link>
+
+            {/* Hamburger for small screens */}
+            <button
+              className="lg:hidden inline-flex items-center justify-center p-3 rounded-md text-slate-700 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-300"
+              aria-controls="mobile-menu"
+              aria-expanded={open}
+              onClick={() => setOpen((s) => !s)}
+            >
+              <span className="sr-only">Open main menu</span>
+              {open ? (
+                <svg className="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                  <path d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              ) : (
+                <svg className="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                  <path d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              )}
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      {mounted &&
-        ReactDOM.createPortal(
-          <AnimatePresence>
-            {mobileOpen && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="fixed inset-0 z-[900]"
+      {/* Mobile menu (small screens) */}
+      {open && (
+        <div id="mobile-menu" className="lg:hidden absolute inset-x-4 top-full mt-2 bg-white/95 backdrop-blur-md rounded-md shadow-md z-40">
+          <div className="px-4 py-4 space-y-3 flex flex-col items-center text-center">
+            <Link href="/about" onClick={() => setOpen(false)} className="block text-slate-800 font-medium">About</Link>
+            <Link href="/" onClick={() => setOpen(false)} className="block text-slate-800 font-medium">GoLarge</Link>
+            <Link href="/vision-school" onClick={() => setOpen(false)} className="block text-slate-800 font-medium">VisionSchool</Link>
+            <Link href="/vision2020page" onClick={() => setOpen(false)} className="block text-slate-800 font-medium">Vision2020</Link>
+
+            <div className="pt-2 border-t border-slate-200 w-full flex justify-center">
+              <Link
+                href="/donate"
+                onClick={() => setOpen(false)}
+                className="inline-flex items-center gap-2 bg-rose-600 text-white px-5 py-2 rounded-none text-sm shadow-lg hover:brightness-110"
               >
-                <div
-                  className="absolute inset-0 bg-black/50 backdrop-blur-sm"
-                  onClick={() => setMobileOpen(false)}
-                />
-                <motion.div
-                  initial={{ y: -30, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: -20, opacity: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="absolute left-4 right-4 top-[5.25rem] mx-auto max-w-[720px] rounded-2xl border border-white/10 bg-gradient-to-br from-black/90 via-blue-950/90 to-red-950/90 text-white shadow-2xl"
-                >
-                  <div className="flex flex-col divide-y divide-white/10 text-center">
-                    {[
-                      { href: "/about", label: "About" },
-                      { href: "/outreach", label: "Outreach" },
-                      { href: "/vision-school", label: "Vision School" },
-                      { href: "/vision2020page", label: "Vision 2020" },
-                      { href: "/events", label: "Events" },
-                      { href: "/contact", label: "Contact" },
-                    ].map((item) => (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        onClick={() => setMobileOpen(false)}
-                        className={`relative py-4 text-lg transition-colors ${
-                          isActive(item.href)
-                            ? 'text-blue-400 font-medium'
-                            : 'hover:text-blue-400'
-                        }`}
-                      >
-                        {item.label}
-                        {isActive(item.href) && (
-                          <motion.span
-                            layoutId="activeMobileTab"
-                            className="absolute -bottom-0.5 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-400 to-red-400"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                          />
-                        )}
-                      </Link>
-                    ))}
-                    <div className="py-5">
-                      <Link
-                        href="/donate"
-                        onClick={() => setMobileOpen(false)}
-                        className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-blue-700 via-black to-red-700 text-white shadow-lg hover:shadow-blue-500/20 transition-all duration-300"
-                      >
-                        <svg
-                          width="18"
-                          height="18"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="white"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path d="M12 5v14" />
-                          <path d="M5 12h14" />
-                        </svg>
-                        <span>Give Online</span>
-                      </Link>
-                    </div>
-                  </div>
-                </motion.div>
-              </motion.div>
-            )}
-          </AnimatePresence>,
-          document.body
-        )}
-    </motion.header>
+                <span className="font-semibold uppercase">Give Online</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+    </header>
   );
 }

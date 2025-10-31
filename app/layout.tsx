@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Header from "./components/Header";
 import Footer from "./components/Footer";
+import Header from "./components/Header";
 
 // Fonts
 const geistSans = Geist({
@@ -102,12 +102,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en">
       <head>
         {/* Preconnects for fonts and analytics */}
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-  {/* Bold SVG favicon gives crisp large favicon in modern browsers */}
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="apple-touch-icon" href="/favicon.svg" />
-  <link rel="mask-icon" href="/favicon.svg" color="#ff3b3b" />
+        {/* Bold SVG favicon gives crisp large favicon in modern browsers */}
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/favicon.svg" />
+        <link rel="mask-icon" href="/favicon.svg" color="#ff3b3b" />
         <link rel="canonical" href={SITE_URL} />
         <meta name="msapplication-TileColor" content="#111827" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -115,12 +115,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <meta name="format-detection" content="telephone=no" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col overflow-x-hidden`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} `}>
         {/* Skip link for accessibility */}
-        <a href="#main" className="sr-only focus:not-sr-only p-2">Skip to content</a>
         <Header />
-        {/* reserve top space for fixed header (h-16) so hero starts below it */}
-        <main id="main" className="flex-1 w-full pt-16">{children}</main>
+        <main id="main" className="flex-1 w-full">{children}</main>
         <Footer />
       </body>
     </html>

@@ -130,81 +130,32 @@ export default function ContactSection() {
         onChange={onChange}
         placeholder=" "
         required={required}
-        className="peer w-full px-5 py-4 rounded-lg border border-gray-700/40 bg-transparent backdrop-blur-sm text-white placeholder-transparent focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-base"
+        className="peer w-full px-5 py-4 rounded-lg border-2 border-black bg-white text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black/20 focus:border-black text-base"
       />
       <label
         htmlFor={id}
-        className="absolute left-4 -top-2 text-xs text-blue-400 px-1 transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-gray-400 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-blue-400 z-10 bg-slate-900/60 pointer-events-none"
-        style={{ backdropFilter: "blur(4px)" }}
+        className="absolute left-4 -top-2 text-xs text-black px-1 transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-gray-400 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-black z-10 bg-white pointer-events-none"
+        style={{ backdropFilter: "none" }}
       >
-        {label} {required && <span className="text-red-400">*</span>}
+        {label} {required && <span className="text-red-600">*</span>}
       </label>
     </div>
   );
 
   return (
     <section className="relative  overflow-hidden">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-start">
-        {/* LEFT — Contact Info Card */}
-        <motion.div
-          initial={{ opacity: 0, y: 25 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="bg-gradient-to-b from-white/5 to-white/[0.02] backdrop-blur-md border border-white/10 rounded-3xl p-12 shadow-2xl"
-        >
-          <h2 className="text-4xl font-extrabold text-white mb-4">Let’s Connect & Build Together</h2>
-          <p className="text-gray-300 text-lg leading-relaxed mb-8">
-            Whether you have a question, need guidance, or want to collaborate —
-            we’d love to hear from you. Reach out and let’s turn ideas into impact.
-          </p>
-
-            <div className="space-y-6">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center">
-                <Phone size={22} className="text-indigo-300" />
-              </div>
-              <div>
-                <p className="font-semibold text-white">Phone</p>
-                <a href="tel:+15551234567" className="text-indigo-300 hover:underline">+1 (555) 123-4567</a>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center">
-                <Mail size={22} className="text-indigo-300" />
-              </div>
-              <div>
-                <p className="font-semibold text-white">Email</p>
-                <a href="mailto:contact@visionschool.org" className="text-indigo-300 hover:underline">contact@visionschool.org</a>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center">
-                <MapPin size={22} className="text-indigo-300" />
-              </div>
-              <div>
-                <p className="font-semibold text-white">Location</p>
-                <p className="text-gray-300">Global Online Community</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-10 text-sm text-gray-400 italic">“We respond to all messages within 48 hours — because every connection matters.”</div>
-        </motion.div>
-
-        {/* RIGHT — Contact Form */}
+      <div className="max-w-3xl mx-auto">
+        {/* Contact Form only — info card removed */}
         <motion.form
           onSubmit={handleSubmit}
           initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.1 }}
+          transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="bg-gradient-to-b from-white/5 to-white/[0.02] border border-white/10 p-12 md:p-14 rounded-3xl shadow-2xl space-y-6"
+        className=" p-8 md:p-12 space-y-6 text-black"
         >
-          <h3 className="text-3xl font-extrabold text-white mb-2">Get in Touch</h3>
-          <p className="text-gray-300 text-sm">Send us a message — we’ll reply within 48 hours.</p>
+          <h3 className="text-3xl font-extrabold text-black mb-2">Get in Touch</h3>
+          
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Input id="name" label="Full Name" value={formData.name} onChange={handleChange} />
@@ -214,13 +165,13 @@ export default function ContactSection() {
           <Input id="subject" label="Subject" value={formData.subject} onChange={handleChange} />
 
           <div>
-            <label className="block text-xs text-blue-400 mb-2">Message</label>
-            <textarea
+            <label className="block text-xs text-black mb-2">Message</label>
+              <textarea
               name="message"
               value={formData.message}
               onChange={handleChange}
               rows={8}
-              className="w-full px-6 py-5 rounded-lg border border-gray-700/40 bg-transparent backdrop-blur-sm text-white placeholder-gray-400 h-44 resize-none focus:outline-none focus:ring-1 focus:ring-blue-500 text-base"
+                className="w-full px-6 py-5 rounded-lg border-2 border-black bg-white text-black placeholder-gray-400 h-44 resize-none focus:outline-none focus:ring-2 focus:ring-black/20 focus:border-black text-base"
               placeholder="Write your message..."
             />
           </div>
@@ -230,20 +181,12 @@ export default function ContactSection() {
               <motion.button
                 type="submit"
                 disabled={sending}
-                whileHover={{ scale: 1.03 }}
+                whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className={`px-12 py-4 rounded-full text-white font-semibold bg-gradient-to-r from-red-600 to-blue-600 shadow-[0_18px_50px_rgba(59,130,246,0.12)] ${sending ? "opacity-60 cursor-not-allowed" : "hover:scale-105"}`}
+                className={`px-12 py-4 rounded-full text-white font-semibold bg-black ${sending ? "opacity-60 cursor-not-allowed" : "hover:brightness-110"}`}
               >
                 {sending ? "Sending..." : "Send"}
               </motion.button>
-
-              <button
-                type="button"
-                onClick={handleReset}
-                className="px-10 py-3 rounded-full bg-white/5 text-gray-200 hover:bg-white/10 transition"
-              >
-                Clear
-              </button>
             </div>
 
             <div className="text-sm text-gray-300 text-center sm:text-right">
