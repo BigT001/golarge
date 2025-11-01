@@ -53,12 +53,11 @@ export default function PartnershipForm() {
         onChange={onChange}
         placeholder=" "
         required={required}
-        className="peer w-full px-5 py-4 rounded-lg border border-red-500/20 bg-transparent backdrop-blur-sm text-white placeholder-transparent focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-base"
+        className="peer w-full px-5 py-4 rounded-lg border border-black bg-white text-black placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-black focus:border-black text-base"
       />
       <label
         htmlFor={id}
-        className="absolute left-4 -top-2 text-xs text-blue-400 px-1 transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-gray-400 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-blue-400 z-10 bg-slate-900/60 pointer-events-none"
-        style={{ backdropFilter: "blur(4px)" }}
+        className="absolute left-4 -top-2 text-xs text-black px-1 transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-gray-500 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-black z-10 bg-white pointer-events-none"
       >
         {label} {required && <span className="text-red-400">*</span>}
       </label>
@@ -118,10 +117,10 @@ export default function PartnershipForm() {
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="p-8 bg-gradient-to-b from-white/5 to-white/[0.02] rounded-2xl border border-white/10 shadow-2xl"
+        className="p-8 bg-white rounded-2xl border border-black shadow-2xl"
       >
-        <h3 className="text-2xl font-bold text-white mb-3">Welcome to the Partnership!</h3>
-        <p className="text-slate-300 leading-relaxed">
+        <h3 className="text-2xl font-bold text-black mb-3">Welcome to the Partnership!</h3>
+        <p className="text-slate-800 leading-relaxed">
           Thank you for choosing to partner with us as a {partnerType} partner.
           We're excited to join forces with {organization} in advancing Kingdom impact.
           We'll reach out to you within 24 hours to discuss next steps.
@@ -129,7 +128,7 @@ export default function PartnershipForm() {
         <motion.button
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
-          className="mt-6 inline-block px-8 py-3 bg-gradient-to-r from-red-600 to-blue-600 text-white rounded-full font-semibold hover:shadow-lg transition-shadow"
+          className="mt-6 inline-block px-8 py-3 bg-black text-white rounded-full font-semibold hover:shadow-md transition-shadow"
           onClick={() => setSuccess(false)}
         >
           Submit Another Response
@@ -139,10 +138,10 @@ export default function PartnershipForm() {
   }
 
   return (
-    <form onSubmit={submit} className="max-w-3xl mx-auto p-10 bg-gradient-to-b from-white/5 to-white/[0.02] rounded-2xl border border-white/10 backdrop-blur-md">
+    <form onSubmit={submit} className="max-w-3xl mx-auto p-10 bg-white rounded-2xl border border-black">
       <div className="mb-10 text-center">
-        <h2 className="text-3xl font-extrabold text-white mb-2">Become a Partner</h2>
-        <p className="text-sm text-gray-300">Share a brief introduction and how you'd like to partner with us.</p>
+        <h2 className="text-3xl font-extrabold text-black mb-2">Become a Partner</h2>
+        <p className="text-sm text-slate-700">Share a brief introduction and how you'd like to partner with us.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
@@ -158,14 +157,14 @@ export default function PartnershipForm() {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           rows={6}
-          className="w-full px-6 py-5 rounded-lg border border-red-500/20 bg-transparent backdrop-blur-sm text-white placeholder-gray-400 h-36 resize-none focus:outline-none focus:ring-1 focus:ring-blue-500 text-base"
+          className="w-full px-6 py-5 rounded-lg border border-black bg-white text-black placeholder-gray-400 h-36 resize-none focus:outline-none focus:ring-1 focus:ring-black text-base"
           placeholder="Describe how you'd like to partner with us..."
           required
         />
       </div>
 
       {error && (
-        <div className="mb-6 p-3 rounded-md text-center bg-rose-900/40 text-rose-200 font-medium">
+        <div className="mb-6 p-3 rounded-md text-center bg-rose-100 text-rose-800 font-medium border border-rose-200">
           {error}
         </div>
       )}
@@ -176,7 +175,7 @@ export default function PartnershipForm() {
           whileTap={{ scale: 0.98 }}
           type="submit"
           disabled={loading}
-          className={`px-12 py-4 rounded-full text-white font-semibold bg-gradient-to-r from-red-600 to-blue-600 shadow-[0_18px_50px_rgba(59,130,246,0.12)] ${loading ? 'opacity-60 cursor-not-allowed' : 'hover:scale-105'}`}
+          className={`px-12 py-4 rounded-full text-white font-semibold bg-black shadow-sm ${loading ? 'opacity-60 cursor-not-allowed' : 'hover:scale-105'}`}
         >
           {loading ? (
             <span className="flex items-center justify-center gap-2">
@@ -192,7 +191,7 @@ export default function PartnershipForm() {
         </motion.button>
       </div>
 
-      <p className="mt-6 text-sm text-gray-400 text-center">
+      <p className="mt-6 text-sm text-slate-600 text-center">
         By submitting, you agree to be contacted about your partnership application
       </p>
     </form>
